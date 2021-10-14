@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon -L server.js",
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "babel-watch server.js"
+  },
+  "keywords": [],
+  "author": "Minh Vu",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.8",
+    "@babel/plugin-transform-runtime": "^7.15.8",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.15.8",
+    "babel-watch": "^7.5.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.13"
+  }
+}
