@@ -8,6 +8,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
+//check if this client even connects to the hasura client
 const client = new GraphQLClient("http://graphql-engine:8080/v1/graphql")
 
 app.get("/", (req, res) => {
@@ -65,19 +66,13 @@ app.post("/signup", async (req, res) => {
     // })
 
     const mutation = gql`
-      mutation AddUser($email: String!, $issuer: String!, publicAddress: String!, username: String!) {
-        insert_users_one(object: 
-          { 
-            email: "${email}", 
-            issuer: "${issuer}", 
-            publicAddress: "${publicAddress}", 
-            username: "${username}" 
-          })
-          {
+      mutation AddUser($email: String!, $issuer: String!, $publicAddress: String!, $username: String!) {
+        insert_users_one(object: { email: $email, issuer: $issuer, publicAddress: $publicAddress, username: $username }) {
           email
           username
         }
-      }`
+      }
+    `
 
     const variables = {
       email: email,
@@ -91,6 +86,7 @@ app.post("/signup", async (req, res) => {
       Accept: "application/json",
       Authorization: "Bearer " + token,
     }
+
     const data = await client.request(mutation, variables, headers)
 
     console.log("data", data)
