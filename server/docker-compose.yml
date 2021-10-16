@@ -7,6 +7,8 @@ services:
       - "3001:3001"
     environment:
       - SERVER_PORT=3001
+      - MAGIC_SECRET_KEY=sk_live_EDFA362D79DEB75D
+      - JWT_SECRET=byK6btNTxGZoQw4Y2EIrlzg5o2Ze6wfa6sk4gATcXEZiR1KqlpjhSrr7bu85aeT
     volumes:
       - ./:/app
     command: npm run dev
@@ -34,5 +36,7 @@ services:
       ## enable debugging mode. It is recommended to disable this in production
       HASURA_GRAPHQL_DEV_MODE: "true"
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      HASURA_GRAPHQL_ADMIN_SECRET: "secret"
+      HASURA_GRAPHQL_JWT_SECRET: '{"key": "byK6btNTxGZoQw4Y2EIrlzg5o2Ze6wfa6sk4gATcXEZiR1KqlpjhSrr7bu85aeT", "type": "HS256"}'
 volumes:
   db_data:
