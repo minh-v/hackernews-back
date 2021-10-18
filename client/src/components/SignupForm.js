@@ -1,6 +1,7 @@
 import React, { useState } from "react"
+import { Button } from "antd"
 
-const SignupForm = ({ handleSignup }) => {
+const SignupForm = ({ handleSignup, disabled }) => {
   const [email, setEmail] = useState("")
   const [username, setUsername] = useState("")
 
@@ -17,7 +18,9 @@ const SignupForm = ({ handleSignup }) => {
         <input value={email} onChange={(event) => setEmail(event.target.value)} />
         username
         <input value={username} onChange={(event) => setUsername(event.target.value)} />
-        <button type="submit">sign up</button>
+        <Button type="primary" disabled={disabled} htmlType="submit">
+          sign up
+        </Button>
       </form>
     </div>
   )

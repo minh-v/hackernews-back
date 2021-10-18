@@ -1,4 +1,5 @@
-back end express + hasura + postgres
+
+backend express + hasura + postgres
 magic link authentication
 
 add, get links
@@ -10,4 +11,6 @@ upvote, downvote, comments
 users can delete their own links
 
 delete/disable users
+
+sign up functionality completed
 
