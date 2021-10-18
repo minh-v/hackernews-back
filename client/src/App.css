@@ -1,6 +1,7 @@
 @import '~antd/dist/antd.css';
 
 .app {
+  display: flex;
   flex-flow: row nowrap;
   margin: auto;
 }

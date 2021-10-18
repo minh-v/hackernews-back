@@ -2,7 +2,7 @@ const express = require("express")
 const jwt = require("jsonwebtoken")
 const magic = require("./magic")
 const cors = require("cors")
-const { request, gql, GraphQLClient } = require("graphql-request")
+const { GraphQLClient } = require("graphql-request")
 const { ADD_USER, CHECK_USER } = require("./graphql/queries")
 
 const app = express()

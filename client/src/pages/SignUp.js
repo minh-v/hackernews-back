@@ -1,7 +1,7 @@
 import { useState } from "react"
 import SignUpForm from "../components/SignupForm"
 import magic from "../magic"
-import { useQuery, useLazyQuery, gql } from "@apollo/client"
+import { useQuery, gql } from "@apollo/client"
 import { message } from "antd"
 
 //send query here?
@@ -20,7 +20,7 @@ const SignUp = () => {
 
   //used to get result from checking duplicate email/username
   const useImperativeQuery = (query) => {
-    const { refetch } = useQuery(query, { skip: true })
+    const { refetch } = useQuery(query, { skip: true }) //useLazyQuery
 
     const imperativelyCallQuery = (variables) => {
       return refetch(variables)
@@ -45,6 +45,7 @@ const SignUp = () => {
 
     //else
     //magic link sent to user
+    //handles email validation
     const didToken = await magic.auth.loginWithMagicLink({ email })
 
     // Validate didToken with server
