@@ -9,7 +9,7 @@ const { ADD_USER } = require("./graphql/queries")
 const { setCookie } = require("./lib/cookies")
 
 const app = express()
-const AGE = 60 * 60 * 24 * 7
+const AGE = 60 * 60 * 24 * 7 * 10
 const corsOptions = {
   origin: true,
   credentials: true, //access-control-allow-credentials:true
@@ -73,6 +73,7 @@ app.post("/signup", async (req, res) => {
       "Content-Type": "application/json",
       Accept: "application/json",
       Authorization: "Bearer " + token,
+      Cookie: `token=${token}` || "",
     }
 
     const variables = {
