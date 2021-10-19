@@ -46,7 +46,10 @@ const SignUp = () => {
     //else
     //magic link sent to user
     //handles email validation
-    const didToken = await magic.auth.loginWithMagicLink({ email })
+    const didToken = await magic.auth.loginWithMagicLink({
+      email,
+      redirectURI: new URL("/", window.location.origin).href, //redirect back to home page LOG THEM IN
+    })
 
     // Validate didToken with server
     const res = await fetch("http://localhost:3001/signup", {
@@ -64,7 +67,7 @@ const SignUp = () => {
   }
 
   return (
-    <div>
+    <div className="signup-page">
       <SignUpForm handleSignup={handleSignup} disabled={disabled} />
     </div>
   )

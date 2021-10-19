@@ -29,6 +29,8 @@ app.get("/", (req, res) => {
   res.send("<h1>hasdssdasdas</h1>")
 })
 
+///request sends didtoken and username
+//create jwt with didtoken metadata, add user to hasura postgres then send back jwt as cookie
 app.post("/signup", async (req, res) => {
   try {
     //get DID token, username from post req
@@ -47,7 +49,7 @@ app.post("/signup", async (req, res) => {
           "x-hasura-default-role": "user",
           "x-hasura-user-id": `${metadata.issuer}`,
         },
-        exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24,
+        exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7,
       },
       process.env.JWT_SECRET
     )
@@ -77,6 +79,10 @@ app.post("/signup", async (req, res) => {
     console.log(error)
     res.status(500).end()
   }
+})
+
+app.post("login", (req, res) => {
+  //try this
 })
 
 const PORT = process.env.SERVER_PORT || 4000

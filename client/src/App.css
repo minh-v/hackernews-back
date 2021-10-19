@@ -3,5 +3,18 @@
 .app {
   display: flex;
   flex-flow: row nowrap;
+}
+
+.content {
   margin: auto;
+  padding: 0 10rem
+}
+
+.navbar {
+  justify-content: flex-end;
+  margin-right: 2em
+}
+
+.signup-page {
+  margin: 2rem 20rem;
 }
