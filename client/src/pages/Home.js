@@ -17,16 +17,21 @@ const Home = () => {
 
   useEffect(() => {
     getUsername({ variables: { issuer: user.issuer } })
-    if (data) {
-      console.log("username: ", data.users[0].username)
-      user.username = data.users[0].username
-    }
   }, [user])
 
   console.log("user: ", user)
   console.log("data", data)
-  if (!user) return <div>no user</div>
-  else return <div>hello {user.email}!</div>
+  if (data) {
+    console.log("username: ", data.users[0].username)
+    user.username = data.users[0].username
+  }
+  if (!data) return <div>no user</div>
+  else
+    return (
+      <div>
+        hello {user.email} {user.username}!
+      </div>
+    )
 }
 
 export default Home

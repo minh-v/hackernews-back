@@ -1,7 +1,10 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { PageHeader, Button } from "antd"
+import { useUser } from "../lib/user"
+
 const Navbar = () => {
+  let user = useUser()
   //refresh user here
   //depending on user, sign up/login, display home etc
   return (
