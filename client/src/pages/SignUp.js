@@ -3,20 +3,12 @@ import SignUpForm from "../components/SignupForm"
 import magic from "../magic"
 import { useQuery, gql } from "@apollo/client"
 import { message } from "antd"
+import { CHECK_DUPLICATE } from "../lib/queries"
 
 //send query here?
 
 const SignUp = () => {
   const [disabled, setDisabled] = useState(false)
-
-  const CHECK_DUPLICATE = gql`
-    query checkDuplicate($email: String!, $username: String!) {
-      users(where: { _or: [{ username: { _eq: $username } }, { email: { _eq: $email } }] }) {
-        email
-        username
-      }
-    }
-  `
 
   //used to get result from checking duplicate email/username
   const useImperativeQuery = (query) => {
@@ -33,7 +25,7 @@ const SignUp = () => {
 
   const handleSignup = async (email, username) => {
     //check email
-    const { data } = await checkDuplicate({ email: email, username: username }) //JWT authentication mode no auth header
+    const { data } = await checkDuplicate({ email: email, username: username })
 
     //validate email and username
     if (data.users.length !== 0) {
@@ -60,7 +52,6 @@ const SignUp = () => {
       },
       body: JSON.stringify({ username }), // Send the username
     })
-
     if (res.status === 200) {
       console.log("sign up successful")
     }

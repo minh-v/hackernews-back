@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client"
 import LoginForm from "../components/LoginForm"
-import { CHECK_EMAIL } from "../queries"
+import { CHECK_EMAIL } from "../lib/queries"
+import magic from "../magic"
 import { message } from "antd"
 
 //if user presses login and already logged in, send them to profile page
@@ -28,6 +29,26 @@ const Login = () => {
     }
 
     //login here
+    //magic link sent to user
+    //handles email validation
+    const didToken = await magic.auth.loginWithMagicLink({
+      email,
+      redirectURI: new URL("/callback", window.location.origin).href, //redirect back to home page LOG THEM IN
+    })
+    // Validate didToken with server
+    const res = await fetch("http://localhost:3001/login", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + didToken,
+      },
+    })
+    console.log("login res: ", res)
+
+    if (res.status === 200) {
+      console.log("login successful")
+    }
   }
   return (
     <div className="login-page">

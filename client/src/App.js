@@ -1,5 +1,6 @@
 import "./App.css"
 import Navbar from "./components/Navbar"
+import Callback from "./pages/Callback"
 import Home from "./pages/Home"
 import SignUp from "./pages/SignUp"
 import Login from "./pages/Login"
@@ -20,11 +21,11 @@ const App = () => {
               <Route exact path="/" component={Home} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={SignUp} />
+              <Route exact path="/callback" component={Callback} />
             </Switch>
           </div>
         </Content>
       </Layout>
-      {/* <SignUp /> */}
     </div>
   )
 }
