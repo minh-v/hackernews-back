@@ -9,7 +9,9 @@ const Navbar = () => {
       <PageHeader
         title="Site"
         extra={[
-          <Button key="2">Login</Button>,
+          <Link to="/login">
+            <Button key="2">Login</Button>
+          </Link>,
           <Link to="/signup">
             <Button key="1" type="primary">
               Sign up

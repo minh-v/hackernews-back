@@ -15,6 +15,6 @@
   margin-right: 2em
 }
 
-.signup-page {
+.signup-page, .login-page {
   margin: 2rem 20rem;
 }
