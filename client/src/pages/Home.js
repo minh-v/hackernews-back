@@ -16,16 +16,16 @@ const Home = () => {
   )
 
   useEffect(() => {
-    getUsername({ variables: { issuer: user.issuer } })
+    if (user) getUsername({ variables: { issuer: user?.issuer } })
   }, [user])
 
-  console.log("user: ", user)
-  console.log("data", data)
+  // console.log("user: ", user)
+  // console.log("data", data)
   if (data) {
-    console.log("username: ", data.users[0].username)
-    user.username = data.users[0].username
+    // console.log("username: ", data.users[0].username)
+    user.username = data?.users[0].username
   }
-  if (!data) return <div>no user</div>
+  if (!data) return <h1>no user</h1>
   else
     return (
       <div>

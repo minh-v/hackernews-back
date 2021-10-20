@@ -31,13 +31,39 @@ app.get("/", (req, res) => {
   res.send("<h1>hasdssdasdas</h1>")
 })
 
+//returns user given jwt from cookie, refreshes the jwt.
 app.get("/user", async (req, res) => {
   try {
     if (!req.cookies.token) return res, json({ user: null })
 
     const token = req.cookies.token
     const user = jwt.verify(token, process.env.JWT_SECRET)
-    console.log(user)
+
+    const { issuer, publicAddress, email } = user
+    console.log("user: ", user)
+    // Refresh the JWT for the user each time they send a request to /user so they only get logged out after (7) days of inactivity
+    let newToken = jwt.sign(
+      {
+        issuer,
+        publicAddress,
+        email,
+        exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7,
+        "https://hasura.io/jwt/claims": {
+          "x-hasura-allowed-roles": ["user"],
+          "x-hasura-default-role": "user",
+          "x-hasura-user-id": `${issuer}`,
+        },
+      },
+      process.env.JWT_SECRET
+    )
+    res.cookie("token", newToken, {
+      maxAge: AGE, //1 week
+      expires: new Date(Date.now() + AGE * 1000),
+      httpOnly: true,
+      sameSite: "lax",
+      path: "/",
+    })
+
     res.status(200).json({ user })
   } catch (error) {
     res.status(200).json({ user: null })
@@ -132,6 +158,21 @@ app.post("/login", async (req, res) => {
   } catch (error) {
     res.status(500).end()
   }
+})
+
+app.get("/logout", async (req, res) => {
+  if (!req.cookies.token) return res.status(401).json({ message: "User is not logged in" })
+  const token = req.cookies.token
+  const user = jwt.verify(token, process.env.JWT_SECRET)
+  res.cookie("token", "", { maxAge: -1, path: "/" })
+  // Add the try/catch because a user's session may have already expired with Magic (expired 7 days after login)
+  try {
+    await magic.users.logoutByIssuer(user.issuer)
+  } catch (error) {
+    console.log("Users session with Magic already expired")
+  }
+  res.writeHead(302, { Location: "/login" })
+  res.end()
 })
 
 const PORT = process.env.SERVER_PORT || 4000

@@ -5,6 +5,10 @@
   flex-flow: row nowrap;
 }
 
+.header-title {
+  color: ghostwhite;
+}
+
 .content {
   margin: auto;
   padding: 0 10rem
