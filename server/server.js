@@ -8,6 +8,8 @@ const { GraphQLClient } = require("graphql-request")
 const { ADD_USER } = require("./graphql/queries")
 const { setCookie } = require("./lib/cookies")
 
+const { gql } = require("graphql-request")
+
 const app = express()
 const AGE = 60 * 60 * 24 * 7 * 10
 const corsOptions = {
@@ -33,6 +35,13 @@ app.get("/", (req, res) => {
 
 //returns user given jwt from cookie, refreshes the jwt.
 app.get("/user", async (req, res) => {
+  const GET_USERNAME = gql`
+    query getUsername($issuer: String!) {
+      users(where: { issuer: { _eq: $issuer } }) {
+        username
+      }
+    }
+  `
   try {
     if (!req.cookies.token) return res, json({ user: null })
 
@@ -40,7 +49,17 @@ app.get("/user", async (req, res) => {
     const user = jwt.verify(token, process.env.JWT_SECRET)
 
     const { issuer, publicAddress, email } = user
-    console.log("user: ", user)
+
+    const headers = {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: "Bearer " + token,
+    }
+
+    //get username
+    const data = await client.request(GET_USERNAME, { issuer: issuer }, headers)
+
+    user.username = data.users[0].username
     // Refresh the JWT for the user each time they send a request to /user so they only get logged out after (7) days of inactivity
     let newToken = jwt.sign(
       {
@@ -99,7 +118,6 @@ app.post("/signup", async (req, res) => {
       "Content-Type": "application/json",
       Accept: "application/json",
       Authorization: "Bearer " + token,
-      Cookie: `token=${token}` || "",
     }
 
     const variables = {
@@ -110,7 +128,7 @@ app.post("/signup", async (req, res) => {
     }
 
     //add user to hasura, add date created?
-    const { data } = await client.request(ADD_USER, variables, headers)
+    const data = await client.request(ADD_USER, variables, headers)
     //set cookie token here
     //setCookie(res, token)
     res.cookie("token", token, {

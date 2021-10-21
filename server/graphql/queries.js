@@ -16,4 +16,12 @@ const CHECK_USER = gql`
     }
   }
 `
-module.exports = { ADD_USER, CHECK_USER }
+
+const GET_USERNAME = gql`
+  query getUsername($issuer: String!) {
+    users(where: { issuer: { _eq: $issuer } }) {
+      username
+    }
+  }
+`
+module.exports = { ADD_USER, CHECK_USER, GET_USERNAME }

@@ -16,7 +16,11 @@ const Callback = () => {
 
   const history = useHistory()
   magic.auth.loginWithCredential().then((didToken) => authenticateWithServer(didToken))
-  console.log("finished callback")
+  console.log("push")
+  //close window
+  window.close()
+  //history.go("/")
+
   return <div>loading..</div>
 }
 

@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client"
+import { useHistory } from "react-router-dom"
 import LoginForm from "../components/LoginForm"
 import { CHECK_EMAIL } from "../lib/queries"
 import magic from "../magic"
@@ -18,6 +19,7 @@ const Login = () => {
     return imperativelyCallQuery
   }
 
+  const history = useHistory()
   const checkEmail = useImperativeQuery(CHECK_EMAIL)
 
   const handleLogin = async (email) => {
@@ -49,6 +51,7 @@ const Login = () => {
     if (res.status === 200) {
       console.log("login successful")
     }
+    history.push("/")
   }
   return (
     <div className="login-page">
