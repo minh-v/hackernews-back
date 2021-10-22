@@ -15,10 +15,3 @@ export const CHECK_EMAIL = gql`
     }
   }
 `
-export const GET_USERNAME = gql`
-  query getUsername($issuer: String!) {
-    users(where: { issuer: { _eq: $issuer } }) {
-      username
-    }
-  }
-`

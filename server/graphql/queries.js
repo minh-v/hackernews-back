@@ -9,6 +9,16 @@ const ADD_USER = gql`
   }
 `
 
+const ADD_POST = gql`
+  mutation AddPost($title: String!, $url: String!, $user_issuer: String!) {
+    insert_posts_one(object: { title: $title, url: $url, user_issuer: $user_issuer }) {
+      user_issuer
+      title
+      url
+    }
+  }
+`
+
 const CHECK_USER = gql`
   query checkUser($issuer: String!) {
     users(where: { issuer: { _eq: $issuer } }) {
@@ -24,4 +34,4 @@ const GET_USERNAME = gql`
     }
   }
 `
-module.exports = { ADD_USER, CHECK_USER, GET_USERNAME }
+module.exports = { ADD_USER, ADD_POST, CHECK_USER, GET_USERNAME }

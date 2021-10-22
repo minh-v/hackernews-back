@@ -5,6 +5,10 @@
   flex-flow: row nowrap;
 }
 
+/* .header {
+  width: 100%;
+} */
+
 .header-title {
   color: ghostwhite;
 }
@@ -17,6 +21,10 @@
 .navbar {
   justify-content: flex-end;
   margin-right: 2em
+}
+
+.side {
+  padding: 5rem 3rem
 }
 
 .signup-page, .login-page {

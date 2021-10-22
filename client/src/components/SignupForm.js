@@ -36,10 +36,6 @@ const SignupForm = ({ handleSignup, disabled }) => {
         >
           <Input />
         </Form.Item>
-        {/* email
-        <input value={email} onChange={(event) => setEmail(event.target.value)} />
-        username
-        <input value={username} onChange={(event) => setUsername(event.target.value)} /> */}
         <Button type="primary" disabled={disabled} htmlType="submit">
           sign up
         </Button>

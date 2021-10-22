@@ -5,8 +5,7 @@ const cors = require("cors")
 
 const cookieParser = require("cookie-parser")
 const { GraphQLClient } = require("graphql-request")
-const { ADD_USER } = require("./graphql/queries")
-const { setCookie } = require("./lib/cookies")
+const { ADD_USER, ADD_POST, GET_USERNAME } = require("./graphql/queries")
 
 const { gql } = require("graphql-request")
 
@@ -35,13 +34,6 @@ app.get("/", (req, res) => {
 
 //returns user given jwt from cookie, refreshes the jwt.
 app.get("/user", async (req, res) => {
-  const GET_USERNAME = gql`
-    query getUsername($issuer: String!) {
-      users(where: { issuer: { _eq: $issuer } }) {
-        username
-      }
-    }
-  `
   try {
     if (!req.cookies.token) return res, json({ user: null })
 
@@ -58,8 +50,8 @@ app.get("/user", async (req, res) => {
 
     //get username
     const data = await client.request(GET_USERNAME, { issuer: issuer }, headers)
-
     user.username = data.users[0].username
+
     // Refresh the JWT for the user each time they send a request to /user so they only get logged out after (7) days of inactivity
     let newToken = jwt.sign(
       {
@@ -75,6 +67,10 @@ app.get("/user", async (req, res) => {
       },
       process.env.JWT_SECRET
     )
+
+    //set token in memory here?
+    //user.token = newToken
+
     res.cookie("token", newToken, {
       maxAge: AGE, //1 week
       expires: new Date(Date.now() + AGE * 1000),
@@ -128,7 +124,7 @@ app.post("/signup", async (req, res) => {
     }
 
     //add user to hasura, add date created?
-    const data = await client.request(ADD_USER, variables, headers)
+    await client.request(ADD_USER, variables, headers)
     //set cookie token here
     //setCookie(res, token)
     res.cookie("token", token, {
@@ -191,6 +187,26 @@ app.get("/logout", async (req, res) => {
   }
   res.writeHead(302, { Location: "/login" })
   res.end()
+})
+
+//user submits post
+app.post("/submit", async (req, res) => {
+  console.log("entered", req.cookies)
+  if (!req.cookies.token) return res.status(401).json({ message: "User is not logged in" })
+  const token = req.cookies.token //get jwt
+  const user = jwt.verify(token, process.env.JWT_SECRET) //get user id
+  console.log(req.body)
+  const { url, title } = req.body
+
+  const headers = {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+    Authorization: "Bearer " + token,
+  }
+
+  //add link to db
+  const data = await client.request(ADD_POST, { url: url, title: title, user_issuer: user.issuer }, headers)
+  res.status(200).send({ done: true })
 })
 
 const PORT = process.env.SERVER_PORT || 4000

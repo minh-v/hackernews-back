@@ -52,6 +52,7 @@ const Login = () => {
       console.log("login successful")
     }
     history.push("/")
+    history.go(0)
   }
   return (
     <div className="login-page">
