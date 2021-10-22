@@ -1,5 +1,11 @@
+import { useUser } from "../lib/user"
 const Profile = () => {
-  return <div>Profile page</div>
+  const user = useUser()
+  return (
+    <div>
+      hello {user?.email} {user?.username}!
+    </div>
+  )
 }
 
 export default Profile

@@ -15,3 +15,15 @@ export const CHECK_EMAIL = gql`
     }
   }
 `
+
+export const GET_ALL_POSTS = gql`
+  query getPosts {
+    posts {
+      id
+      title
+      url
+      user_issuer
+      createdAt
+    }
+  }
+`

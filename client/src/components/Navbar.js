@@ -7,8 +7,6 @@ import { useHistory } from "react-router-dom"
 const Navbar = () => {
   let user = useUser()
   const history = useHistory()
-  const [refresh, setRefresh] = useState(null)
-  //refresh user here
 
   const logout = async () => {
     const res = await fetch("http://localhost:3001/logout", {
@@ -21,7 +19,7 @@ const Navbar = () => {
 
   //if user, profile logout buttons instead
   return (
-    <div className="navbar" key={refresh}>
+    <div className="navbar">
       <PageHeader
         title={
           <Link to="/">
