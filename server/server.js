@@ -191,11 +191,9 @@ app.get("/logout", async (req, res) => {
 
 //user submits post
 app.post("/submit", async (req, res) => {
-  console.log("entered", req.cookies)
   if (!req.cookies.token) return res.status(401).json({ message: "User is not logged in" })
   const token = req.cookies.token //get jwt
   const user = jwt.verify(token, process.env.JWT_SECRET) //get user id
-  console.log(req.body)
   const { url, title } = req.body
 
   const headers = {
@@ -204,8 +202,9 @@ app.post("/submit", async (req, res) => {
     Authorization: "Bearer " + token,
   }
 
+  const createdAt = new Date().toString()
   //add link to db
-  const data = await client.request(ADD_POST, { url: url, title: title, user_issuer: user.issuer }, headers)
+  const data = await client.request(ADD_POST, { url: url, title: title, user_issuer: user.issuer, createdAt: createdAt }, headers)
   res.status(200).send({ done: true })
 })
 
