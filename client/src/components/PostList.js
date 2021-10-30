@@ -1,25 +1,11 @@
-import { GET_ALL_POSTS } from "../lib/queries"
-import { useQuery, useLazyQuery } from "@apollo/client"
-import Post from "./Post"
 import { timeDifferenceForDate } from "../utils/timeDifference"
 import { List } from "antd"
-import { GET_USERNAME } from "../lib/queries"
 
-//query all posts
-const PostList = () => {
-  const { data, error, loading } = useQuery(GET_ALL_POSTS)
-
-  if (loading) return <div>loading...</div>
-  //console.log(data)
+const PostList = ({ posts }) => {
   return (
-    // <div>
-    //   {data.posts.map((post) => {
-    //     return <Post key={post.id} post={post} />
-    //   })}
-    // </div>
     <List
       itemLayout="horizontal"
-      dataSource={data.posts}
+      dataSource={posts}
       renderItem={(item) => (
         <List.Item>
           <List.Item.Meta

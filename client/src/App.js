@@ -6,6 +6,7 @@ import Home from "./pages/Home"
 import SignUp from "./pages/SignUp"
 import Login from "./pages/Login"
 import Profile from "./pages/Profile"
+import Search from "./pages/Search"
 import Submit from "./pages/Submit"
 import { Switch, Route } from "react-router-dom"
 import { Layout } from "antd"
@@ -30,6 +31,7 @@ const App = () => {
                 <Route exact path="/callback" component={Callback} />
                 <Route exact path="/profile" component={Profile} />
                 <Route exact path="/submit" component={Submit} />
+                <Route exact path="/search/:value" component={Search} />
               </Switch>
             </div>
           </Content>

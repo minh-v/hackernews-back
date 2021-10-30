@@ -20,6 +20,7 @@ const SubmitForm = ({ handleSubmit }) => {
               required: true,
               message: "Title field must not be empty",
             },
+            { type: "url", warningOnly: true },
           ]}
         >
           <Input />

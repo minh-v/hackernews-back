@@ -29,6 +29,12 @@
   padding: 2rem .5rem;
 }
 
+.search {
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 2rem 5rem;
+}
+
 .signup-page, .login-page {
   margin: 2rem 20rem;
 }

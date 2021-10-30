@@ -30,10 +30,17 @@ export const GET_ALL_POSTS = gql`
   }
 `
 
-export const GET_USERNAME = gql`
-  query getUsername($issuer: String!) {
-    users(where: { issuer: { _eq: $issuer } }) {
-      username
+//search posts by title or url
+export const SEARCH_POSTS = gql`
+  query searchPosts($search: String!) {
+    posts(where: { _or: [{ title: { _eq: $search } }, { url: { _eq: $search } }] }) {
+      id
+      title
+      url
+      createdAt
+      user {
+        username
+      }
     }
   }
 `

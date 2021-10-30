@@ -1,18 +1,26 @@
 import { Button, Form, Input } from "antd"
 import { SearchOutlined } from "@ant-design/icons"
-// import { Redirect } from "react-router-dom"
 import { useHistory } from "react-router-dom"
+import PostList from "../components/PostList"
+import { useQuery } from "@apollo/client"
+import { SEARCH_POSTS } from "../lib/queries"
 
-const Side = ({ handleSearch }) => {
+const Search = (props) => {
   let history = useHistory()
+
+  const { loading, data } = useQuery(SEARCH_POSTS, {
+    variables: { search: props.match.params.value },
+  })
+
   const handleSubmit = (values) => {
     const { search } = values
+
     history.push(`/search/${search}`)
   }
-
+  if (loading) return <div>loading..</div>
   return (
-    <div className="side">
-      <Form onFinish={handleSubmit} className="side">
+    <div>
+      <Form onFinish={handleSubmit} className="search">
         <Form.Item
           // label="Search"
           name="search"
@@ -29,8 +37,11 @@ const Side = ({ handleSearch }) => {
           <Button htmlType="submit" shape="circle" icon={<SearchOutlined />} />
         </Form.Item>
       </Form>
+      <div>
+        <PostList posts={data.posts} />
+      </div>
     </div>
   )
 }
 
-export default Side
+export default Search
