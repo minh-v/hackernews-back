@@ -1,7 +1,7 @@
 import { useState } from "react"
 import SignUpForm from "../components/SignupForm"
 import magic from "../magic"
-import { useQuery, gql } from "@apollo/client"
+import { useQuery } from "@apollo/client"
 import { message } from "antd"
 import { CHECK_DUPLICATE } from "../lib/queries"
 

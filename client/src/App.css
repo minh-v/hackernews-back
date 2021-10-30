@@ -24,7 +24,9 @@
 }
 
 .side {
-  padding: 5rem 3rem
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 2rem .5rem;
 }
 
 .signup-page, .login-page {

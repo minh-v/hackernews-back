@@ -9,13 +9,13 @@ import Profile from "./pages/Profile"
 import Submit from "./pages/Submit"
 import { Switch, Route } from "react-router-dom"
 import { Layout } from "antd"
-import { useUser } from "./lib/user"
+// import { useUser } from "./lib/user"
 const { Header, Content, Sider } = Layout
 
 const App = () => {
-  const user = useUser()
+  //const user = useUser()
   return (
-    <div className="">
+    <div className="app">
       <Layout>
         <Header className="header">
           <Navbar />
@@ -33,13 +33,9 @@ const App = () => {
               </Switch>
             </div>
           </Content>
-          {user ? (
-            <Sider theme="light">
-              <Side />
-            </Sider>
-          ) : (
-            <div></div>
-          )}
+          <Sider theme="light">
+            <Side />
+          </Sider>
         </Layout>
       </Layout>
     </div>

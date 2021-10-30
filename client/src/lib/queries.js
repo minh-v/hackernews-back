@@ -22,8 +22,18 @@ export const GET_ALL_POSTS = gql`
       id
       title
       url
-      user_issuer
+      user {
+        username
+      }
       createdAt
+    }
+  }
+`
+
+export const GET_USERNAME = gql`
+  query getUsername($issuer: String!) {
+    users(where: { issuer: { _eq: $issuer } }) {
+      username
     }
   }
 `

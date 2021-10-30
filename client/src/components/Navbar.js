@@ -1,8 +1,9 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
-import { PageHeader, Button } from "antd"
 import { useUser } from "../lib/user"
 import { useHistory } from "react-router-dom"
+import magic from "../magic"
+import { PageHeader, Button } from "antd"
 
 const Navbar = () => {
   let user = useUser()
@@ -13,8 +14,11 @@ const Navbar = () => {
       credentials: "include",
     })
 
+    await magic.user.logout()
+
     //refresh page
     history.go(0)
+    history.push("/")
   }
 
   //if user, profile logout buttons instead
@@ -33,6 +37,9 @@ const Navbar = () => {
           ) : //if user is logged in (has issuer)
           user?.issuer ? (
             [
+              <Link to="/submit">
+                <Button>Submit</Button>
+              </Link>,
               <Link to="/profile" key="profile">
                 <Button key="2">Profile</Button>
               </Link>,
