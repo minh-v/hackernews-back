@@ -8,13 +8,19 @@ import Login from "./pages/Login"
 import Profile from "./pages/Profile"
 import Search from "./pages/Search"
 import Submit from "./pages/Submit"
-import { Switch, Route } from "react-router-dom"
+import { Switch, Route, useLocation } from "react-router-dom"
 import { Layout } from "antd"
+import { useEffect } from "react"
 // import { useUser } from "./lib/user"
 const { Header, Content, Sider } = Layout
 
 const App = () => {
-  //const user = useUser()
+  const location = useLocation()
+  useEffect(() => {
+    const currentPath = location.pathname
+    console.log("if currentPath = search, remove sidebar eventually")
+  }, [location])
+
   return (
     <div className="app">
       <Layout>

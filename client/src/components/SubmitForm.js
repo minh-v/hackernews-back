@@ -20,13 +20,12 @@ const SubmitForm = ({ handleSubmit }) => {
               required: true,
               message: "Title field must not be empty",
             },
-            { type: "url", warningOnly: true },
           ]}
         >
           <Input />
         </Form.Item>
         <Form.Item
-          label="Url"
+          label="URL"
           name="url"
           // add url validation rule
           rules={[
@@ -34,6 +33,7 @@ const SubmitForm = ({ handleSubmit }) => {
               required: true,
               message: "Url field must not be empty",
             },
+            // { type: "url", warningOnly: true },
           ]}
         >
           <Input />

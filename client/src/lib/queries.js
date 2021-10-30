@@ -26,6 +26,10 @@ export const GET_ALL_POSTS = gql`
         username
       }
       createdAt
+      votes {
+        id
+        value
+      }
     }
   }
 `
@@ -33,13 +37,35 @@ export const GET_ALL_POSTS = gql`
 //search posts by title or url
 export const SEARCH_POSTS = gql`
   query searchPosts($search: String!) {
-    posts(where: { _or: [{ title: { _eq: $search } }, { url: { _eq: $search } }] }) {
+    posts(where: { _or: [{ title: { _regex: $search } }, { url: { _regex: $search } }] }) {
       id
       title
       url
       createdAt
       user {
         username
+      }
+      votes {
+        id
+        value
+      }
+    }
+  }
+`
+
+export const POSTS_SUBSCRIPTION = gql`
+  subscription getPosts {
+    posts {
+      id
+      title
+      url
+      user {
+        username
+      }
+      createdAt
+      votes {
+        id
+        value
       }
     }
   }

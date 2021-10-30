@@ -12,7 +12,7 @@ const Home = () => {
   //   console.log(isLoggedIn)
   // }
   // temp()
-  const { data, error, loading } = useQuery(GET_ALL_POSTS)
+  const { data, loading } = useQuery(GET_ALL_POSTS)
 
   if (loading) return <div>loading...</div>
   return (

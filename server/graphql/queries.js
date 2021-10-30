@@ -34,4 +34,14 @@ const GET_USERNAME = gql`
     }
   }
 `
-module.exports = { ADD_USER, ADD_POST, CHECK_USER, GET_USERNAME }
+
+const UPVOTE = gql`
+  mutation upvote($user_issuer: String!, $post_id: Int!, $value: Int!) {
+    insert_votes(objects: { user_issuer: $user_issuer, post_id: $post_id, value: $value }) {
+      returning {
+        id
+      }
+    }
+  }
+`
+module.exports = { ADD_USER, ADD_POST, CHECK_USER, GET_USERNAME, UPVOTE }
