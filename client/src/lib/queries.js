@@ -54,7 +54,7 @@ export const SEARCH_POSTS = gql`
 `
 
 export const POSTS_SUBSCRIPTION = gql`
-  subscription getPosts {
+  subscription refreshPosts {
     posts {
       id
       title

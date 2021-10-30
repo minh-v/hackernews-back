@@ -35,13 +35,27 @@ const GET_USERNAME = gql`
   }
 `
 
-const UPVOTE = gql`
+// const VOTE = gql`
+//   mutation upvote($user_issuer: String!, $post_id: Int!, $value: Int!) {
+//     insert_votes(objects: { user_issuer: $user_issuer, post_id: $post_id, value: $value }) {
+//       returning {
+//         id
+//       }
+//     }
+//   }
+// `
+
+const VOTE = gql`
   mutation upvote($user_issuer: String!, $post_id: Int!, $value: Int!) {
-    insert_votes(objects: { user_issuer: $user_issuer, post_id: $post_id, value: $value }) {
+    insert_votes(
+      objects: [{ user_issuer: $user_issuer, post_id: $post_id, value: $value }]
+      on_conflict: { constraint: votes_post_id_user_issuer_key, update_columns: [value] }
+    ) {
       returning {
         id
       }
     }
   }
 `
-module.exports = { ADD_USER, ADD_POST, CHECK_USER, GET_USERNAME, UPVOTE }
+
+module.exports = { ADD_USER, ADD_POST, CHECK_USER, GET_USERNAME, VOTE }

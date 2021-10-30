@@ -1,8 +1,8 @@
 import { useUser } from "../lib/user"
 import PostList from "../components/PostList"
 import magic from "../magic"
-import { GET_ALL_POSTS } from "../lib/queries"
-import { useQuery } from "@apollo/client"
+import { GET_ALL_POSTS, POSTS_SUBSCRIPTION } from "../lib/queries"
+import { useQuery, useSubscription } from "@apollo/client"
 //display links and shit
 
 const Home = () => {
@@ -12,9 +12,12 @@ const Home = () => {
   //   console.log(isLoggedIn)
   // }
   // temp()
-  const { data, loading } = useQuery(GET_ALL_POSTS)
+  // const { data, loading } = useQuery(GET_ALL_POSTS)
+  const { data, loading } = useSubscription(POSTS_SUBSCRIPTION)
 
-  if (loading) return <div>loading...</div>
+  console.log(data)
+
+  if (loading || !data) return <div>loading...</div>
   return (
     <div>
       <PostList posts={data.posts} />

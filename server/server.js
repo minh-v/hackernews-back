@@ -5,7 +5,7 @@ const cors = require("cors")
 
 const cookieParser = require("cookie-parser")
 const { GraphQLClient } = require("graphql-request")
-const { ADD_USER, ADD_POST, GET_USERNAME, UPVOTE } = require("./graphql/queries")
+const { ADD_USER, ADD_POST, GET_USERNAME, VOTE } = require("./graphql/queries")
 
 const { gql } = require("graphql-request")
 
@@ -208,12 +208,12 @@ app.post("/submit", async (req, res) => {
   res.status(200).send({ done: true })
 })
 
-app.post("/upvote", async (req, res) => {
+app.post("/vote", async (req, res) => {
   try {
     if (!req.cookies.token) return res.status(401).json({ message: "User is not logged in" })
     const token = req.cookies.token //get jwt
     const user = jwt.verify(token, process.env.JWT_SECRET) //get user id
-    const { post_id } = req.body
+    const { post_id, value } = req.body
 
     const headers = {
       "Content-Type": "application/json",
@@ -221,30 +221,7 @@ app.post("/upvote", async (req, res) => {
       Authorization: "Bearer " + token,
     }
 
-    const data = await client.request(UPVOTE, { user_issuer: user.issuer, post_id: post_id, value: 1 }, headers)
-    res.status(200).send({ done: true })
-  } catch (error) {
-    if ((error.message = 'Uniqueness violation. duplicate key value violates unique constraint "user/post"')) {
-      console.log(error.message)
-    }
-    res.status(500).send({ error: JSON.stringify(error) })
-  }
-})
-
-app.post("/downvote", async (req, res) => {
-  try {
-    if (!req.cookies.token) return res.status(401).json({ message: "User is not logged in" })
-    const token = req.cookies.token //get jwt
-    const user = jwt.verify(token, process.env.JWT_SECRET) //get user id
-    const { post_id } = req.body
-
-    const headers = {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + token,
-    }
-
-    const data = await client.request(UPVOTE, { user_issuer: user.issuer, post_id: post_id, value: -1 }, headers)
+    const data = await client.request(VOTE, { user_issuer: user.issuer, post_id: post_id, value: value }, headers)
     res.status(200).send({ done: true })
   } catch (error) {
     if ((error.message = 'Uniqueness violation. duplicate key value violates unique constraint "user/post"')) {

@@ -18,13 +18,13 @@ const Post = ({ post }) => {
       history.push("/signup")
       return
     }
-    const res = await fetch("http://localhost:3001/upvote", {
+    const res = await fetch("http://localhost:3001/vote", {
       method: "POST",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ post_id: item.id }), // Send the variables
+      body: JSON.stringify({ post_id: item.id, value: 1 }), // Send the variables
     })
 
     if (res.status === 500) {
@@ -39,13 +39,13 @@ const Post = ({ post }) => {
       history.push("/signup")
       return
     }
-    const res = await fetch("http://localhost:3001/downvote", {
+    const res = await fetch("http://localhost:3001/vote", {
       method: "POST",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ post_id: item.id }), // Send the variables
+      body: JSON.stringify({ post_id: item.id, value: -1 }), // Send the variables
     })
 
     if (res.status === 500) {
