@@ -38,3 +38,8 @@
 .signup-page, .login-page {
   margin: 2rem 20rem;
 }
+
+.vote {
+  display: flex;
+  flex-flow: column;
+}
