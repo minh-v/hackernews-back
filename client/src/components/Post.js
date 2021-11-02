@@ -56,25 +56,40 @@ const Post = ({ post }) => {
       console.log("remove downvote")
     }
   }
-  const userVote = post.userVotes[0]?.value
+
+  let userVote = 0
+  if (post.userVotes) {
+    userVote = post?.userVotes[0]?.value
+  }
+  //const userVote = post?.userVotes[0]?.value
   return (
     <div>
       <List.Item>
         <div className="vote">
           {userVote === 1 ? (
             <div className="vote">
-              <Button htmlType="submit" icon={<UpCircleTwoTone twoToneColor="#52c41a" />} onClick={() => upvote(post)} />
-              <Button htmlType="submit" icon={<DownCircleTwoTone />} onClick={() => downvote(post)} />
+              <Button
+                type="link"
+                htmlType="submit"
+                icon={<UpCircleTwoTone twoToneColor="#52c41a" />}
+                onClick={() => upvote(post)}
+              />
+              <Button type="link" htmlType="submit" icon={<DownCircleTwoTone />} onClick={() => downvote(post)} />
             </div>
           ) : userVote === -1 ? (
             <div className="vote">
-              <Button htmlType="submit" icon={<UpCircleTwoTone />} onClick={() => upvote(post)} />
-              <Button htmlType="submit" icon={<DownCircleTwoTone twoToneColor="#eb2f96" />} onClick={() => downvote(post)} />
+              <Button type="link" htmlType="submit" icon={<UpCircleTwoTone />} onClick={() => upvote(post)} />
+              <Button
+                type="link"
+                htmlType="submit"
+                icon={<DownCircleTwoTone twoToneColor="#eb2f96" />}
+                onClick={() => downvote(post)}
+              />
             </div>
           ) : (
             <div className="vote">
-              <Button htmlType="submit" icon={<UpCircleTwoTone />} onClick={() => upvote(post)} />
-              <Button htmlType="submit" icon={<DownCircleTwoTone />} onClick={() => downvote(post)} />
+              <Button type="link" htmlType="submit" icon={<UpCircleTwoTone />} onClick={() => upvote(post)} />
+              <Button type="link" htmlType="submit" icon={<DownCircleTwoTone />} onClick={() => downvote(post)} />
             </div>
           )}
           {/* <Button htmlType="submit" icon={<UpCircleTwoTone />} onClick={() => upvote(post)} />
