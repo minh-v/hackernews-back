@@ -58,4 +58,21 @@ const VOTE = gql`
   }
 `
 
-module.exports = { ADD_USER, ADD_POST, CHECK_USER, GET_USERNAME, VOTE }
+const GET_VALUE = gql`
+  query getValue($post_id: Int!, $user_issuer: String!) {
+    votes(where: { _and: [{ post_id: { _eq: $post_id }, user_issuer: { _eq: $user_issuer } }] }) {
+      value
+      id
+    }
+  }
+`
+
+const DELETE_VOTE = gql`
+  mutation deleteVote($id: Int!) {
+    delete_votes_by_pk(id: $id) {
+      id
+    }
+  }
+`
+
+module.exports = { ADD_USER, ADD_POST, CHECK_USER, GET_USERNAME, VOTE, GET_VALUE, DELETE_VOTE }

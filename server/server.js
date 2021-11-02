@@ -5,7 +5,7 @@ const cors = require("cors")
 
 const cookieParser = require("cookie-parser")
 const { GraphQLClient } = require("graphql-request")
-const { ADD_USER, ADD_POST, GET_USERNAME, VOTE } = require("./graphql/queries")
+const { ADD_USER, ADD_POST, GET_USERNAME, VOTE, GET_VALUE, DELETE_VOTE } = require("./graphql/queries")
 
 const { gql } = require("graphql-request")
 
@@ -208,6 +208,9 @@ app.post("/submit", async (req, res) => {
   res.status(200).send({ done: true })
 })
 
+//test
+//check for triple constraint?
+//query vote table, query vote table (user.id/post.id) if  value === value from client, if so, delete
 app.post("/vote", async (req, res) => {
   try {
     if (!req.cookies.token) return res.status(401).json({ message: "User is not logged in" })
@@ -221,12 +224,20 @@ app.post("/vote", async (req, res) => {
       Authorization: "Bearer " + token,
     }
 
+    //query vote table passing in user id and post id, if matches value from client, delete vote
+    const dataValue = await client.request(GET_VALUE, { user_issuer: user.issuer, post_id: post_id }, headers)
+    if (dataValue.votes[0]?.value === value) {
+      const deletedId = await client.request(DELETE_VOTE, { id: dataValue.votes[0].id }, headers) //delete vote
+      return
+    }
+
     const data = await client.request(VOTE, { user_issuer: user.issuer, post_id: post_id, value: value }, headers)
     res.status(200).send({ done: true })
   } catch (error) {
-    if ((error.message = 'Uniqueness violation. duplicate key value violates unique constraint "user/post"')) {
-      console.log(error.message)
-    }
+    // if ((error.message = 'Uniqueness violation. duplicate key value violates unique constraint "user/post"')) {
+    //   console.log(error)
+    // }
+    console.log(error)
     res.status(500).send({ error: JSON.stringify(error) })
   }
 })

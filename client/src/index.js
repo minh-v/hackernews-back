@@ -14,10 +14,10 @@ const wsLink = new WebSocketLink({
   },
 })
 
-const link = createHttpLink({
-  uri: "http://localhost:8080/v1/graphql",
-  credentials: "include",
-})
+// const link = createHttpLink({
+//   uri: "http://localhost:8080/v1/graphql",
+//   credentials: "include",
+// })
 
 const client = new ApolloClient({
   uri: "http://localhost:8080/v1/graphql",

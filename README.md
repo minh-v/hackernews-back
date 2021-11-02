@@ -1,29 +1,50 @@
-
-backend express + hasura + postgres
+front end react + antd
+middleware magic
+backend node + express + hasura + postgres
 magic link authentication
 
-add, get posts
+subscription to query posts for real time updates
 
-add, get user data, update (certain) user data
+authenticated users can submit posts
 
-upvote, downvote, comments
+user registration/login, authentication with magic link + jwt token stored in httponly cookie
+
+upvote, downvote unique user functionality
+
+search bar functionality (url, title)
+
+todo: 
+comments
+- (comments table with columns of user id, post id, parent, children) 4 hours
+- (display on front end query comments for the post) 3 hours
+- (each post needs to have separate page for comments)
+- (link to comments/post page from postlist) 1 hour
+
+vote functionality = removing votes (either by button, or reclicking on vote button)
+if there's a conflict for all three user id, post id, AND vote value, then remove vote
+this needs to take priority
+
+maintain vote state on front end
+when querying the posts, check if vote userid matches current user id
+change to green for upvote, red for downvote
+
+specific query paramters for search
+
+
+
 
 users can delete their own posts
-
-users can search posts + highlights search keyword
-
 delete/disable users
+profile page to show all posts from a user
+different types of list sort displays
+pagination
 
-sign up functionality completed
-login, logout completed
-submit completed
+
 
 SPECIFIC TODO
 
 bonus: add date created as part of user info.
 FIX REFRESH login/signup flows
-
-ADD GET, POST, SEARCH POSTS BY SATURDAY
 
 help/questions:
 query from browser directly with in memory jwt?

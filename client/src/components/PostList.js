@@ -7,49 +7,6 @@ import Post from "./Post"
 
 //given posts json, display them all with antd list
 const PostList = ({ posts }) => {
-  // const user = useUser()
-  // const history = useHistory()
-
-  // //if was downvote, change to upvote
-  // const upvote = async (item) => {
-  //   if (!user) {
-  //     history.push("/signup")
-  //     return
-  //   }
-  //   const res = await fetch("http://localhost:3001/upvote", {
-  //     method: "POST",
-  //     credentials: "include",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ post_id: item.id }), // Send the variables
-  //   })
-
-  //   if (res.status === 500) {
-  //     console.log("remove upvote")
-  //   }
-  // }
-
-  // //if was upvote, change to downvote
-  // const downvote = async (item) => {
-  //   if (!user) {
-  //     history.push("/signup")
-  //     return
-  //   }
-  //   const res = await fetch("http://localhost:3001/downvote", {
-  //     method: "POST",
-  //     credentials: "include",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ post_id: item.id }), // Send the variables
-  //   })
-
-  //   if (res.status === 500) {
-  //     console.log("remove downvote")
-  //   }
-  // }
-
   return (
     <List
       itemLayout="horizontal"

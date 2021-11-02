@@ -10,6 +10,8 @@ const Post = ({ post }) => {
 
   let voteTotal = 0
   post.votes.forEach((vote) => (voteTotal += vote.value))
+  //if post.votes.vote.user.id === user.id, highlight vote button
+  //registers which ones
 
   //if was downvote, change to upvote
   //if was upvote, remove upvote
