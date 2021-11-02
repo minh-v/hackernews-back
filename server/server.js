@@ -5,7 +5,7 @@ const cors = require("cors")
 
 const cookieParser = require("cookie-parser")
 const { GraphQLClient } = require("graphql-request")
-const { ADD_USER, ADD_POST, GET_USERNAME, VOTE, GET_VALUE, DELETE_VOTE } = require("./graphql/queries")
+const { ADD_USER, ADD_POST, GET_USERNAME, VOTE, GET_VALUE, DELETE_VOTE, CREATE_COMMENT } = require("./graphql/queries")
 
 const { gql } = require("graphql-request")
 
@@ -237,6 +237,38 @@ app.post("/vote", async (req, res) => {
     // if ((error.message = 'Uniqueness violation. duplicate key value violates unique constraint "user/post"')) {
     //   console.log(error)
     // }
+    console.log(error)
+    res.status(500).send({ error: JSON.stringify(error) })
+  }
+})
+
+app.post("/comment", async (req, res) => {
+  try {
+    if (!req.cookies.token) return res.status(401).json({ message: "User is not logged in" })
+    const token = req.cookies.token //get jwt
+    const user = jwt.verify(token, process.env.JWT_SECRET) //get user id
+    const { post_id, comment, parent_id } = req.body
+
+    console.log(req.body)
+
+    const headers = {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: "Bearer " + token,
+    }
+
+    const data = await client.request(
+      CREATE_COMMENT,
+      {
+        user_issuer: user.issuer,
+        post_id: post_id,
+        comment: comment,
+        parent_id: parent_id || null,
+      },
+      headers
+    )
+    res.status(200).send({ done: true })
+  } catch (error) {
     console.log(error)
     res.status(500).send({ error: JSON.stringify(error) })
   }

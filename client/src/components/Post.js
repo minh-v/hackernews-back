@@ -2,7 +2,7 @@ import { timeDifferenceForDate } from "../utils/timeDifference"
 import { List, Button } from "antd"
 import { UpOutlined, DownOutlined, UpCircleTwoTone, DownCircleTwoTone } from "@ant-design/icons"
 import { useUser } from "../lib/user"
-import { useHistory } from "react-router-dom"
+import { useHistory, Link } from "react-router-dom"
 
 const Post = ({ post }) => {
   const user = useUser()
@@ -19,6 +19,7 @@ const Post = ({ post }) => {
   //if was upvote, remove upvote
   const upvote = async (item) => {
     if (!user) {
+      alert("You must be signed in to vote!")
       history.push("/signup")
       return
     }
@@ -40,6 +41,7 @@ const Post = ({ post }) => {
   //if was downvote, remove downvote
   const downvote = async (item) => {
     if (!user) {
+      alert("You must be signed in to vote!")
       history.push("/signup")
       return
     }
@@ -61,7 +63,7 @@ const Post = ({ post }) => {
   if (post.userVotes) {
     userVote = post?.userVotes[0]?.value
   }
-  //const userVote = post?.userVotes[0]?.value
+  //3 button cases: if user upvoted, if user downvoted, else no vote
   return (
     <div>
       <List.Item>
@@ -102,7 +104,12 @@ const Post = ({ post }) => {
               {post.title} ({post.url})
             </a>
           }
-          description={`by ${post.user.username} ${timeDifferenceForDate(post.createdAt)}`}
+          description={
+            <p>
+              by {post.user.username} {timeDifferenceForDate(post.createdAt)} |{" "}
+              <Link to={`/post?id=${post.id}`}>{post.comments_aggregate.aggregate.count} comments</Link>
+            </p>
+          }
         />
       </List.Item>
     </div>

@@ -1,13 +1,12 @@
 import { Button, Form, Input } from "antd"
 import { SearchOutlined } from "@ant-design/icons"
-// import { Redirect } from "react-router-dom"
 import { useHistory } from "react-router-dom"
 
 const Side = ({ handleSearch }) => {
   let history = useHistory()
   const handleSubmit = (values) => {
     const { search } = values
-    history.push(`/search/${search}`)
+    history.push(`/search?q=${search}`)
   }
 
   return (

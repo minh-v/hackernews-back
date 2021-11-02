@@ -8,6 +8,7 @@ import Login from "./pages/Login"
 import Profile from "./pages/Profile"
 import Search from "./pages/Search"
 import Submit from "./pages/Submit"
+import PostPage from "./pages/PostPage"
 import { Switch, Route, useLocation } from "react-router-dom"
 import { Layout } from "antd"
 import { useEffect } from "react"
@@ -37,7 +38,8 @@ const App = () => {
                 <Route exact path="/callback" component={Callback} />
                 <Route exact path="/profile" component={Profile} />
                 <Route exact path="/submit" component={Submit} />
-                <Route exact path="/search/:value" component={Search} />
+                <Route exact path="/search" component={Search} />
+                <Route exact path="/post" component={PostPage} />
               </Switch>
             </div>
           </Content>

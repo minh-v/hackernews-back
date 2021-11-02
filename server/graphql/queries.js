@@ -74,5 +74,19 @@ const DELETE_VOTE = gql`
     }
   }
 `
+const CREATE_COMMENT = gql`
+  mutation createComment($user_issuer: String!, $post_id: Int!, $comment: String!, $parent_id: Int) {
+    insert_comments(objects: { user_issuer: $user_issuer, post_id: $post_id, comment: $comment, parent_id: $parent_id }) {
+      returning {
+        id
+        parent_id
+        comment
+        createdAt
+        user_issuer
+        post_id
+      }
+    }
+  }
+`
 
-module.exports = { ADD_USER, ADD_POST, CHECK_USER, GET_USERNAME, VOTE, GET_VALUE, DELETE_VOTE }
+module.exports = { ADD_USER, ADD_POST, CHECK_USER, GET_USERNAME, VOTE, GET_VALUE, DELETE_VOTE, CREATE_COMMENT }

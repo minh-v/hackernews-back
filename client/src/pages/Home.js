@@ -1,8 +1,8 @@
 import { useUser } from "../lib/user"
 import PostList from "../components/PostList"
 import magic from "../magic"
-import { GET_ALL_POSTS, POSTS_SUBSCRIPTION } from "../lib/queries"
-import { useQuery, useSubscription } from "@apollo/client"
+import { POSTS_SUBSCRIPTION } from "../lib/queries"
+import { useSubscription } from "@apollo/client"
 //display links and shit
 
 const Home = () => {

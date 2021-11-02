@@ -36,7 +36,7 @@ export const GET_ALL_POSTS = gql`
 
 //search posts by title or url
 export const SEARCH_POSTS = gql`
-  query searchPosts($search: String!, $user_issuer: String) {
+  subscription searchPosts($search: String!, $user_issuer: String) {
     posts(where: { _or: [{ title: { _ilike: $search } }, { url: { _regex: $search } }] }) {
       id
       title
@@ -62,9 +62,6 @@ export const POSTS_SUBSCRIPTION = gql`
       id
       title
       url
-      user {
-        username
-      }
       createdAt
       votes {
         id
@@ -73,15 +70,59 @@ export const POSTS_SUBSCRIPTION = gql`
       userVotes: votes(where: { user_issuer: { _eq: $user_issuer } }) {
         value
       }
+      user {
+        username
+      }
+      comments_aggregate {
+        aggregate {
+          count
+        }
+      }
     }
   }
 `
 
-/*
-      votesuserid (user id) {
+export const GET_POST = gql`
+  subscription getPost($id: Int!, $user_issuer: String, $order_by: [comments_order_by!] = ["+createdAt"]) {
+    posts_by_pk(id: $id) {
+      createdAt
+      id
+      title
+      url
+      user {
+        username
+      }
+      votes {
+        id
         value
       }
-      for each post, query votes table, passing in user id as paramater to filter
-      return the value of the vote, else return 0/null
-      in post component, check this value to determine to color the vote button
-*/
+      userVotes: votes(where: { user_issuer: { _eq: $user_issuer } }) {
+        value
+      }
+      comments(where: { parent_id: { _is_null: true } }) {
+        id
+        comment
+        createdAt
+        post_id
+        user {
+          username
+        }
+        children_comments(order_by: { createdAt: desc }) {
+          id
+          parent_id
+          comment
+          createdAt
+          post_id
+          user {
+            username
+          }
+        }
+      }
+      comments_aggregate {
+        aggregate {
+          count
+        }
+      }
+    }
+  }
+`
