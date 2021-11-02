@@ -15,20 +15,19 @@ search bar functionality (url, title)
 
 todo: 
 comments
-- (comments table with columns of user id, post id, parent, children) 4 hours
-- (display on front end query comments for the post) 3 hours
-- (each post needs to have separate page for comments)
-- (link to comments/post page from postlist) 1 hour
+- (comments table with columns of user id, post id, parent, children) 4 hours done
+- (display on front end query comments for the post) 3 hours done
+- (each post needs to have separate page for comments) done
+- (link to comments/post page from postlist) 1 hour done
 
-vote functionality = removing votes (either by button, or reclicking on vote button)
+vote functionality = removing votes (either by button, or reclicking on vote button) done
 if there's a conflict for all three user id, post id, AND vote value, then remove vote
-this needs to take priority
 
-maintain vote state on front end
+maintain vote state on front end done
 when querying the posts, check if vote userid matches current user id
 change to green for upvote, red for downvote
 
-specific query paramters for search
+specific query paramters for search done
 
 
 

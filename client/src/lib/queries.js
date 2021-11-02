@@ -83,7 +83,7 @@ export const POSTS_SUBSCRIPTION = gql`
 `
 
 export const GET_POST = gql`
-  subscription getPost($id: Int!, $user_issuer: String, $order_by: [comments_order_by!] = ["+createdAt"]) {
+  subscription getPost($id: Int!, $user_issuer: String) {
     posts_by_pk(id: $id) {
       createdAt
       id

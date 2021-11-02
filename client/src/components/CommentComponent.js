@@ -3,6 +3,7 @@ import { List, Button, Comment, Input, Form } from "antd"
 import { useUser } from "../lib/user"
 import { useHistory } from "react-router"
 import { timeDifferenceForDate } from "../utils/timeDifference"
+import CommentList from "./CommentList"
 const { TextArea } = Input
 
 const CommentComponent = ({ comment }) => {
@@ -35,6 +36,8 @@ const CommentComponent = ({ comment }) => {
 
     setOpen(!open)
   }
+
+  //display comment, and it's children nested if exists
   return (
     <li>
       <Comment
@@ -46,7 +49,9 @@ const CommentComponent = ({ comment }) => {
         author={comment.user.username}
         content={comment.comment}
         datetime={timeDifferenceForDate(comment.createdAt)}
-      />
+      >
+        {comment.children_comments ? <CommentList comments={comment.children_comments} /> : null}
+      </Comment>
       {open ? (
         <Form onFinish={handleSubmit}>
           <Form.Item

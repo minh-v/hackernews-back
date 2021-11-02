@@ -35,6 +35,7 @@ const PostPage = (props) => {
   }
 
   if (loading) return <div>loading...</div>
+  console.log(data)
   return (
     <div>
       <Post post={data.posts_by_pk} />
