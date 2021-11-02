@@ -1,6 +1,6 @@
 import { timeDifferenceForDate } from "../utils/timeDifference"
 import { List, Button } from "antd"
-import { UpOutlined, DownOutlined } from "@ant-design/icons"
+import { UpOutlined, DownOutlined, UpCircleTwoTone, DownCircleTwoTone } from "@ant-design/icons"
 import { useUser } from "../lib/user"
 import { useHistory } from "react-router-dom"
 
@@ -12,6 +12,8 @@ const Post = ({ post }) => {
   post.votes.forEach((vote) => (voteTotal += vote.value))
   //if post.votes.vote.user.id === user.id, highlight vote button
   //registers which ones
+
+  //if triple unique key constraint, set to 0
 
   //if was downvote, change to upvote
   //if was upvote, remove upvote
@@ -54,13 +56,29 @@ const Post = ({ post }) => {
       console.log("remove downvote")
     }
   }
-  //query username here?
+  const userVote = post.userVotes[0]?.value
   return (
     <div>
       <List.Item>
         <div className="vote">
-          <Button htmlType="submit" icon={<UpOutlined />} onClick={() => upvote(post)} />
-          <Button htmlType="submit" icon={<DownOutlined />} onClick={() => downvote(post)} />
+          {userVote === 1 ? (
+            <div className="vote">
+              <Button htmlType="submit" icon={<UpCircleTwoTone twoToneColor="#52c41a" />} onClick={() => upvote(post)} />
+              <Button htmlType="submit" icon={<DownCircleTwoTone />} onClick={() => downvote(post)} />
+            </div>
+          ) : userVote === -1 ? (
+            <div className="vote">
+              <Button htmlType="submit" icon={<UpCircleTwoTone />} onClick={() => upvote(post)} />
+              <Button htmlType="submit" icon={<DownCircleTwoTone twoToneColor="#eb2f96" />} onClick={() => downvote(post)} />
+            </div>
+          ) : (
+            <div className="vote">
+              <Button htmlType="submit" icon={<UpCircleTwoTone />} onClick={() => upvote(post)} />
+              <Button htmlType="submit" icon={<DownCircleTwoTone />} onClick={() => downvote(post)} />
+            </div>
+          )}
+          {/* <Button htmlType="submit" icon={<UpCircleTwoTone />} onClick={() => upvote(post)} />
+          <Button htmlType="submit" icon={<DownCircleTwoTone />} onClick={() => downvote(post)} /> */}
         </div>
         <span>{voteTotal}</span>
         <List.Item.Meta

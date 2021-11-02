@@ -13,7 +13,7 @@ const Home = () => {
   // }
   // temp()
   // const { data, loading } = useQuery(GET_ALL_POSTS)
-  const { data, loading } = useSubscription(POSTS_SUBSCRIPTION)
+  const { data, loading } = useSubscription(POSTS_SUBSCRIPTION, { variables: { user_issuer: user.issuer } })
 
   console.log(data)
 

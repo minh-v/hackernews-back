@@ -54,7 +54,7 @@ export const SEARCH_POSTS = gql`
 `
 
 export const POSTS_SUBSCRIPTION = gql`
-  subscription refreshPosts {
+  subscription refreshPosts($user_issuer: String!) {
     posts {
       id
       title
@@ -67,6 +67,18 @@ export const POSTS_SUBSCRIPTION = gql`
         id
         value
       }
+      userVotes: votes(where: { user_issuer: { _eq: $user_issuer } }) {
+        value
+      }
     }
   }
 `
+
+/*
+      votesuserid (user id) {
+        value
+      }
+      for each post, query votes table, passing in user id as paramater to filter
+      return the value of the vote, else return 0/null
+      in post component, check this value to determine to color the vote button
+*/
