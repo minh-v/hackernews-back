@@ -5,7 +5,7 @@ const cors = require("cors")
 
 const cookieParser = require("cookie-parser")
 const { GraphQLClient } = require("graphql-request")
-const { ADD_USER, ADD_POST, GET_USERNAME, VOTE, GET_VALUE, DELETE_VOTE, CREATE_COMMENT } = require("./graphql/queries")
+const { ADD_USER, ADD_POST, GET_USERNAME, VOTE, GET_VOTE_VALUE, DELETE_VOTE, CREATE_COMMENT } = require("./graphql/queries")
 
 const { gql } = require("graphql-request")
 
@@ -27,6 +27,14 @@ const client = new GraphQLClient("http://graphql-engine:8080/v1/graphql", {
     // "x-hasura-admin-secret": HASURA_GRAPHQL_ADMIN_SECRET,
   },
 })
+
+// const headers = (token) => {
+//   return {
+//     "Content-Type": "application/json",
+//     Accept: "application/json",
+//     Authorization: "Bearer " + token,
+//   }
+// }
 
 app.get("/", (req, res) => {
   res.send("<h1>hasdssdasdas</h1>")
@@ -225,7 +233,7 @@ app.post("/vote", async (req, res) => {
     }
 
     //query vote table passing in user id and post id, if matches value from client, delete vote
-    const dataValue = await client.request(GET_VALUE, { user_issuer: user.issuer, post_id: post_id }, headers)
+    const dataValue = await client.request(GET_VOTE_VALUE, { user_issuer: user.issuer, post_id: post_id }, headers)
     if (dataValue.votes[0]?.value === value) {
       const deletedId = await client.request(DELETE_VOTE, { id: dataValue.votes[0].id }, headers) //delete vote
       return
@@ -271,6 +279,33 @@ app.post("/comment", async (req, res) => {
   } catch (error) {
     console.log(error)
     res.status(500).send({ error: JSON.stringify(error) })
+  }
+})
+
+app.post("/comment-vote", async (req, res) => {
+  try {
+    const mutation = gql`
+      mutation comment_vote($user_issuer: String!, $comment_id: Int!, $value: Int!) {
+        insert_comments_votes_one(object: { user_issuer: $user_issuer, comment_id: $comment_id, value: $value }) {
+          id
+        }
+      }
+    `
+
+    if (!req.cookies.token) return res.status(401).json({ message: "User is not logged in" })
+    const token = req.cookies.token //get jwt
+    const user = jwt.verify(token, process.env.JWT_SECRET) //get user id
+    const { comment_id, value } = req.body
+
+    const headers = {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: "Bearer " + token,
+    }
+
+    const data = await client.request(mutation, { user_issuer: user.issuer, comment_id: comment_id, value: value }, headers)
+  } catch (error) {
+    console.log(error)
   }
 })
 

@@ -35,16 +35,6 @@ const GET_USERNAME = gql`
   }
 `
 
-// const VOTE = gql`
-//   mutation upvote($user_issuer: String!, $post_id: Int!, $value: Int!) {
-//     insert_votes(objects: { user_issuer: $user_issuer, post_id: $post_id, value: $value }) {
-//       returning {
-//         id
-//       }
-//     }
-//   }
-// `
-
 const VOTE = gql`
   mutation upvote($user_issuer: String!, $post_id: Int!, $value: Int!) {
     insert_votes(
@@ -58,7 +48,7 @@ const VOTE = gql`
   }
 `
 
-const GET_VALUE = gql`
+const GET_VOTE_VALUE = gql`
   query getValue($post_id: Int!, $user_issuer: String!) {
     votes(where: { _and: [{ post_id: { _eq: $post_id }, user_issuer: { _eq: $user_issuer } }] }) {
       value
@@ -89,4 +79,4 @@ const CREATE_COMMENT = gql`
   }
 `
 
-module.exports = { ADD_USER, ADD_POST, CHECK_USER, GET_USERNAME, VOTE, GET_VALUE, DELETE_VOTE, CREATE_COMMENT }
+module.exports = { ADD_USER, ADD_POST, CHECK_USER, GET_USERNAME, VOTE, GET_VOTE_VALUE, DELETE_VOTE, CREATE_COMMENT }

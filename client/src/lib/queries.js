@@ -68,9 +68,12 @@ export const POSTS_SUBSCRIPTION = gql`
       title
       url
       createdAt
-      votes {
-        id
-        value
+      votes: votes_aggregate {
+        aggregate {
+          sum {
+            value
+          }
+        }
       }
       userVotes: votes(where: { user_issuer: { _eq: $user_issuer } }) {
         value
@@ -97,9 +100,12 @@ export const GET_POST = gql`
       user {
         username
       }
-      votes {
-        id
-        value
+      votes: votes_aggregate {
+        aggregate {
+          sum {
+            value
+          }
+        }
       }
       userVotes: votes(where: { user_issuer: { _eq: $user_issuer } }) {
         value
@@ -111,6 +117,16 @@ export const GET_POST = gql`
         createdAt
         user {
           username
+        }
+        likes: comments_votes_aggregate(where: { value: { _eq: 1 } }) {
+          aggregate {
+            count
+          }
+        }
+        dislikes: comments_votes_aggregate(where: { value: { _eq: -1 } }) {
+          aggregate {
+            count
+          }
         }
       }
       comments_aggregate {

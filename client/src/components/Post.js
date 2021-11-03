@@ -1,6 +1,6 @@
 import { timeDifferenceForDate } from "../utils/timeDifference"
 import { List, Button } from "antd"
-import { UpOutlined, DownOutlined, UpCircleTwoTone, DownCircleTwoTone } from "@ant-design/icons"
+import { UpCircleTwoTone, DownCircleTwoTone } from "@ant-design/icons"
 import { useUser } from "../lib/user"
 import { useHistory, Link } from "react-router-dom"
 
@@ -8,15 +8,8 @@ const Post = ({ post }) => {
   const user = useUser()
   const history = useHistory()
 
-  let voteTotal = 0
-  post.votes.forEach((vote) => (voteTotal += vote.value))
-  //if post.votes.vote.user.id === user.id, highlight vote button
-  //registers which ones
+  const totalVotes = post.votes?.aggregate.sum.value || 0
 
-  //if triple unique key constraint, set to 0
-
-  //if was downvote, change to upvote
-  //if was upvote, remove upvote
   const upvote = async (item) => {
     if (!user) {
       alert("You must be signed in to vote!")
@@ -97,7 +90,7 @@ const Post = ({ post }) => {
           {/* <Button htmlType="submit" icon={<UpCircleTwoTone />} onClick={() => upvote(post)} />
           <Button htmlType="submit" icon={<DownCircleTwoTone />} onClick={() => downvote(post)} /> */}
         </div>
-        <span>{voteTotal}</span>
+        <span>{totalVotes}</span>
         <List.Item.Meta
           title={
             <a href={`//${post.url}`}>
