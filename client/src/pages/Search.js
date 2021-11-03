@@ -17,7 +17,7 @@ const Search = (props) => {
   const handleSubmit = (values) => {
     const { search } = values
 
-    history.push(`/search/${search}`)
+    history.push(`/search?q=${search}`)
   }
   if (loading) return <div>loading..</div>
   return (

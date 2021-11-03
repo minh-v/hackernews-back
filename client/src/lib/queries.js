@@ -52,6 +52,11 @@ export const SEARCH_POSTS = gql`
       userVotes: votes(where: { user_issuer: { _eq: $user_issuer } }) {
         value
       }
+      comments_aggregate {
+        aggregate {
+          count
+        }
+      }
     }
   }
 `
@@ -99,23 +104,13 @@ export const GET_POST = gql`
       userVotes: votes(where: { user_issuer: { _eq: $user_issuer } }) {
         value
       }
-      comments(where: { parent_id: { _is_null: true } }) {
+      comments(order_by: { createdAt: desc }) {
         id
+        parent_id
         comment
         createdAt
-        post_id
         user {
           username
-        }
-        children_comments(order_by: { createdAt: desc }) {
-          id
-          parent_id
-          comment
-          createdAt
-          post_id
-          user {
-            username
-          }
         }
       }
       comments_aggregate {

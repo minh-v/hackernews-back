@@ -55,7 +55,10 @@ const PostPage = (props) => {
           Add comment
         </Button>
       </Form>
-      <CommentList comments={data.posts_by_pk.comments} />
+      <CommentList
+        comments={data.posts_by_pk.comments}
+        baseComments={data.posts_by_pk.comments.filter((c) => c.parent_id === null)} //comments with no parents
+      />
     </div>
   )
 }

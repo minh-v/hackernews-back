@@ -1,17 +1,23 @@
-import { Comment, List, Input, Form, Button } from "antd"
+import { List } from "antd"
 import CommentComponent from "./CommentComponent"
 
-const CommentList = ({ comments }) => {
+const CommentList = ({ comments, baseComments }) => {
   return (
     <div>
       <List
         className="comment-list"
-        // header={`${comments.length} replies`}
         itemLayout="horizontal"
-        dataSource={comments}
-        renderItem={(comment) => <CommentComponent comment={comment} />}
+        dataSource={baseComments}
+        renderItem={(comment) => {
+          return (
+            <CommentComponent
+              comment={comment}
+              comments={comments}
+              children={comments.filter((c) => c.parent_id === comment.id)}
+            />
+          )
+        }}
       />
-      ,
     </div>
   )
 }
