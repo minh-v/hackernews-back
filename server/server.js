@@ -5,7 +5,16 @@ const cors = require("cors")
 
 const cookieParser = require("cookie-parser")
 const { GraphQLClient } = require("graphql-request")
-const { ADD_USER, ADD_POST, GET_USERNAME, VOTE, GET_VOTE_VALUE, DELETE_VOTE, CREATE_COMMENT } = require("./graphql/queries")
+const {
+  ADD_USER,
+  ADD_POST,
+  GET_USERNAME,
+  VOTE,
+  GET_VOTE_VALUE,
+  DELETE_VOTE,
+  CREATE_COMMENT,
+  DELETE_COMMENT_VOTE,
+} = require("./graphql/queries")
 
 const { gql } = require("graphql-request")
 
@@ -286,7 +295,10 @@ app.post("/comment-vote", async (req, res) => {
   try {
     const mutation = gql`
       mutation comment_vote($user_issuer: String!, $comment_id: Int!, $value: Int!) {
-        insert_comments_votes_one(object: { user_issuer: $user_issuer, comment_id: $comment_id, value: $value }) {
+        insert_comments_votes_one(
+          object: { user_issuer: $user_issuer, comment_id: $comment_id, value: $value }
+          on_conflict: { constraint: comments_votes_comment_id_user_issuer_key, update_columns: [value] }
+        ) {
           id
         }
       }
@@ -295,12 +307,18 @@ app.post("/comment-vote", async (req, res) => {
     if (!req.cookies.token) return res.status(401).json({ message: "User is not logged in" })
     const token = req.cookies.token //get jwt
     const user = jwt.verify(token, process.env.JWT_SECRET) //get user id
-    const { comment_id, value } = req.body
+    const { comment_id, value, id } = req.body
 
     const headers = {
       "Content-Type": "application/json",
       Accept: "application/json",
       Authorization: "Bearer " + token,
+    }
+
+    //if value is 0, user pressed the vote that they already pressed, so we need to remove it.
+    if (value === 0) {
+      const data = client.request(DELETE_COMMENT_VOTE, { id: id }, headers)
+      return
     }
 
     const data = await client.request(mutation, { user_issuer: user.issuer, comment_id: comment_id, value: value }, headers)

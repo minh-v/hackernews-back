@@ -79,4 +79,22 @@ const CREATE_COMMENT = gql`
   }
 `
 
-module.exports = { ADD_USER, ADD_POST, CHECK_USER, GET_USERNAME, VOTE, GET_VOTE_VALUE, DELETE_VOTE, CREATE_COMMENT }
+const DELETE_COMMENT_VOTE = gql`
+  mutation deleteVote($id: Int!) {
+    delete_comments_votes_by_pk(id: $id) {
+      id
+    }
+  }
+`
+
+module.exports = {
+  ADD_USER,
+  ADD_POST,
+  CHECK_USER,
+  GET_USERNAME,
+  VOTE,
+  GET_VOTE_VALUE,
+  DELETE_VOTE,
+  CREATE_COMMENT,
+  DELETE_COMMENT_VOTE,
+}

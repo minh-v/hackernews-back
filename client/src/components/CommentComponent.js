@@ -10,15 +10,10 @@ const { TextArea } = Input
 const CommentComponent = ({ comment, children, comments }) => {
   const user = useUser()
   const history = useHistory()
-  const [open, setOpen] = useState(false)
-  const [likes, setLikes] = useState(0)
-  const [dislikes, setDislikes] = useState(0)
-  const [action, setAction] = useState(null)
-
-  //open reply box
-  const toggleReply = () => {
-    setOpen(!open)
-  }
+  const [open, setOpen] = useState(false) //reply box is open or not
+  const [likes, setLikes] = useState(comment.likes.aggregate.count)
+  const [dislikes, setDislikes] = useState(comment.dislikes.aggregate.count)
+  const [action, setAction] = useState(comment.userLike[0]?.value || null)
 
   //user replies to comment
   //submit comment
@@ -42,14 +37,38 @@ const CommentComponent = ({ comment, children, comments }) => {
   }
 
   const like = async () => {
-    if (action === "liked") {
-      setLikes(0)
+    if (!user) {
+      alert("You must be signed in to vote!")
+      history.push("/signup")
+      return
+    }
+    if (action === 1) {
+      setLikes(likes - 1)
       setAction(null)
+      const res = await fetch("http://localhost:3001/comment-vote", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ comment_id: comment.id, value: 0, id: comment.userLike[0]?.id }),
+      })
+    } else if (action === -1) {
+      setLikes(likes + 1)
+      setDislikes(dislikes - 1)
+      setAction(1)
+      //send request to add vote to db
+      const res = await fetch("http://localhost:3001/comment-vote", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ comment_id: comment.id, value: 1 }),
+      })
     } else {
-      setLikes(1)
-      setDislikes(0)
-      setAction("liked")
-
+      setLikes(likes + 1)
+      setAction(1)
       const res = await fetch("http://localhost:3001/comment-vote", {
         method: "POST",
         credentials: "include",
@@ -62,27 +81,60 @@ const CommentComponent = ({ comment, children, comments }) => {
   }
 
   const dislike = async () => {
-    if (action === "disliked") {
-      setDislikes(0)
+    if (!user) {
+      alert("You must be signed in to vote!")
+      history.push("/signup")
+      return
+    }
+    if (action === -1) {
+      setDislikes(dislikes - 1)
       setAction(null)
+      const res = await fetch("http://localhost:3001/comment-vote", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ comment_id: comment.id, value: 0, id: comment.userLike[0]?.id }),
+      })
+    } else if (action === 1) {
+      setLikes(likes - 1)
+      setDislikes(dislikes + 1)
+      setAction(-1)
+      //send request to add vote to db
+      const res = await fetch("http://localhost:3001/comment-vote", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ comment_id: comment.id, value: -1 }),
+      })
     } else {
-      setLikes(0)
-      setDislikes(1)
-      setAction("disliked")
+      setDislikes(dislikes + 1)
+      setAction(-1)
+      const res = await fetch("http://localhost:3001/comment-vote", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ comment_id: comment.id, value: -1 }),
+      })
     }
   }
 
   //ant comment actions
   const actions = [
     <span onClick={like}>
-      {action === "liked" ? <LikeFilled /> : <LikeOutlined />}
+      {action === 1 ? <LikeFilled /> : <LikeOutlined />}
       <span className="comment-action">{likes}</span>
     </span>,
     <span onClick={dislike}>
-      {action === "disliked" ? <DislikeFilled /> : <DislikeOutlined />}
+      {action === -1 ? <DislikeFilled /> : <DislikeOutlined />}
       <span className="comment-action">{dislikes}</span>
     </span>,
-    <span key="comment-reply-to" onClick={toggleReply}>
+    <span key="comment-reply-to" onClick={() => setOpen(!open)}>
       Reply to
     </span>,
   ]

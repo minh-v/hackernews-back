@@ -24,10 +24,6 @@ const Post = ({ post }) => {
       },
       body: JSON.stringify({ post_id: item.id, value: 1 }), // Send the variables
     })
-
-    if (res.status === 500) {
-      console.log("remove upvote")
-    }
   }
 
   //if was upvote, change to downvote
@@ -46,10 +42,6 @@ const Post = ({ post }) => {
       },
       body: JSON.stringify({ post_id: item.id, value: -1 }), // Send the variables
     })
-
-    if (res.status === 500) {
-      console.log("remove downvote")
-    }
   }
 
   let userVote = 0

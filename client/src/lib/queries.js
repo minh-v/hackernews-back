@@ -118,6 +118,10 @@ export const GET_POST = gql`
         user {
           username
         }
+        userLike: comments_votes(where: { user_issuer: { _eq: $user_issuer } }) {
+          value
+          id
+        }
         likes: comments_votes_aggregate(where: { value: { _eq: 1 } }) {
           aggregate {
             count
