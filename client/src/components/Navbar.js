@@ -26,9 +26,14 @@ const Navbar = () => {
     <div className="navbar">
       <PageHeader
         title={
-          <Link to="/">
-            <div className="header-title">Home</div>
-          </Link>
+          <div className="title">
+            <Link to="/">
+              <div className="header-title">Home</div>
+            </Link>
+            <Link to="/top">
+              <div className="top-title">Top</div>
+            </Link>
+          </div>
         }
         extra={
           // while loading don't display anything

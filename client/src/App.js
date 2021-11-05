@@ -9,6 +9,7 @@ import Profile from "./pages/Profile"
 import Search from "./pages/Search"
 import Submit from "./pages/Submit"
 import PostPage from "./pages/PostPage"
+import Top from "./pages/Top"
 import { Switch, Route, useLocation } from "react-router-dom"
 import { Layout } from "antd"
 import { useEffect } from "react"
@@ -40,6 +41,7 @@ const App = () => {
                 <Route exact path="/submit" component={Submit} />
                 <Route exact path="/search" component={Search} />
                 <Route exact path="/post" component={PostPage} />
+                <Route exact path="/top" component={Top} />
               </Switch>
             </div>
           </Content>

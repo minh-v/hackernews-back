@@ -5,12 +5,14 @@
   flex-flow: row nowrap;
 }
 
-/* .header {
-  width: 100%;
-} */
+.title {
+  display: flex;
+  flex-flow: row nowrap;
+}
 
-.header-title {
+.header-title, .top-title {
   color: ghostwhite;
+  margin: 0 1rem;
 }
 
 .content {

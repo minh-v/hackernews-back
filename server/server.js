@@ -14,6 +14,7 @@ const {
   DELETE_VOTE,
   CREATE_COMMENT,
   DELETE_COMMENT_VOTE,
+  CREATE_COMMENT_VOTE,
 } = require("./graphql/queries")
 
 const { gql } = require("graphql-request")
@@ -293,17 +294,6 @@ app.post("/comment", async (req, res) => {
 
 app.post("/comment-vote", async (req, res) => {
   try {
-    const mutation = gql`
-      mutation comment_vote($user_issuer: String!, $comment_id: Int!, $value: Int!) {
-        insert_comments_votes_one(
-          object: { user_issuer: $user_issuer, comment_id: $comment_id, value: $value }
-          on_conflict: { constraint: comments_votes_comment_id_user_issuer_key, update_columns: [value] }
-        ) {
-          id
-        }
-      }
-    `
-
     if (!req.cookies.token) return res.status(401).json({ message: "User is not logged in" })
     const token = req.cookies.token //get jwt
     const user = jwt.verify(token, process.env.JWT_SECRET) //get user id
@@ -321,7 +311,11 @@ app.post("/comment-vote", async (req, res) => {
       return
     }
 
-    const data = await client.request(mutation, { user_issuer: user.issuer, comment_id: comment_id, value: value }, headers)
+    const data = await client.request(
+      CREATE_COMMENT_VOTE,
+      { user_issuer: user.issuer, comment_id: comment_id, value: value },
+      headers
+    )
   } catch (error) {
     console.log(error)
   }

@@ -90,6 +90,35 @@ export const POSTS_SUBSCRIPTION = gql`
   }
 `
 
+export const GET_POSTS_BY_VOTE = gql`
+  subscription getPostsByVote($user_issuer: String) {
+    posts(order_by: { votes_aggregate: { sum: { value: desc } } }) {
+      id
+      title
+      url
+      createdAt
+      votes: votes_aggregate {
+        aggregate {
+          sum {
+            value
+          }
+        }
+      }
+      userVotes: votes(where: { user_issuer: { _eq: $user_issuer } }) {
+        value
+      }
+      user {
+        username
+      }
+      comments_aggregate {
+        aggregate {
+          count
+        }
+      }
+    }
+  }
+`
+
 export const GET_POST = gql`
   subscription getPost($id: Int!, $user_issuer: String) {
     posts_by_pk(id: $id) {

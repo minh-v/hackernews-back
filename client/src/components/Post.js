@@ -31,6 +31,7 @@ const Post = ({ post }) => {
   const downvote = async (item) => {
     if (!user) {
       alert("You must be signed in to vote!")
+      //open signup modal eventually
       history.push("/signup")
       return
     }

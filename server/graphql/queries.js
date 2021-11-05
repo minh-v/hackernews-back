@@ -79,6 +79,17 @@ const CREATE_COMMENT = gql`
   }
 `
 
+const CREATE_COMMENT_VOTE = gql`
+  mutation comment_vote($user_issuer: String!, $comment_id: Int!, $value: Int!) {
+    insert_comments_votes_one(
+      object: { user_issuer: $user_issuer, comment_id: $comment_id, value: $value }
+      on_conflict: { constraint: comments_votes_comment_id_user_issuer_key, update_columns: [value] }
+    ) {
+      id
+    }
+  }
+`
+
 const DELETE_COMMENT_VOTE = gql`
   mutation deleteVote($id: Int!) {
     delete_comments_votes_by_pk(id: $id) {
@@ -97,4 +108,5 @@ module.exports = {
   DELETE_VOTE,
   CREATE_COMMENT,
   DELETE_COMMENT_VOTE,
+  CREATE_COMMENT_VOTE,
 }
