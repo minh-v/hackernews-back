@@ -20,6 +20,7 @@
   padding: 0 10rem
 }
 
+
 .navbar {
   justify-content: flex-end;
   margin-right: 2em
@@ -44,4 +45,12 @@
 .vote {
   display: flex;
   flex-flow: column;
+}
+
+.comment-select {
+  text-decoration: underline;
+}
+
+.comment-sort {
+  max-width: 3rem
 }

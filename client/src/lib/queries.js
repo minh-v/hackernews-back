@@ -63,7 +63,7 @@ export const SEARCH_POSTS = gql`
 
 export const POSTS_SUBSCRIPTION = gql`
   subscription refreshPosts($user_issuer: String) {
-    posts {
+    posts(order_by: { createdAt: desc }) {
       id
       title
       url
