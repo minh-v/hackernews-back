@@ -10,8 +10,8 @@ const ADD_USER = gql`
 `
 
 const ADD_POST = gql`
-  mutation AddPost($title: String!, $url: String!, $user_issuer: String!, $createdAt: String) {
-    insert_posts_one(object: { title: $title, url: $url, user_issuer: $user_issuer, createdAt: $createdAt }) {
+  mutation AddPost($title: String!, $url: String!, $user_issuer: String!) {
+    insert_posts_one(object: { title: $title, url: $url, user_issuer: $user_issuer }) {
       user_issuer
       title
       url

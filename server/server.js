@@ -220,9 +220,8 @@ app.post("/submit", async (req, res) => {
     Authorization: "Bearer " + token,
   }
 
-  const createdAt = new Date().toString()
   //add link to db
-  const data = await client.request(ADD_POST, { url: url, title: title, user_issuer: user.issuer, createdAt: createdAt }, headers)
+  const data = await client.request(ADD_POST, { url: url, title: title, user_issuer: user.issuer }, headers)
   res.status(200).send({ done: true })
 })
 

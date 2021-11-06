@@ -14,9 +14,9 @@ const CommentComponent = ({ comment, children, comments }) => {
   const [likes, setLikes] = useState(comment.likes.aggregate.count)
   const [dislikes, setDislikes] = useState(comment.dislikes.aggregate.count)
   const [action, setAction] = useState(comment.userLike[0]?.value || null)
-
   //user replies to comment
   //submit comment
+
   const handleSubmit = async (values) => {
     console.log("reply values: ", comment)
     if (!user) {

@@ -92,7 +92,7 @@ export const POSTS_SUBSCRIPTION = gql`
 
 export const GET_POSTS_BY_VOTE = gql`
   subscription getPostsByVote($user_issuer: String) {
-    posts(order_by: { votes_aggregate: { sum: { value: desc } } }) {
+    posts(order_by: { votes_aggregate: { sum: { value: desc_nulls_last } } }) {
       id
       title
       url
@@ -144,6 +144,59 @@ export const GET_POST = gql`
         parent_id
         comment
         createdAt
+        post_id
+        user {
+          username
+        }
+        userLike: comments_votes(where: { user_issuer: { _eq: $user_issuer } }) {
+          value
+          id
+        }
+        likes: comments_votes_aggregate(where: { value: { _eq: 1 } }) {
+          aggregate {
+            count
+          }
+        }
+        dislikes: comments_votes_aggregate(where: { value: { _eq: -1 } }) {
+          aggregate {
+            count
+          }
+        }
+      }
+      comments_aggregate {
+        aggregate {
+          count
+        }
+      }
+    }
+  }
+`
+export const GET_POST_COMMENTS_SORTED_TOP = gql`
+  subscription getPost($id: Int!, $user_issuer: String) {
+    posts_by_pk(id: $id) {
+      createdAt
+      id
+      title
+      url
+      user {
+        username
+      }
+      votes: votes_aggregate {
+        aggregate {
+          sum {
+            value
+          }
+        }
+      }
+      userVotes: votes(where: { user_issuer: { _eq: $user_issuer } }) {
+        value
+      }
+      comments(order_by: { comments_votes_aggregate: { sum: { value: desc } } }) {
+        id
+        parent_id
+        comment
+        createdAt
+        post_id
         user {
           username
         }

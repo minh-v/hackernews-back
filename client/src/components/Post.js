@@ -62,11 +62,13 @@ const Post = ({ post }) => {
                 icon={<UpCircleTwoTone twoToneColor="#52c41a" />}
                 onClick={() => upvote(post)}
               />
+              <span>{totalVotes}</span>
               <Button type="link" htmlType="submit" icon={<DownCircleTwoTone />} onClick={() => downvote(post)} />
             </div>
           ) : userVote === -1 ? (
             <div className="vote">
               <Button type="link" htmlType="submit" icon={<UpCircleTwoTone />} onClick={() => upvote(post)} />
+              <span>{totalVotes}</span>
               <Button
                 type="link"
                 htmlType="submit"
@@ -77,13 +79,14 @@ const Post = ({ post }) => {
           ) : (
             <div className="vote">
               <Button type="link" htmlType="submit" icon={<UpCircleTwoTone />} onClick={() => upvote(post)} />
+              <span>{totalVotes}</span>
               <Button type="link" htmlType="submit" icon={<DownCircleTwoTone />} onClick={() => downvote(post)} />
             </div>
           )}
           {/* <Button htmlType="submit" icon={<UpCircleTwoTone />} onClick={() => upvote(post)} />
           <Button htmlType="submit" icon={<DownCircleTwoTone />} onClick={() => downvote(post)} /> */}
         </div>
-        <span>{totalVotes}</span>
+        {/* <span>{totalVotes}</span> */}
         <List.Item.Meta
           title={
             <a href={`//${post.url}`}>

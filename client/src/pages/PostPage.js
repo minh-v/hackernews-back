@@ -1,5 +1,5 @@
 import { useSubscription } from "@apollo/client"
-import { GET_POST } from "../lib/queries"
+import { GET_POST, GET_POST_COMMENTS_SORTED_TOP } from "../lib/queries"
 import Post from "../components/Post"
 import { useUser } from "../lib/user"
 import { useHistory } from "react-router"
@@ -7,6 +7,7 @@ import { Input, Button, Form, Menu, Dropdown } from "antd"
 import CommentList from "../components/CommentList"
 import { useState } from "react"
 import { DownOutlined } from "@ant-design/icons"
+import { Link } from "react-router-dom"
 
 const { TextArea } = Input
 //get post given post id
@@ -15,8 +16,21 @@ const PostPage = (props) => {
   const user = useUser()
   const history = useHistory()
 
-  const { data, loading } = useSubscription(GET_POST, {
-    variables: { id: parseInt(props.location.search.slice(4)), user_issuer: user ? user?.issuer : "" },
+  const pieces = props.location.search.split("&")
+  const id = pieces[0].split("=")[1]
+  let sort = "new"
+  console.log("Search: ", pieces)
+  console.log("id: ", id)
+
+  if (pieces.length > 1) {
+    sort = pieces[1].split("=")[1]
+    console.log("sort: ", sort)
+  }
+
+  const QUERY = sort === "new" ? GET_POST : sort === "top" ? GET_POST_COMMENTS_SORTED_TOP : GET_POST
+
+  const { data, loading } = useSubscription(QUERY, {
+    variables: { id: parseInt(id), user_issuer: user ? user?.issuer : "" },
   })
 
   //get comments
@@ -46,9 +60,11 @@ const PostPage = (props) => {
       <Menu.Item key="new" onClick={() => setCommentDisplay("new")}>
         new
       </Menu.Item>
-      <Menu.Item key="top" onClick={() => setCommentDisplay("top")}>
-        top
-      </Menu.Item>
+      <Link to={`${props.location.pathname}${props.location.search}&sort=top`}>
+        <Menu.Item key="top" onClick={() => setCommentDisplay("top")}>
+          top
+        </Menu.Item>
+      </Link>
     </Menu>
   )
 
@@ -94,7 +110,6 @@ const PostPage = (props) => {
           comments={data.posts_by_pk.comments} //all comments
           baseComments={data.posts_by_pk.comments
             .filter((c) => c.parent_id === null)
-            .filter((c) => c.parent_id === null)
             .sort((a, b) => {
               return b.likes.aggregate.count - a.likes.aggregate.count
             })} //comments with no parents
@@ -103,10 +118,5 @@ const PostPage = (props) => {
     </div>
   )
 }
-
-// .filter((c) => c.parent_id === null)
-//   .sort((a, b) => {
-//     return a.likes.aggregate.count - b.likes.aggregate.count
-//   })
 
 export default PostPage
