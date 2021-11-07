@@ -223,3 +223,31 @@ export const GET_POST_COMMENTS_SORTED_TOP = gql`
     }
   }
 `
+export const GET_POSTS_FROM_USER = gql`
+  query getPostsFromUsername($user_issuer: String, $username: String!) {
+    posts(order_by: { createdAt: desc }, where: { user: { username: { _eq: $username } } }) {
+      id
+      title
+      url
+      createdAt
+      votes: votes_aggregate {
+        aggregate {
+          sum {
+            value
+          }
+        }
+      }
+      userVotes: votes(where: { user_issuer: { _eq: $user_issuer } }) {
+        value
+      }
+      user {
+        username
+      }
+      comments_aggregate {
+        aggregate {
+          count
+        }
+      }
+    }
+  }
+`

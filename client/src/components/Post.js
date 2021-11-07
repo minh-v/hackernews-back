@@ -62,7 +62,7 @@ const Post = ({ post }) => {
                 icon={<UpCircleTwoTone twoToneColor="#52c41a" />}
                 onClick={() => upvote(post)}
               />
-              <span>{totalVotes}</span>
+              <span className="totalVotes">{totalVotes}</span>
               <Button type="link" htmlType="submit" icon={<DownCircleTwoTone />} onClick={() => downvote(post)} />
             </div>
           ) : userVote === -1 ? (
@@ -79,7 +79,7 @@ const Post = ({ post }) => {
           ) : (
             <div className="vote">
               <Button type="link" htmlType="submit" icon={<UpCircleTwoTone />} onClick={() => upvote(post)} />
-              <span>{totalVotes}</span>
+              <span className="totalVotes">{totalVotes}</span>
               <Button type="link" htmlType="submit" icon={<DownCircleTwoTone />} onClick={() => downvote(post)} />
             </div>
           )}
@@ -95,7 +95,7 @@ const Post = ({ post }) => {
           }
           description={
             <p>
-              by {post.user.username} {timeDifferenceForDate(post.createdAt)} |{" "}
+              by <Link to={`/user?id=${post.user.username}`}>{post.user.username}</Link> {timeDifferenceForDate(post.createdAt)} |{" "}
               <Link to={`/post?id=${post.id}`}>{post.comments_aggregate.aggregate.count} comments</Link>
             </p>
           }

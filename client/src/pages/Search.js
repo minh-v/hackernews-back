@@ -10,8 +10,11 @@ const Search = (props) => {
   const user = useUser()
   let history = useHistory()
 
+  const pieces = props.location.search.split("&")
+  const post_id = pieces[0].split("=")[1]
+
   const { loading, data } = useSubscription(SEARCH_POSTS, {
-    variables: { search: props.location.search.slice(3), user_issuer: user ? user?.issuer : "" },
+    variables: { search: post_id, user_issuer: user ? user?.issuer : "" },
   })
 
   const handleSubmit = (values) => {

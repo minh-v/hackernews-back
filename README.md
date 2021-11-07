@@ -13,10 +13,14 @@ upvote, downvote unique user functionality
 
 search bar functionality (url, title)
 
-todo: 
-upvote/downvote for comments,
-sort comments and posts by upvote, certain variables
+comments functionality, upvote + downvote
 
+todo: 
+profile page
+
+README TODO
+list features + technologies used
+describe how to set up and run the thing
 
 
 

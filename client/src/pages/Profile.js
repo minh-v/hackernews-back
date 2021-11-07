@@ -1,5 +1,4 @@
 import { useUser } from "../lib/user"
-import magic from "../magic"
 
 const Profile = () => {
   const user = useUser()

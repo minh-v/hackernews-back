@@ -9,10 +9,13 @@ import Profile from "./pages/Profile"
 import Search from "./pages/Search"
 import Submit from "./pages/Submit"
 import PostPage from "./pages/PostPage"
+import ProfilePage from "./pages/ProfilePage"
+import Submitted from "./pages/Submitted"
 import Top from "./pages/Top"
 import { Switch, Route, useLocation } from "react-router-dom"
 import { Layout } from "antd"
 import { useEffect } from "react"
+
 // import { useUser } from "./lib/user"
 const { Header, Content, Sider } = Layout
 
@@ -40,7 +43,9 @@ const App = () => {
                 <Route exact path="/profile" component={Profile} />
                 <Route exact path="/submit" component={Submit} />
                 <Route exact path="/search" component={Search} />
+                <Route exact path="/submitted" component={Submitted} />
                 <Route exact path="/post" component={PostPage} />
+                <Route exact path="/user" component={ProfilePage} />
                 <Route exact path="/top" component={Top} />
               </Switch>
             </div>
