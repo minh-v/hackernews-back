@@ -38,6 +38,7 @@ const GET_USERNAME = gql`
   query getUsername($issuer: String!) {
     users(where: { issuer: { _eq: $issuer } }) {
       username
+      karma
     }
   }
 `
@@ -65,9 +66,31 @@ const GET_VOTE_VALUE = gql`
 `
 
 const DELETE_VOTE = gql`
-  mutation deleteVote($id: Int!) {
+  mutation delete_vote($id: Int!) {
     delete_votes_by_pk(id: $id) {
       id
+    }
+  }
+`
+
+const GET_KARMA = gql`
+  query GET_KARMA($user_issuer: String!) {
+    posts(where: { user_issuer: { _eq: $user_issuer } }) {
+      votes_aggregate {
+        aggregate {
+          sum {
+            value
+          }
+        }
+      }
+    }
+  }
+`
+
+const UPDATE_KARMA = gql`
+  mutation set_user_karma($user_issuer: String!, $karma: Int!) {
+    update_users_by_pk(pk_columns: { issuer: $user_issuer }, _set: { karma: $karma }) {
+      karma
     }
   }
 `
@@ -122,6 +145,8 @@ module.exports = {
   VOTE,
   GET_VOTE_VALUE,
   DELETE_VOTE,
+  GET_KARMA,
+  UPDATE_KARMA,
   CREATE_COMMENT,
   DELETE_COMMENT,
   DELETE_COMMENT_VOTE,

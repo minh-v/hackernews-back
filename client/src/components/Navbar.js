@@ -9,6 +9,8 @@ const Navbar = () => {
   let user = useUser()
   const history = useHistory()
 
+  console.log(user)
+
   const logout = async () => {
     const res = await fetch("http://localhost:3001/logout", {
       credentials: "include",
@@ -46,7 +48,9 @@ const Navbar = () => {
                 <Button>Submit</Button>
               </Link>,
               <Link to="/profile" key="profile">
-                <Button key="2">{user.username}</Button>
+                <Button key="2">
+                  {user.username} ({user.karma})
+                </Button>
               </Link>,
               <Button key="1" type="danger" onClick={logout} key="logout">
                 Log out

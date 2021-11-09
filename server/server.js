@@ -13,6 +13,8 @@ const {
   VOTE,
   GET_VOTE_VALUE,
   DELETE_VOTE,
+  GET_KARMA,
+  UPDATE_KARMA,
   CREATE_COMMENT,
   DELETE_COMMENT,
   DELETE_COMMENT_VOTE,
@@ -40,12 +42,37 @@ const client = new GraphQLClient("http://graphql-engine:8080/v1/graphql", {
   },
 })
 
+const adminClient = new GraphQLClient("http://graphql-engine:8080/v1/graphql", {
+  headers: {
+    "Content-Type": "application/json",
+    "x-hasura-admin-secret": process.env.HASURA_GRAPHQL_ADMIN_SECRET,
+  },
+})
+
+//returns header object for client requests
 const headers = (token) => {
   return {
     "Content-Type": "application/json",
     Accept: "application/json",
     Authorization: "Bearer " + token,
   }
+}
+
+//updates the users karma every time a vote is mutated
+//gets all posts of user, aggregating the vote values, summing it all up and updating in db.
+const updateKarma = async (user_issuer, token) => {
+  //get all posts of user aggregate votes
+  const posterKarmaData = await client.request(GET_KARMA, { user_issuer: user_issuer }, headers(token))
+  let posterKarma = 0
+  //if user has no posts, return 0
+  if (data.posts.length === 0) return posterKarma
+
+  //sum up the votes
+  posterKarmaData.posts.forEach((post) => {
+    posterKarma += post.votes_aggregate.aggregate.sum.value
+  })
+
+  await adminClient.request(UPDATE_KARMA, { user_issuer: user_issuer, karma: posterKarma })
 }
 
 app.get("/", (req, res) => {
@@ -65,6 +92,7 @@ app.get("/user", async (req, res) => {
     //get username
     const data = await client.request(GET_USERNAME, { issuer: issuer }, headers(token))
     user.username = data.users[0].username
+    user.karma = data.users[0].karma
 
     // Refresh the JWT for the user each time they send a request to /user so they only get logged out after (7) days of inactivity
     let newToken = jwt.sign(
@@ -232,16 +260,19 @@ app.post("/vote", async (req, res) => {
     if (!req.cookies.token) return res.status(401).json({ message: "User is not logged in" })
     const token = req.cookies.token //get jwt
     const user = jwt.verify(token, process.env.JWT_SECRET) //get user id
-    const { post_id, value } = req.body
+    const { post_id, value, poster } = req.body
 
     //query vote table passing in user id and post id, if matches value from client, delete vote
     const dataValue = await client.request(GET_VOTE_VALUE, { user_issuer: user.issuer, post_id: post_id }, headers(token))
     if (dataValue.votes[0]?.value === value) {
-      const deletedId = await client.request(DELETE_VOTE, { id: dataValue.votes[0].id }, headers) //delete vote
+      await client.request(DELETE_VOTE, { id: dataValue.votes[0].id }, headers(token)) //delete vote
+      updateKarma(poster, token)
       return
     }
-
     const data = await client.request(VOTE, { user_issuer: user.issuer, post_id: post_id, value: value }, headers(token))
+
+    updateKarma(poster, token)
+
     res.status(200).send({ done: true })
   } catch (error) {
     // if ((error.message = 'Uniqueness violation. duplicate key value violates unique constraint "user/post"')) {
@@ -284,8 +315,6 @@ app.delete("/comment", async (req, res) => {
     const token = req.cookies.token //get jwt
     const user = jwt.verify(token, process.env.JWT_SECRET) //get user id
     const { comment_id } = req.body
-
-    console.log(req.body)
 
     const data = await client.request(
       DELETE_COMMENT,

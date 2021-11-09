@@ -26,7 +26,7 @@ const Post = ({ post }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ post_id: item.id, value: 1 }), // Send the variables
+      body: JSON.stringify({ post_id: item.id, value: 1, poster: post.user.issuer }), // Send the variables
     })
   }
 
@@ -45,12 +45,8 @@ const Post = ({ post }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ post_id: item.id, value: -1 }), // Send the variables
+      body: JSON.stringify({ post_id: item.id, value: -1, poster: post.user.issuer }), // Send the variables
     })
-  }
-
-  const handleConfirm = () => {
-    setConfirm(!confirm)
   }
 
   const handleDelete = async (item) => {
@@ -122,7 +118,7 @@ const Post = ({ post }) => {
               by <Link to={`/user?id=${post.user.username}`}>{post.user.username}</Link> {timeDifferenceForDate(post.createdAt)} |{" "}
               <Link to={`/post?id=${post.id}`}>{post.comments_aggregate.aggregate.count} comments</Link>{" "}
               {post.user.username === user?.username ? (
-                <span onClick={() => handleConfirm()}>
+                <span onClick={() => setConfirm(!confirm)}>
                   |{" "}
                   {confirm ? (
                     <span>

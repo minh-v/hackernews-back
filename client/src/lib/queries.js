@@ -16,6 +16,15 @@ export const CHECK_EMAIL = gql`
   }
 `
 
+export const GET_USER_DATA = gql`
+  query get_user_data($username: String!) {
+    users(where: { username: { _eq: $username } }) {
+      createdAt
+      karma
+    }
+  }
+`
+
 export const GET_ALL_POSTS = gql`
   query getPosts {
     posts {
@@ -23,6 +32,7 @@ export const GET_ALL_POSTS = gql`
       title
       url
       user {
+        issuer
         username
       }
       createdAt
@@ -43,6 +53,7 @@ export const SEARCH_POSTS = gql`
       url
       createdAt
       user {
+        issuer
         username
       }
       votes {
@@ -79,6 +90,7 @@ export const POSTS_SUBSCRIPTION = gql`
         value
       }
       user {
+        issuer
         username
       }
       comments_aggregate {
@@ -108,6 +120,7 @@ export const GET_POSTS_BY_VOTE = gql`
         value
       }
       user {
+        issuer
         username
       }
       comments_aggregate {
@@ -127,6 +140,7 @@ export const GET_POST = gql`
       title
       url
       user {
+        issuer
         username
       }
       votes: votes_aggregate {
@@ -179,6 +193,7 @@ export const GET_POST_COMMENTS_SORTED_TOP = gql`
       title
       url
       user {
+        issuer
         username
       }
       votes: votes_aggregate {
@@ -241,6 +256,7 @@ export const GET_POSTS_FROM_USER = gql`
         value
       }
       user {
+        issuer
         username
       }
       comments_aggregate {
@@ -259,6 +275,7 @@ export const GET_USER_COMMENTS = gql`
       id
       parent_id
       user {
+        issuer
         username
       }
       userLike: comments_votes(where: { user_issuer: { _eq: $user_issuer } }) {
