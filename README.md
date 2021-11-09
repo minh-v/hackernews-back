@@ -1,15 +1,53 @@
 # Hackernews/Reddit clone
 This project is intended to be a "clone" of hackernews/reddit, implementing some of their features.
 
-# Tecchnologies
-Front end: cra + antd
-Middleware: magic + express
-Back end: node + hasura + postgres
-magic link authentication
-docker container
+## Built With
+
+- [React.js](https://reactjs.org/)
+- [Antd](https://ant.design/)
+- [Magic](https://magic.link/)
+- [Express.js](https://expressjs.com/)
+- [Postgresql](https://www.postgresql.org/)
+- [Hasura](https://hasura.io/)
+- [Docker](https://www.docker.com/)
 
 
-# Features
+
+## Getting Started
+### Prerequisites
+
+- [Node](https://nodejs.org/en/) (v17.0.1)
+- [npm](https://www.npmjs.com/get-npm)
+ <!-- or [yarn](https://classic.yarnpkg.com/en/docs/install) -->
+- [Docker Desktop](https://www.docker.com/get-started)
+
+## Installation and Setup
+
+Hasura endpoint is served on port 8080 (localhost:8080/)
+Application (Create React App) is served on port 3000 (localhost:3000/)
+Express is served on port 3001 (localhost:3001/)
+
+### Development
+Using npm with two terminals:
+
+```
+# client
+# install dependencies
+$ npm install
+
+# start servers
+$ npm start
+```
+
+```
+# server
+# install dependencies
+$ npm install
+
+# start servers
+$ docker-compose up
+```
+## Features
 subscription to query posts for real time updates
 
 user registration/login, authentication with magic link + jwt token stored in httponly cookie
@@ -26,19 +64,12 @@ sort posts and comments by new/top
 
 user profile page
 
-todo: 
+basic karma post functionality
 
+## TODO
 
-README TODO
-
-
-profile page to show all posts from a user
-different types of list sort displays
 pagination
 
-
-
-SPECIFIC TODO
-
-bonus: add date created as part of user info.
 FIX REFRESH login/signup flows
+
+bad to query user id from front end?
