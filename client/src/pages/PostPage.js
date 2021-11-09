@@ -19,8 +19,6 @@ const PostPage = (props) => {
   const pieces = props.location.search.split("&")
   const id = pieces[0].split("=")[1]
   let sort = "new"
-  console.log("Search: ", pieces)
-  console.log("id: ", id)
 
   if (pieces.length > 1) {
     sort = pieces[1].split("=")[1]
@@ -69,7 +67,6 @@ const PostPage = (props) => {
   )
 
   if (loading) return <div>loading...</div>
-  console.log(data.posts_by_pk.comments.filter((c) => c.parent_id === null))
   return (
     <div>
       <Post post={data.posts_by_pk} />

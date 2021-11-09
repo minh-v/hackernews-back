@@ -4,10 +4,12 @@ import magic from "../magic"
 import { useQuery } from "@apollo/client"
 import { message } from "antd"
 import { CHECK_DUPLICATE } from "../lib/queries"
+import { useHistory } from "react-router"
 
 //send query here?
 
 const SignUp = () => {
+  const history = useHistory()
   const [disabled, setDisabled] = useState(false)
 
   //used to get result from checking duplicate email/username
@@ -55,6 +57,8 @@ const SignUp = () => {
     if (res.status === 200) {
       console.log("sign up successful")
     }
+    history.push("/")
+    history.go(0)
   }
 
   return (

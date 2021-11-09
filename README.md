@@ -1,4 +1,4 @@
-front end react + antd
+front end cra + antd
 middleware magic
 backend node + express + hasura + postgres
 magic link authentication
@@ -14,6 +14,8 @@ upvote, downvote unique user functionality
 search bar functionality (url, title)
 
 comments functionality, upvote + downvote
+
+sort posts and comments by new/top
 
 todo: 
 profile page

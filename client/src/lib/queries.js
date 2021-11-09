@@ -251,3 +251,61 @@ export const GET_POSTS_FROM_USER = gql`
     }
   }
 `
+export const GET_USER_COMMENTS = gql`
+  query getUserComments($username: String!, $user_issuer: String!) {
+    comments(where: { user: { username: { _eq: $username } } }, order_by: { createdAt: desc }) {
+      comment
+      createdAt
+      id
+      parent_id
+      user {
+        username
+      }
+      userLike: comments_votes(where: { user_issuer: { _eq: $user_issuer } }) {
+        value
+        id
+      }
+      likes: comments_votes_aggregate(where: { value: { _eq: 1 } }) {
+        aggregate {
+          count
+        }
+      }
+      dislikes: comments_votes_aggregate(where: { value: { _eq: -1 } }) {
+        aggregate {
+          count
+        }
+      }
+      post {
+        createdAt
+        id
+        title
+        url
+        id
+        title
+        url
+        createdAt
+        votes: votes_aggregate {
+          aggregate {
+            sum {
+              value
+            }
+          }
+        }
+        comments {
+          id
+        }
+        userVotes: votes(where: { user_issuer: { _eq: $user_issuer } }) {
+          value
+        }
+        user {
+          username
+        }
+        comments_aggregate {
+          aggregate {
+            count
+          }
+        }
+      }
+    }
+  }
+`

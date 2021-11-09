@@ -18,6 +18,13 @@ const ADD_POST = gql`
     }
   }
 `
+const DELETE_POST = gql`
+  mutation deletePost($post_id: Int!) {
+    delete_posts_by_pk(id: $post_id) {
+      id
+    }
+  }
+`
 
 const CHECK_USER = gql`
   query checkUser($issuer: String!) {
@@ -101,6 +108,7 @@ const DELETE_COMMENT_VOTE = gql`
 module.exports = {
   ADD_USER,
   ADD_POST,
+  DELETE_POST,
   CHECK_USER,
   GET_USERNAME,
   VOTE,

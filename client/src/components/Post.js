@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { timeDifferenceForDate } from "../utils/timeDifference"
 import { List, Button } from "antd"
 import { UpCircleTwoTone, DownCircleTwoTone } from "@ant-design/icons"
@@ -9,6 +10,9 @@ const Post = ({ post }) => {
   const history = useHistory()
 
   const totalVotes = post.votes?.aggregate.sum.value || 0
+
+  const [confirm, setConfirm] = useState(false)
+  const [deleteText, setDeleteText] = useState("delete")
 
   const upvote = async (item) => {
     if (!user) {
@@ -43,6 +47,26 @@ const Post = ({ post }) => {
       },
       body: JSON.stringify({ post_id: item.id, value: -1 }), // Send the variables
     })
+  }
+
+  const handleConfirm = () => {
+    setConfirm(!confirm)
+  }
+
+  const handleDelete = async (item) => {
+    console.log("delete")
+    if (user) {
+      const res = await fetch("http://localhost:3001/post", {
+        method: "DELETE",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ post_id: item.id }), // Send the variables
+      })
+
+      setDeleteText("deleted")
+    }
   }
 
   let userVote = 0
@@ -96,7 +120,22 @@ const Post = ({ post }) => {
           description={
             <p>
               by <Link to={`/user?id=${post.user.username}`}>{post.user.username}</Link> {timeDifferenceForDate(post.createdAt)} |{" "}
-              <Link to={`/post?id=${post.id}`}>{post.comments_aggregate.aggregate.count} comments</Link>
+              <Link to={`/post?id=${post.id}`}>{post.comments_aggregate.aggregate.count} comments</Link>{" "}
+              {post.user.username === user.username ? (
+                <span onClick={() => handleConfirm()}>
+                  {confirm ? (
+                    <span>
+                      are you sure?{" "}
+                      <span className="deleteConfirmation" onClick={() => handleDelete(post)}>
+                        yes
+                      </span>
+                      /no
+                    </span>
+                  ) : (
+                    deleteText
+                  )}
+                </span>
+              ) : null}
             </p>
           }
         />

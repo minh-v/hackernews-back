@@ -8,6 +8,7 @@ const { GraphQLClient } = require("graphql-request")
 const {
   ADD_USER,
   ADD_POST,
+  DELETE_POST,
   GET_USERNAME,
   VOTE,
   GET_VOTE_VALUE,
@@ -208,11 +209,32 @@ app.get("/logout", async (req, res) => {
 })
 
 //user submits post
-app.post("/submit", async (req, res) => {
+app.post("/post", async (req, res) => {
+  try {
+    if (!req.cookies.token) return res.status(401).json({ message: "User is not logged in" })
+    const token = req.cookies.token //get jwt
+    const user = jwt.verify(token, process.env.JWT_SECRET) //get user id
+    const { url, title } = req.body
+
+    const headers = {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: "Bearer " + token,
+    }
+    console.log("post")
+    //add link to db
+    const data = await client.request(ADD_POST, { url: url, title: title, user_issuer: user.issuer }, headers)
+    res.status(200).send({ done: true })
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+app.delete("/post", async (req, res) => {
   if (!req.cookies.token) return res.status(401).json({ message: "User is not logged in" })
   const token = req.cookies.token //get jwt
   const user = jwt.verify(token, process.env.JWT_SECRET) //get user id
-  const { url, title } = req.body
+  const { post_id } = req.body
 
   const headers = {
     "Content-Type": "application/json",
@@ -220,8 +242,7 @@ app.post("/submit", async (req, res) => {
     Authorization: "Bearer " + token,
   }
 
-  //add link to db
-  const data = await client.request(ADD_POST, { url: url, title: title, user_issuer: user.issuer }, headers)
+  const data = await client.request(DELETE_POST, { post_id: post_id }, headers)
   res.status(200).send({ done: true })
 })
 

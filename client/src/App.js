@@ -11,6 +11,7 @@ import Submit from "./pages/Submit"
 import PostPage from "./pages/PostPage"
 import ProfilePage from "./pages/ProfilePage"
 import Submitted from "./pages/Submitted"
+import Comments from "./pages/Comments"
 import Top from "./pages/Top"
 import { Switch, Route, useLocation } from "react-router-dom"
 import { Layout } from "antd"
@@ -44,6 +45,7 @@ const App = () => {
                 <Route exact path="/submit" component={Submit} />
                 <Route exact path="/search" component={Search} />
                 <Route exact path="/submitted" component={Submitted} />
+                <Route exact path="/comments" component={Comments} />
                 <Route exact path="/post" component={PostPage} />
                 <Route exact path="/user" component={ProfilePage} />
                 <Route exact path="/top" component={Top} />

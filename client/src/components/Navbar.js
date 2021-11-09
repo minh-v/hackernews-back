@@ -46,7 +46,7 @@ const Navbar = () => {
                 <Button>Submit</Button>
               </Link>,
               <Link to="/profile" key="profile">
-                <Button key="2">Profile</Button>
+                <Button key="2">{user.username}</Button>
               </Link>,
               <Button key="1" type="danger" onClick={logout} key="logout">
                 Log out

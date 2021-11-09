@@ -7,8 +7,8 @@ const ProfilePage = (props) => {
     <div>
       user: {username}
       <span>
-        {" "}
-        about: <Link to={`/submitted?id=${username}`}>submissions</Link>, comments
+        <br></br>
+        about: <Link to={`/submitted?id=${username}`}>submissions</Link>, <Link to={`/comments?id=${username}`}>comments</Link>
       </span>
     </div>
   )

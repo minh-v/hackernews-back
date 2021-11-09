@@ -58,3 +58,7 @@
 .totalVotes {
   margin-left: 0.7rem;
 }
+
+.deleteConfirmation {
+  color: red;
+}
