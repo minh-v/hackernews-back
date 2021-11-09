@@ -73,11 +73,9 @@ const PostPage = (props) => {
       <span className="comment-sort">
         sorted by{" "}
         <Dropdown overlay={menu} trigger={["click"]}>
-          {/* <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}> */}
           <span className="comment-select">
             {commentDisplay} <DownOutlined />
           </span>
-          {/* </a> */}
         </Dropdown>
         ,
       </span>

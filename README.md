@@ -18,14 +18,13 @@ This project is intended to be a "clone" of hackernews/reddit, implementing some
 
 - [Node](https://nodejs.org/en/) (v17.0.1)
 - [npm](https://www.npmjs.com/get-npm)
- <!-- or [yarn](https://classic.yarnpkg.com/en/docs/install) -->
 - [Docker Desktop](https://www.docker.com/get-started)
-
+ <!-- or [yarn](https://classic.yarnpkg.com/en/docs/install) -->
 ## Installation and Setup
 
-Hasura endpoint is served on port 8080 (localhost:8080/)
-Application (Create React App) is served on port 3000 (localhost:3000/)
-Express is served on port 3001 (localhost:3001/)
+Hasura endpoint is served on port 8080 (localhost:8080/)  
+Application (Create React App) is served on port 3000 (localhost:3000/)  
+Express is served on port 3001 (localhost:3001/)  
 
 ### Development
 Using npm with two terminals:
@@ -35,7 +34,7 @@ Using npm with two terminals:
 # install dependencies
 $ npm install
 
-# start servers
+# start client
 $ npm start
 ```
 

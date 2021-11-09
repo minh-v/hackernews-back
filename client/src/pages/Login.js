@@ -46,7 +46,6 @@ const Login = () => {
         Authorization: "Bearer " + didToken,
       },
     })
-    console.log("login res: ", res)
 
     if (res.status === 200) {
       console.log("login successful")

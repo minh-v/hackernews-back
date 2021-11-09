@@ -55,8 +55,16 @@
   max-width: 3rem
 }
 
-.totalVotes {
-  margin-left: 0.7rem;
+.totalVotesUp, .totalVotesDown, .totalVotes {
+  margin-left: 0.65rem;
+}
+
+.totalVotesUp {
+  color: #52c41a;
+}
+
+.totalVotesDown {
+  color: #eb2f96;
 }
 
 .deleteConfirmation {
