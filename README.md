@@ -42,12 +42,15 @@ npm start
 ```
 
 In the server folder:
-Install the dependencies and start docker-compose
+Install the dependencies and start docker-compose, which contains Express, Hasura and PostgreSQL.
 ```
 # server
 npm install
 docker-compose up
 ```
+
+This will spin up a new application with no data.
+
 ## Features
 - Graphql subscription to query posts for real time updates
 - User registration/login, authentication with magic link + jwt token stored in httponly cookie
@@ -62,4 +65,5 @@ docker-compose up
 #### TODO
 
 - Pagination
-- Fix signup flow
+- Fix signup flow: When user signs up, they still need to log in.
+- When users delete comment, replace with "deleted" instead of cascading deletes.
