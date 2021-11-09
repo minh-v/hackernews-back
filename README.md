@@ -29,7 +29,7 @@ Express is served on port 3001 (localhost:3001/)
 
 Clone the project
 ```
-   git clone https://github.com/minh-v/hackernews-back.git
+git clone https://github.com/minh-v/hackernews-back.git
 ```
 Using npm with two terminals:
 
@@ -62,4 +62,4 @@ docker-compose up
 #### TODO
 
 - Pagination
-- Fix signup flows
+- Fix signup flow
