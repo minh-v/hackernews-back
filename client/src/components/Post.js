@@ -121,8 +121,9 @@ const Post = ({ post }) => {
             <p>
               by <Link to={`/user?id=${post.user.username}`}>{post.user.username}</Link> {timeDifferenceForDate(post.createdAt)} |{" "}
               <Link to={`/post?id=${post.id}`}>{post.comments_aggregate.aggregate.count} comments</Link>{" "}
-              {post.user.username === user.username ? (
+              {post.user.username === user?.username ? (
                 <span onClick={() => handleConfirm()}>
+                  |{" "}
                   {confirm ? (
                     <span>
                       are you sure?{" "}

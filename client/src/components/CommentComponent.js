@@ -11,6 +11,7 @@ const CommentComponent = ({ comment, children, comments }) => {
   const user = useUser()
   const history = useHistory()
   const [open, setOpen] = useState(false) //reply box is open or not
+  const [confirm, setConfirm] = useState(false) //for delete
   const [likes, setLikes] = useState(comment.likes.aggregate.count)
   const [dislikes, setDislikes] = useState(comment.dislikes.aggregate.count)
   const [action, setAction] = useState(comment.userLike[0]?.value || null)
@@ -124,6 +125,19 @@ const CommentComponent = ({ comment, children, comments }) => {
     }
   }
 
+  const handleDelete = async (comment) => {
+    if (user) {
+      const res = await fetch("http://localhost:3001/comment", {
+        method: "DELETE",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ comment_id: comment.id }),
+      })
+    }
+  }
+
   //ant comment actions
   const actions = [
     <span onClick={like}>
@@ -136,6 +150,21 @@ const CommentComponent = ({ comment, children, comments }) => {
     </span>,
     <span key="comment-reply-to" onClick={() => setOpen(!open)}>
       Reply to
+    </span>,
+    <span onClick={() => setConfirm(!confirm)}>
+      {comment.user.username === user?.username ? (
+        confirm ? (
+          <span>
+            are you sure?{" "}
+            <span className="deleteConfirmation" onClick={() => handleDelete(comment)}>
+              yes
+            </span>
+            /no
+          </span>
+        ) : (
+          "delete"
+        )
+      ) : null}
     </span>,
   ]
 

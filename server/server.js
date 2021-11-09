@@ -14,6 +14,7 @@ const {
   GET_VOTE_VALUE,
   DELETE_VOTE,
   CREATE_COMMENT,
+  DELETE_COMMENT,
   DELETE_COMMENT_VOTE,
   CREATE_COMMENT_VOTE,
 } = require("./graphql/queries")
@@ -39,13 +40,13 @@ const client = new GraphQLClient("http://graphql-engine:8080/v1/graphql", {
   },
 })
 
-// const headers = (token) => {
-//   return {
-//     "Content-Type": "application/json",
-//     Accept: "application/json",
-//     Authorization: "Bearer " + token,
-//   }
-// }
+const headers = (token) => {
+  return {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+    Authorization: "Bearer " + token,
+  }
+}
 
 app.get("/", (req, res) => {
   res.send("<h1>hasdssdasdas</h1>")
@@ -61,14 +62,8 @@ app.get("/user", async (req, res) => {
 
     const { issuer, publicAddress, email } = user
 
-    const headers = {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + token,
-    }
-
     //get username
-    const data = await client.request(GET_USERNAME, { issuer: issuer }, headers)
+    const data = await client.request(GET_USERNAME, { issuer: issuer }, headers(token))
     user.username = data.users[0].username
 
     // Refresh the JWT for the user each time they send a request to /user so they only get logged out after (7) days of inactivity
@@ -129,12 +124,6 @@ app.post("/signup", async (req, res) => {
       process.env.JWT_SECRET
     )
 
-    const headers = {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + token,
-    }
-
     const variables = {
       email: metadata.email,
       issuer: metadata.issuer,
@@ -143,7 +132,7 @@ app.post("/signup", async (req, res) => {
     }
 
     //add user to hasura, add date created?
-    await client.request(ADD_USER, variables, headers)
+    await client.request(ADD_USER, variables, headers(token))
     //set cookie token here
     //setCookie(res, token)
     res.cookie("token", token, {
@@ -216,14 +205,9 @@ app.post("/post", async (req, res) => {
     const user = jwt.verify(token, process.env.JWT_SECRET) //get user id
     const { url, title } = req.body
 
-    const headers = {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + token,
-    }
     console.log("post")
     //add link to db
-    const data = await client.request(ADD_POST, { url: url, title: title, user_issuer: user.issuer }, headers)
+    const data = await client.request(ADD_POST, { url: url, title: title, user_issuer: user.issuer }, headers(token))
     res.status(200).send({ done: true })
   } catch (error) {
     console.log(error)
@@ -236,13 +220,7 @@ app.delete("/post", async (req, res) => {
   const user = jwt.verify(token, process.env.JWT_SECRET) //get user id
   const { post_id } = req.body
 
-  const headers = {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-    Authorization: "Bearer " + token,
-  }
-
-  const data = await client.request(DELETE_POST, { post_id: post_id }, headers)
+  const data = await client.request(DELETE_POST, { post_id: post_id }, headers(token))
   res.status(200).send({ done: true })
 })
 
@@ -256,20 +234,14 @@ app.post("/vote", async (req, res) => {
     const user = jwt.verify(token, process.env.JWT_SECRET) //get user id
     const { post_id, value } = req.body
 
-    const headers = {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + token,
-    }
-
     //query vote table passing in user id and post id, if matches value from client, delete vote
-    const dataValue = await client.request(GET_VOTE_VALUE, { user_issuer: user.issuer, post_id: post_id }, headers)
+    const dataValue = await client.request(GET_VOTE_VALUE, { user_issuer: user.issuer, post_id: post_id }, headers(token))
     if (dataValue.votes[0]?.value === value) {
       const deletedId = await client.request(DELETE_VOTE, { id: dataValue.votes[0].id }, headers) //delete vote
       return
     }
 
-    const data = await client.request(VOTE, { user_issuer: user.issuer, post_id: post_id, value: value }, headers)
+    const data = await client.request(VOTE, { user_issuer: user.issuer, post_id: post_id, value: value }, headers(token))
     res.status(200).send({ done: true })
   } catch (error) {
     // if ((error.message = 'Uniqueness violation. duplicate key value violates unique constraint "user/post"')) {
@@ -289,12 +261,6 @@ app.post("/comment", async (req, res) => {
 
     console.log(req.body)
 
-    const headers = {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + token,
-    }
-
     const data = await client.request(
       CREATE_COMMENT,
       {
@@ -303,7 +269,30 @@ app.post("/comment", async (req, res) => {
         comment: comment,
         parent_id: parent_id || null,
       },
-      headers
+      headers(token)
+    )
+    res.status(200).send({ done: true })
+  } catch (error) {
+    console.log(error)
+    res.status(500).send({ error: JSON.stringify(error) })
+  }
+})
+
+app.delete("/comment", async (req, res) => {
+  try {
+    if (!req.cookies.token) return res.status(401).json({ message: "User is not logged in" })
+    const token = req.cookies.token //get jwt
+    const user = jwt.verify(token, process.env.JWT_SECRET) //get user id
+    const { comment_id } = req.body
+
+    console.log(req.body)
+
+    const data = await client.request(
+      DELETE_COMMENT,
+      {
+        id: comment_id,
+      },
+      headers(token)
     )
     res.status(200).send({ done: true })
   } catch (error) {
@@ -319,22 +308,16 @@ app.post("/comment-vote", async (req, res) => {
     const user = jwt.verify(token, process.env.JWT_SECRET) //get user id
     const { comment_id, value, id } = req.body
 
-    const headers = {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + token,
-    }
-
     //if value is 0, user pressed the vote that they already pressed, so we need to remove it.
     if (value === 0) {
-      const data = client.request(DELETE_COMMENT_VOTE, { id: id }, headers)
+      const data = client.request(DELETE_COMMENT_VOTE, { id: id }, headers(token))
       return
     }
 
     const data = await client.request(
       CREATE_COMMENT_VOTE,
       { user_issuer: user.issuer, comment_id: comment_id, value: value },
-      headers
+      headers(token)
     )
   } catch (error) {
     console.log(error)

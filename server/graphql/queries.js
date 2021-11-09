@@ -86,6 +86,14 @@ const CREATE_COMMENT = gql`
   }
 `
 
+const DELETE_COMMENT = gql`
+  mutation deleteComment($id: Int!) {
+    delete_comments_by_pk(id: $id) {
+      id
+    }
+  }
+`
+
 const CREATE_COMMENT_VOTE = gql`
   mutation comment_vote($user_issuer: String!, $comment_id: Int!, $value: Int!) {
     insert_comments_votes_one(
@@ -115,6 +123,7 @@ module.exports = {
   GET_VOTE_VALUE,
   DELETE_VOTE,
   CREATE_COMMENT,
+  DELETE_COMMENT,
   DELETE_COMMENT_VOTE,
   CREATE_COMMENT_VOTE,
 }

@@ -1,9 +1,9 @@
-import CommentList from "../components/CommentList"
 import Post from "../components/Post"
 import CommentComponent from "../components/CommentComponent"
 import { GET_USER_COMMENTS } from "../lib/queries"
 import { useQuery } from "@apollo/client"
 import { useUser } from "../lib/user"
+import { Divider } from "antd"
 
 const Comments = (props) => {
   const user = useUser()
@@ -25,6 +25,7 @@ const Comments = (props) => {
           <div>
             <Post post={comment.post} />
             <CommentComponent comment={comment} comments={comment} />
+            <Divider />
           </div>
         )
       })}
