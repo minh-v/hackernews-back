@@ -63,10 +63,11 @@ const headers = (token) => {
 const updateKarma = async (user_issuer, token) => {
   //get all posts of user aggregate votes
   const posterKarmaData = await client.request(GET_KARMA, { user_issuer: user_issuer }, headers(token))
-  let posterKarma = 0
-  //if user has no posts, return 0
-  if (data.posts.length === 0) return posterKarma
 
+  //if user has no posts, return 0
+  if (posterKarmaData.posts.length === 0) return 0
+
+  let posterKarma = 0
   //sum up the votes
   posterKarmaData.posts.forEach((post) => {
     posterKarma += post.votes_aggregate.aggregate.sum.value
@@ -89,7 +90,9 @@ app.get("/user", async (req, res) => {
 
     const { issuer, publicAddress, email } = user
 
-    //get username
+    updateKarma(issuer, token)
+
+    //get username and karma
     const data = await client.request(GET_USERNAME, { issuer: issuer }, headers(token))
     user.username = data.users[0].username
     user.karma = data.users[0].karma
