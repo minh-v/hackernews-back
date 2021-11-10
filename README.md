@@ -21,8 +21,8 @@ This project is intended to be a "clone" of hackernews/reddit, implementing some
  <!-- or [yarn](https://classic.yarnpkg.com/en/docs/install) -->
 ## Installation and Setup
 
+Application (Create React App) is served on port 3000 (localhost:3000/) 
 Hasura endpoint is served on port 8080 (localhost:8080/)  
-Application (Create React App) is served on port 3000 (localhost:3000/)  
 Express is served on port 3001 (localhost:3001/)  
 
 ### Development
@@ -48,8 +48,6 @@ Install the dependencies and start docker-compose, which contains Express, Hasur
 npm install
 docker-compose up
 ```
-
-This will spin up a new application with no data.
 
 ## Features
 - Graphql subscription to query posts for real time updates
