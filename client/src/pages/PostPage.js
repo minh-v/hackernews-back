@@ -22,9 +22,8 @@ const PostPage = (props) => {
 
   if (pieces.length > 1) {
     sort = pieces[1].split("=")[1]
-    console.log("sort: ", sort)
   }
-
+  console.log("sort: ", sort)
   const QUERY = sort === "new" ? GET_POST : sort === "top" ? GET_POST_COMMENTS_SORTED_TOP : GET_POST
 
   const { data, loading } = useSubscription(QUERY, {
@@ -55,10 +54,12 @@ const PostPage = (props) => {
 
   const menu = (
     <Menu>
-      <Menu.Item key="new" onClick={() => setCommentDisplay("new")}>
-        new
-      </Menu.Item>
-      <Link to={`${props.location.pathname}${props.location.search}&sort=top`}>
+      <Link to={`${props.location.pathname}${pieces[0]}`}>
+        <Menu.Item key="new" onClick={() => setCommentDisplay("new")}>
+          new
+        </Menu.Item>
+      </Link>
+      <Link to={`${props.location.pathname}${pieces[0]}&sort=top`}>
         <Menu.Item key="top" onClick={() => setCommentDisplay("top")}>
           top
         </Menu.Item>

@@ -1,10 +1,11 @@
 import { useUser } from "../lib/user"
+import ProfilePage from "./ProfilePage"
 
 const Profile = () => {
   const user = useUser()
   return (
     <div>
-      hello {user?.email} {user?.username} {user?.issuer}!
+      <ProfilePage username={user.username} />
     </div>
   )
 }
