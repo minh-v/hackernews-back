@@ -21,7 +21,7 @@ services:
     environment:
       POSTGRES_PASSWORD: secret
   graphql-engine:
-    image: hasura/graphql-engine:v2.0.9
+    image: hasura/graphql-engine:v2.0.9.cli-migrations-v3
     ports:
       - "8080:8080"
     depends_on:
@@ -33,12 +33,14 @@ services:
       ## this env var can be used to add the above postgres database to Hasura as a data source. this can be removed/updated based on your needs
       PG_DATABASE_URL: postgres://postgres:secret@postgres:5432/postgres
       ## enable the console served by server
-      HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "false" # set to "false" to disable console
       ## enable debugging mode. It is recommended to disable this in production
       HASURA_GRAPHQL_DEV_MODE: "true"
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
       HASURA_GRAPHQL_ADMIN_SECRET: "secret"
       HASURA_GRAPHQL_JWT_SECRET: '{"key": "byK6btNTxGZoQw4Y2EIrlzg5o2Ze6wfa6sk4gATcXEZiR1KqlpjhSrr7bu85aeT", "type": "HS256"}' ##, "header": {"type": "Cookie", "name": "token"}
       HASURA_GRAPHQL_UNAUTHORIZED_ROLE: public
+      HASURA_GRAPHQL_MIGRATIONS_DIR: /hackernews-hasura/migrations
+      HASURA_GRAPHQL_METADATA_DIR: /hackernews-hasura/metadata
 volumes:
   db_data:

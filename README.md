@@ -54,10 +54,25 @@ npm install
 docker-compose up
 ```
 
-#### Import Hasura metadata
-In the Hasura console (localhost:8080)  
-Click on the settings (⚙) icon at the top right corner of the console screen.  
-In the currently selected Metadata Actions tab, click on Import Metadata button and select the `hasura_metadata_DATE.json` file included in the server root folder.    
+#### To use the hasura console
+```
+cd hackernews-hasura
+# in hasura dir
+hasura console
+```
+Console will be availible at localhost:9695
+
+<!-- To initialize the tables and metadata:
+```
+# in project dir
+# apply metadata, this will connect Hasura to the configured databases.
+hasura metadata apply --endpoint localhost:8080/
+# apply migrations to the connected databases.
+hasura migrate apply --all-databases --endpoint localhost:8080/
+# reload metadata to make sure Hasura is aware of any newly created database objects.
+hasura metadata reload --endpoint localhost:8080/
+``` -->
+
 
 ## Features
 - Display posts using GraphQL subscriptions
