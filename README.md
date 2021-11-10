@@ -57,7 +57,7 @@ docker-compose up
 
 To use the hasura console:
 ```
-cd hackernews-hasura
+cd server/hackernews-hasura
 hasura console
 ```
 Console will be available at localhost:9695
@@ -82,6 +82,7 @@ hasura metadata reload --endpoint localhost:8080/
 - Users can search for posts (url, title)
 - User profile page
 - Post karma system
+- Back end features: Auto apply migrations and metadata
 
 #### Environment variables
 Environment variables aren't hidden for now (Magic api keys, JWT secret etc.)
