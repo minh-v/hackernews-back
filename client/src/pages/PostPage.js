@@ -23,7 +23,9 @@ const PostPage = (props) => {
   if (pieces.length > 1) {
     sort = pieces[1].split("=")[1]
   }
-  console.log("sort: ", sort)
+
+  const [form] = Form.useForm()
+
   const QUERY = sort === "new" ? GET_POST : sort === "top" ? GET_POST_COMMENTS_SORTED_TOP : GET_POST
 
   const { data, loading } = useSubscription(QUERY, {
@@ -50,6 +52,7 @@ const PostPage = (props) => {
       credentials: "include",
       body: JSON.stringify({ post_id: data.posts_by_pk.id, comment: comment }),
     })
+    form.resetFields()
   }
 
   const menu = (
@@ -80,7 +83,7 @@ const PostPage = (props) => {
         </Dropdown>
         ,
       </span>
-      <Form onFinish={handleSubmit}>
+      <Form onFinish={handleSubmit} form={form}>
         <Form.Item
           name="comment"
           rules={[

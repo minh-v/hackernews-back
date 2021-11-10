@@ -19,7 +19,6 @@ const CommentComponent = ({ comment, children, comments }) => {
   //submit comment
 
   const handleSubmit = async (values) => {
-    console.log("reply values: ", comment)
     if (!user) {
       alert("You must be signed in to comment!")
       history.push("/login")

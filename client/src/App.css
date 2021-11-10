@@ -104,6 +104,10 @@
   margin: 0 1rem;
 }
 
+.side-card-submit {
+  width: 100%;
+}
+
 .search {
   display: flex;
   flex-flow: row wrap;

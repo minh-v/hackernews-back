@@ -33,7 +33,9 @@ const Side = ({ handleSearch }) => {
       <div className="side-card">
         <Card bordered={false}>
           <Link to="/submit">
-            <Button type="primary">Submit a link</Button>
+            <Button type="primary" className="side-card-submit">
+              Submit a link
+            </Button>
           </Link>
         </Card>
       </div>
