@@ -170,7 +170,7 @@ const CommentComponent = ({ comment, children, comments }) => {
 
   //display comment, and it's children nested if exists, else display just the comments
   return (
-    <div key={comment.id}>
+    <div key={comment.id} className="comment-div">
       {children?.length > 0 ? (
         <Comment
           actions={actions}

@@ -71,7 +71,12 @@ const Post = ({ post, selected, setSelected }) => {
   }
   //3 button cases: if user upvoted, if user downvoted, else no vote
   return (
-    <div className={selected === true ? "post-selected" : "post"} onClick={() => setSelected(post.id)}>
+    <div
+      className={selected === true ? "post-selected" : "post"}
+      onClick={() => {
+        if (typeof setSelected === "function") setSelected(post.id)
+      }}
+    >
       <List.Item>
         <div>
           {userVote === 1 ? (
