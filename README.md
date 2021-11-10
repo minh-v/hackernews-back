@@ -1,6 +1,7 @@
 # Hackernews/Reddit clone
 This project is intended to be a "clone" of hackernews/reddit, implementing some of their features.
 
+<img src="https://imgur.com/lU1zLAD" width="100%" />  
 ## Built With
 
 - [React.js](https://reactjs.org/)
