@@ -30,6 +30,7 @@ Express is served on port 3001 (localhost:3001/)
 Clone the project
 ```
 git clone https://github.com/minh-v/hackernews-back.git
+cd hackernews-back
 ```
 Using npm with two terminals:
 
@@ -37,6 +38,7 @@ In the client folder:
 Install the dependencies and start the application.
 ```
 # client
+cd client
 npm install
 npm start
 ```
@@ -45,12 +47,13 @@ In the server folder:
 Install the dependencies and start docker-compose, which contains Express, Hasura and PostgreSQL.
 ```
 # server
+cd server
 npm install
 docker-compose up
 ```
 
 ## Features
-- Graphql subscription to query posts for real time updates
+- Display posts using GraphQL subscriptions
 - User registration/login, authentication with magic link + jwt token stored in httponly cookie
 - Authenticated users can submit and delete posts
 - Authenticated users can upvote and downvote posts
@@ -59,6 +62,9 @@ docker-compose up
 - Users can search for posts (url, title)
 - User profile page
 - Post karma system
+
+#### Environment variables
+Environment variables aren't hidden for now (Magic api keys, JWT secret etc.)
 
 #### TODO
 
