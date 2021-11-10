@@ -11,10 +11,10 @@ const Search = (props) => {
   let history = useHistory()
 
   const pieces = props.location.search.split("&")
-  const post_id = pieces[0].split("=")[1]
-
+  const search = pieces[0].split("=")[1]
+  console.log(search)
   const { loading, data } = useSubscription(SEARCH_POSTS, {
-    variables: { search: post_id, user_issuer: user ? user?.issuer : "" },
+    variables: { search: search, user_issuer: user ? user?.issuer : "" },
   })
 
   const handleSubmit = (values) => {
@@ -35,8 +35,9 @@ const Search = (props) => {
               message: "Please no empty",
             },
           ]}
+          initialValue={search}
         >
-          <Input placeholder="search" />
+          <Input placeholder="search" value="forceds" />
         </Form.Item>
         <Form.Item>
           <Button htmlType="submit" shape="circle" icon={<SearchOutlined />} />

@@ -47,7 +47,7 @@ const Navbar = () => {
               <Link to="/submit">
                 <Button>Submit</Button>
               </Link>,
-              <Link to="/profile" key="profile">
+              <Link to={`/user?id=${user.username}`} key="profile">
                 <Button key="2">
                   {user.username} ({user.karma})
                 </Button>

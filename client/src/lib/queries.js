@@ -47,7 +47,7 @@ export const GET_ALL_POSTS = gql`
 //search posts by title or url
 export const SEARCH_POSTS = gql`
   subscription searchPosts($search: String!, $user_issuer: String) {
-    posts(where: { _or: [{ title: { _ilike: $search } }, { url: { _regex: $search } }] }) {
+    posts(where: { _or: [{ title: { _iregex: $search } }, { url: { _iregex: $search } }] }) {
       id
       title
       url
@@ -56,9 +56,12 @@ export const SEARCH_POSTS = gql`
         issuer
         username
       }
-      votes {
-        id
-        value
+      votes: votes_aggregate {
+        aggregate {
+          sum {
+            value
+          }
+        }
       }
       userVotes: votes(where: { user_issuer: { _eq: $user_issuer } }) {
         value

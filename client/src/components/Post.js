@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { timeDifferenceForDate } from "../utils/timeDifference"
 import { List, Button } from "antd"
-import { UpCircleTwoTone, DownCircleTwoTone } from "@ant-design/icons"
+import { UpCircleTwoTone, DownCircleTwoTone, LinkOutlined } from "@ant-design/icons"
 import { useUser } from "../lib/user"
 import { useHistory, Link } from "react-router-dom"
 
@@ -9,7 +9,7 @@ const Post = ({ post }) => {
   const user = useUser()
   const history = useHistory()
 
-  const totalVotes = post.votes?.aggregate.sum.value || 0
+  const totalVotes = post.votes?.aggregate?.sum.value || 0
 
   const [confirm, setConfirm] = useState(false)
   const [deleteText, setDeleteText] = useState("delete")
@@ -106,7 +106,11 @@ const Post = ({ post }) => {
           {/* <Button htmlType="submit" icon={<UpCircleTwoTone />} onClick={() => upvote(post)} />
           <Button htmlType="submit" icon={<DownCircleTwoTone />} onClick={() => downvote(post)} /> */}
         </div>
-        {/* <span>{totalVotes}</span> */}
+        <div className="thumbnail">
+          <List.Item>
+            <LinkOutlined />
+          </List.Item>
+        </div>
         <List.Item.Meta
           title={
             <a href={`//${post.url}`}>

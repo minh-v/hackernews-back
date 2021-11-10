@@ -76,4 +76,5 @@ Environment variables aren't hidden for now (Magic api keys, JWT secret etc.)
 - Pagination
 - Fix signup flow: When user signs up, they still need to log in.
 - When searching for post from sidebar, add search value to search bar
+- When on search page, remove search sider
 - When users delete comment, replace with "deleted" instead of cascading deletes.

@@ -70,3 +70,7 @@
 .deleteConfirmation {
   color: red;
 }
+
+.thumbnail {
+  margin: 0 1rem;
+}
