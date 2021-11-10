@@ -1,7 +1,7 @@
 # Hackernews/Reddit clone
 This project is intended to be a "clone" of hackernews/reddit, implementing some of their features.
 
-<img src="https://i.imgur.com/NLdPpx3.png" width="100%" alt="front page picture" />  
+<img src="https://i.imgur.com/pZbLh4Q.png" width="100%" alt="front page picture" />  
 
 ## Built With
 
@@ -72,8 +72,6 @@ hasura migrate apply --all-databases --endpoint localhost:8080/
 # reload metadata to make sure Hasura is aware of any newly created database objects.
 hasura metadata reload --endpoint localhost:8080/
 ``` -->
-
-
 ## Features
 - Display posts using GraphQL subscriptions
 - User registration/login, authentication with magic link + jwt token stored in httponly cookie

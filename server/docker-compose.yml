@@ -24,6 +24,9 @@ services:
     image: hasura/graphql-engine:v2.0.9.cli-migrations-v3
     ports:
       - "8080:8080"
+    volumes:
+      - ./hackernews-hasura/migrations:/hasura-migrations
+      - ./hackernews-hasura/metadata:/hasura-metadata
     depends_on:
       - "postgres"
     restart: always
@@ -40,7 +43,5 @@ services:
       HASURA_GRAPHQL_ADMIN_SECRET: "secret"
       HASURA_GRAPHQL_JWT_SECRET: '{"key": "byK6btNTxGZoQw4Y2EIrlzg5o2Ze6wfa6sk4gATcXEZiR1KqlpjhSrr7bu85aeT", "type": "HS256"}' ##, "header": {"type": "Cookie", "name": "token"}
       HASURA_GRAPHQL_UNAUTHORIZED_ROLE: public
-      HASURA_GRAPHQL_MIGRATIONS_DIR: /hackernews-hasura/migrations
-      HASURA_GRAPHQL_METADATA_DIR: /hackernews-hasura/metadata
 volumes:
   db_data:
