@@ -1,9 +1,15 @@
 import { List } from "antd"
 import Post from "./Post"
-import { Divider } from "antd"
+import { useState } from "react"
 
 //given posts json, display them all with antd list
 const PostList = ({ posts }) => {
+  const [selected, setSelected] = useState(null) //current selected post id
+
+  const onSelect = (id) => {
+    setSelected(id)
+  }
+
   return (
     <List
       itemLayout="horizontal"
@@ -12,7 +18,7 @@ const PostList = ({ posts }) => {
         return (
           <div>
             <div className="small-spacer"></div>
-            <Post post={item} />
+            <Post post={item} key={item.id} selected={selected === item.id} setSelected={setSelected} />
           </div>
         )
       }}

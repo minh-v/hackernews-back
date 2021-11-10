@@ -1,7 +1,7 @@
 # Hackernews/Reddit clone
 This project is intended to be a "clone" of hackernews/reddit, implementing some of their features.
 
-<img src="https://i.imgur.com/lU1zLAD.png" width="100%" alt="front page picture" />  
+<img src="https://i.imgur.com/NLdPpx3.png" width="100%" alt="front page picture" />  
 
 ## Built With
 

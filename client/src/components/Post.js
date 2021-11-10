@@ -5,7 +5,7 @@ import { UpCircleTwoTone, DownCircleTwoTone, LinkOutlined } from "@ant-design/ic
 import { useUser } from "../lib/user"
 import { useHistory, Link } from "react-router-dom"
 
-const Post = ({ post }) => {
+const Post = ({ post, selected, setSelected }) => {
   const user = useUser()
   const history = useHistory()
 
@@ -13,7 +13,6 @@ const Post = ({ post }) => {
 
   const [confirm, setConfirm] = useState(false)
   const [deleteText, setDeleteText] = useState("delete")
-  const [selected, setSelected] = useState(false)
 
   const upvote = async (item) => {
     if (!user) {
@@ -72,7 +71,7 @@ const Post = ({ post }) => {
   }
   //3 button cases: if user upvoted, if user downvoted, else no vote
   return (
-    <div className={selected === true ? "post-selected" : "post"} onClick={() => setSelected(!selected)}>
+    <div className={selected === true ? "post-selected" : "post"} onClick={() => setSelected(post.id)}>
       <List.Item>
         <div>
           {userVote === 1 ? (
