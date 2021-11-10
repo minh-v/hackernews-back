@@ -53,9 +53,9 @@ docker-compose up
 ```
 
 #### Import Hasura metadata
-In the Hasura console (localhost:8080):
-Click on the settings (⚙) icon at the top right corner of the console screen.
-Click on Import Metadata button and select the hasura_metadata.json file included in the server root folder.  
+In the Hasura console (localhost:8080)  
+Click on the settings (⚙) icon at the top right corner of the console screen.  
+Click on Import Metadata button and select the `hasura_metadata_DATE.json` file included in the server root folder.    
 
 ## Features
 - Display posts using GraphQL subscriptions
