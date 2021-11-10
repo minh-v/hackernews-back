@@ -9,8 +9,8 @@ This project is intended to be a "clone" of hackernews/reddit, implementing some
 - [Antd](https://ant.design/)
 - [Magic](https://magic.link/)
 - [Express.js](https://expressjs.com/)
-- [Postgresql](https://www.postgresql.org/)
 - [Hasura](https://hasura.io/)
+- [Postgresql](https://www.postgresql.org/)
 - [Docker](https://www.docker.com/)
 
 ## Getting Started
@@ -46,7 +46,8 @@ npm start
 ```
 
 In the server folder:
-Install the dependencies and start docker-compose, which contains Express, Hasura and PostgreSQL.
+Install the dependencies and start docker-compose, which contains Express, Hasura and PostgreSQL.  
+Database migrations and metadata should automatically be applied.  
 ```
 # server
 cd server
@@ -54,13 +55,12 @@ npm install
 docker-compose up
 ```
 
-#### To use the hasura console
+To use the hasura console:
 ```
 cd hackernews-hasura
-# in hasura dir
 hasura console
 ```
-Console will be availible at localhost:9695
+Console will be available at localhost:9695
 
 <!-- To initialize the tables and metadata:
 ```
