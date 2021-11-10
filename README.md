@@ -21,7 +21,7 @@ This project is intended to be a "clone" of hackernews/reddit, implementing some
  <!-- or [yarn](https://classic.yarnpkg.com/en/docs/install) -->
 ## Installation and Setup
 
-Application (Create React App) is served on port 3000 (localhost:3000/) 
+Application (Create React App) is served on port 3000 (localhost:3000/)  
 Hasura endpoint is served on port 8080 (localhost:8080/)  
 Express is served on port 3001 (localhost:3001/)  
 
@@ -70,4 +70,5 @@ Environment variables aren't hidden for now (Magic api keys, JWT secret etc.)
 
 - Pagination
 - Fix signup flow: When user signs up, they still need to log in.
+- When searching for post from sidebar, add search value to search bar
 - When users delete comment, replace with "deleted" instead of cascading deletes.
