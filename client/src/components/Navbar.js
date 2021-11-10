@@ -3,7 +3,8 @@ import { Link } from "react-router-dom"
 import { useUser } from "../lib/user"
 import { useHistory } from "react-router-dom"
 import magic from "../magic"
-import { PageHeader, Button } from "antd"
+import { PageHeader, Button, Tooltip } from "antd"
+import { PlusOutlined } from "@ant-design/icons"
 
 const Navbar = () => {
   let user = useUser()
@@ -44,17 +45,23 @@ const Navbar = () => {
           ) : //if user is logged in (has issuer)
           user?.issuer ? (
             [
-              <Link to="/submit">
-                <Button>Submit</Button>
-              </Link>,
-              <Link to={`/user?id=${user.username}`} key="profile">
-                <Button key="2">
-                  {user.username} ({user.karma})
+              <div className="right-nav">
+                <Link to="/submit">
+                  <Tooltip title="Create Post">
+                    <Button className="right-nav-item">
+                      <PlusOutlined />
+                    </Button>
+                  </Tooltip>
+                </Link>
+                <Link to={`/user?id=${user.username}`} key="profile">
+                  <Button key="2" className="right-nav-item">
+                    {user.username} ({user.karma})
+                  </Button>
+                </Link>
+                <Button key="1" type="danger" onClick={logout} key="logout" className="right-nav-item">
+                  Log out
                 </Button>
-              </Link>,
-              <Button key="1" type="danger" onClick={logout} key="logout">
-                Log out
-              </Button>,
+              </div>,
             ]
           ) : (
             //if no user

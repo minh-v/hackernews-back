@@ -11,7 +11,8 @@ const PostList = ({ posts }) => {
       renderItem={(item) => {
         return (
           <div>
-            <Post post={item} /> <Divider />
+            <div className="small-spacer"></div>
+            <Post post={item} />
           </div>
         )
       }}

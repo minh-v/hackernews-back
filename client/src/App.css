@@ -3,6 +3,8 @@
 .app {
   display: flex;
   flex-flow: row nowrap;
+  height: 100vh;
+  background: #DAE0E6;
 }
 
 .title {
@@ -15,26 +17,96 @@
   margin: 0 1rem;
 }
 
-.content {
-  margin: auto;
-  padding: 0 10rem
+.content-layout {
+  background: #DAE0E6;
 }
 
+.content {
+  width: 70%;
+}
+
+.content-div {
+  margin: auto;
+  padding: 0 10rem;
+  background: #DAE0E6;
+}
 
 .navbar {
   justify-content: flex-end;
-  margin-right: 2em
+  margin-right: 2em;
+  
+}
+
+.right-nav {
+  flex-flow: row nowrap;
+  color: ghostwhite;
+}
+
+.right-nav-item {
+  margin: 0 10px;
+}
+
+.post {
+  background: #FFFFFF;
+  width: 60 rem;
+  outline-style: solid;
+  outline-width: 1px;
+  outline-color: grey;
+}
+
+.post-selected {
+  background: #f0f3fc;
+  width: 60 rem;
+  outline-style: solid;
+  outline-width: 1px;
+  outline-color: grey;
+}
+
+.post:hover {
+  outline-style: solid;
+  outline-width: 1px;
+  outline-color: black;
+}
+
+.post-title {
+  color: ghostwhite;
+}
+
+.spacer {
+  height: 1rem;
+}
+
+.small-spacer {
+  height: 0.06rem;
+}
+
+.sider {
+  background: #DAE0E6;
+  margin-right: 6rem;
 }
 
 .side {
   display: flex;
+}
+
+.side-search-div {
+  padding: 1rem .5rem;
+}
+
+.side-search-bar {
+  display: flex;
   flex-flow: row nowrap;
   padding: 2rem .5rem;
+  width: 100%;
+}
+
+.side-card {
+  margin: 0 1rem;
 }
 
 .search {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   padding: 2rem 5rem;
 }
 

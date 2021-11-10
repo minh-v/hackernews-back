@@ -33,9 +33,10 @@ const App = () => {
         <Header className="header">
           <Navbar />
         </Header>
-        <Layout>
-          <Content>
-            <div className="content">
+        <Layout className="content-layout">
+          <Content className="content">
+            <div className="content-div">
+              <div className="spacer"></div>
               <Switch>
                 <Route exact path="/" forceRefresh={true} component={Home} />
                 <Route exact path="/login" component={Login} />
@@ -52,7 +53,7 @@ const App = () => {
               </Switch>
             </div>
           </Content>
-          <Sider theme="light">
+          <Sider className="sider" width="350">
             <Side />
           </Sider>
         </Layout>

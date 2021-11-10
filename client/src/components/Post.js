@@ -13,6 +13,7 @@ const Post = ({ post }) => {
 
   const [confirm, setConfirm] = useState(false)
   const [deleteText, setDeleteText] = useState("delete")
+  const [selected, setSelected] = useState(false)
 
   const upvote = async (item) => {
     if (!user) {
@@ -71,9 +72,9 @@ const Post = ({ post }) => {
   }
   //3 button cases: if user upvoted, if user downvoted, else no vote
   return (
-    <div>
+    <div className={selected === true ? "post-selected" : "post"} onClick={() => setSelected(!selected)}>
       <List.Item>
-        <div className="vote">
+        <div>
           {userVote === 1 ? (
             <div className="vote">
               <Button
@@ -103,8 +104,6 @@ const Post = ({ post }) => {
               <Button type="link" htmlType="submit" icon={<DownCircleTwoTone />} onClick={() => downvote(post)} />
             </div>
           )}
-          {/* <Button htmlType="submit" icon={<UpCircleTwoTone />} onClick={() => upvote(post)} />
-          <Button htmlType="submit" icon={<DownCircleTwoTone />} onClick={() => downvote(post)} /> */}
         </div>
         <div className="thumbnail">
           <List.Item>
