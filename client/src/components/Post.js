@@ -50,7 +50,6 @@ const Post = ({ post, selected, setSelected }) => {
   }
 
   const handleDelete = async (item) => {
-    console.log("delete")
     if (user) {
       const res = await fetch("http://localhost:3001/post", {
         method: "DELETE",

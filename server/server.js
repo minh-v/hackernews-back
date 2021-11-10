@@ -270,7 +270,7 @@ app.post("/vote", async (req, res) => {
     if (dataValue.votes[0]?.value === value) {
       await client.request(DELETE_VOTE, { id: dataValue.votes[0].id }, headers(token)) //delete vote
       updateKarma(poster, token)
-      return
+      return res.status(200).send({ done: true })
     }
     const data = await client.request(VOTE, { user_issuer: user.issuer, post_id: post_id, value: value }, headers(token))
 
@@ -342,8 +342,8 @@ app.post("/comment-vote", async (req, res) => {
 
     //if value is 0, user pressed the vote that they already pressed, so we need to remove it.
     if (value === 0) {
-      const data = client.request(DELETE_COMMENT_VOTE, { id: id }, headers(token))
-      return
+      const data = client.request(DELETE_COMMENT_VOTE, { id: id || 0 }, headers(token))
+      return res.status(200).send({ done: true })
     }
 
     const data = await client.request(
@@ -351,6 +351,7 @@ app.post("/comment-vote", async (req, res) => {
       { user_issuer: user.issuer, comment_id: comment_id, value: value },
       headers(token)
     )
+    res.status(200).send({ done: true })
   } catch (error) {
     console.log(error)
   }

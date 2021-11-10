@@ -15,6 +15,7 @@ const CommentComponent = ({ comment, children, comments }) => {
   const [likes, setLikes] = useState(comment.likes.aggregate.count)
   const [dislikes, setDislikes] = useState(comment.dislikes.aggregate.count)
   const [action, setAction] = useState(comment.userLike[0]?.value || null)
+  const [disabled, setDisabled] = useState(false) //to prevent double clicking
   //user replies to comment
   //submit comment
 
@@ -24,7 +25,7 @@ const CommentComponent = ({ comment, children, comments }) => {
       history.push("/login")
     }
     const { reply } = values
-    const res = await fetch("http://localhost:3001/comment", {
+    await fetch("http://localhost:3001/comment", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -42,10 +43,11 @@ const CommentComponent = ({ comment, children, comments }) => {
       history.push("/signup")
       return
     }
+    setDisabled(true)
     if (action === 1) {
       setLikes(likes - 1)
       setAction(null)
-      const res = await fetch("http://localhost:3001/comment-vote", {
+      await fetch("http://localhost:3001/comment-vote", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -58,7 +60,7 @@ const CommentComponent = ({ comment, children, comments }) => {
       setDislikes(dislikes - 1)
       setAction(1)
       //send request to add vote to db
-      const res = await fetch("http://localhost:3001/comment-vote", {
+      await fetch("http://localhost:3001/comment-vote", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -69,7 +71,7 @@ const CommentComponent = ({ comment, children, comments }) => {
     } else {
       setLikes(likes + 1)
       setAction(1)
-      const res = await fetch("http://localhost:3001/comment-vote", {
+      await fetch("http://localhost:3001/comment-vote", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -78,6 +80,7 @@ const CommentComponent = ({ comment, children, comments }) => {
         body: JSON.stringify({ comment_id: comment.id, value: 1 }),
       })
     }
+    setDisabled(false)
   }
 
   const dislike = async () => {
@@ -86,10 +89,11 @@ const CommentComponent = ({ comment, children, comments }) => {
       history.push("/signup")
       return
     }
+    setDisabled(true)
     if (action === -1) {
       setDislikes(dislikes - 1)
       setAction(null)
-      const res = await fetch("http://localhost:3001/comment-vote", {
+      await fetch("http://localhost:3001/comment-vote", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -102,7 +106,7 @@ const CommentComponent = ({ comment, children, comments }) => {
       setDislikes(dislikes + 1)
       setAction(-1)
       //send request to add vote to db
-      const res = await fetch("http://localhost:3001/comment-vote", {
+      await fetch("http://localhost:3001/comment-vote", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -113,7 +117,7 @@ const CommentComponent = ({ comment, children, comments }) => {
     } else {
       setDislikes(dislikes + 1)
       setAction(-1)
-      const res = await fetch("http://localhost:3001/comment-vote", {
+      await fetch("http://localhost:3001/comment-vote", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -122,6 +126,7 @@ const CommentComponent = ({ comment, children, comments }) => {
         body: JSON.stringify({ comment_id: comment.id, value: -1 }),
       })
     }
+    setDisabled(false)
   }
 
   const handleDelete = async (comment) => {
@@ -169,7 +174,8 @@ const CommentComponent = ({ comment, children, comments }) => {
 
   //display comment, and it's children nested if exists, else display just the comments
   return (
-    <div key={comment.id} className="comment-div">
+    <div key={comment.id} className="comment-div" disabled={disabled}>
+      {/* <div className="spinner-on" style={{ display: "off" }}></div> */}
       {children?.length > 0 ? (
         <Comment
           actions={actions}

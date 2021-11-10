@@ -27,6 +27,7 @@ const SignUp = () => {
 
   const handleSignup = async (email, username) => {
     //check email
+    setDisabled(true)
     const { data } = await checkDuplicate({ email: email, username: username })
 
     //validate email and username
@@ -57,6 +58,7 @@ const SignUp = () => {
     if (res.status === 200) {
       console.log("sign up successful")
     }
+    setDisabled(false)
     history.push("/")
     history.go(0)
   }

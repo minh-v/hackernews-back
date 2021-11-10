@@ -58,20 +58,10 @@ docker-compose up
 To use the hasura console:
 ```
 cd server/hackernews-hasura
-hasura console
+npx hasura console
 ```
 Console will be available at localhost:9695
 
-<!-- To initialize the tables and metadata:
-```
-# in project dir
-# apply metadata, this will connect Hasura to the configured databases.
-hasura metadata apply --endpoint localhost:8080/
-# apply migrations to the connected databases.
-hasura migrate apply --all-databases --endpoint localhost:8080/
-# reload metadata to make sure Hasura is aware of any newly created database objects.
-hasura metadata reload --endpoint localhost:8080/
-``` -->
 ## Features
 - Display posts using GraphQL subscriptions
 - User registration/login, authentication with magic link + jwt token stored in httponly cookie
@@ -94,3 +84,5 @@ Environment variables aren't hidden for now (Magic api keys, JWT secret etc.)
 - When searching for post from sidebar, add search value to search bar
 - When on search page, remove search sider
 - When users delete comment, replace with "deleted" instead of cascading deletes.
+- Comment padding
+- On all handlesubmits, disabled the button at the beginning and reenable at the end
