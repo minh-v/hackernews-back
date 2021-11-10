@@ -1,0 +1,59 @@
+table:
+  name: comments_votes
+  schema: public
+object_relationships:
+- name: comment
+  using:
+    foreign_key_constraint_on: comment_id
+- name: user
+  using:
+    foreign_key_constraint_on: user_issuer
+insert_permissions:
+- permission:
+    backend_only: false
+    check:
+      user_issuer:
+        _eq: X-Hasura-User-Id
+    columns:
+    - comment_id
+    - id
+    - value
+    - user_issuer
+  role: user
+select_permissions:
+- permission:
+    allow_aggregations: true
+    columns:
+    - comment_id
+    - id
+    - value
+    - user_issuer
+    filter: {}
+  role: public
+- permission:
+    allow_aggregations: true
+    columns:
+    - id
+    - comment_id
+    - value
+    - user_issuer
+    filter: {}
+  role: user
+update_permissions:
+- permission:
+    check: null
+    columns:
+    - id
+    - comment_id
+    - value
+    - user_issuer
+    filter:
+      user_issuer:
+        _eq: X-Hasura-User-Id
+  role: user
+delete_permissions:
+- permission:
+    filter:
+      user_issuer:
+        _eq: X-Hasura-User-Id
+  role: user

@@ -1,0 +1,59 @@
+table:
+  name: users
+  schema: public
+array_relationships:
+- name: comments
+  using:
+    foreign_key_constraint_on:
+      column: user_issuer
+      table:
+        name: comments
+        schema: public
+- name: posts
+  using:
+    foreign_key_constraint_on:
+      column: user_issuer
+      table:
+        name: posts
+        schema: public
+- name: votes
+  using:
+    foreign_key_constraint_on:
+      column: user_issuer
+      table:
+        name: votes
+        schema: public
+insert_permissions:
+- permission:
+    backend_only: false
+    check:
+      issuer:
+        _eq: X-Hasura-User-Id
+    columns:
+    - email
+    - issuer
+    - publicAddress
+    - username
+  role: user
+select_permissions:
+- permission:
+    columns:
+    - createdAt
+    - email
+    - issuer
+    - karma
+    - publicAddress
+    - username
+    filter: {}
+  role: public
+- permission:
+    allow_aggregations: true
+    columns:
+    - createdAt
+    - email
+    - issuer
+    - karma
+    - publicAddress
+    - username
+    filter: {}
+  role: user
