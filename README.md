@@ -62,6 +62,9 @@ npx hasura console
 ```
 Console will be available at localhost:9695
 
+#### Environment variables
+Environment variables aren't hidden for now (Magic api keys, JWT secret etc.)
+
 ## Features
 - Display posts using GraphQL subscriptions
 - User registration/login, authentication with magic link + jwt token stored in httponly cookie
@@ -74,15 +77,10 @@ Console will be available at localhost:9695
 - Post karma system
 - Back end features: Auto apply migrations and metadata
 
-#### Environment variables
-Environment variables aren't hidden for now (Magic api keys, JWT secret etc.)
-
 #### TODO
 
 - Pagination
 - Fix signup flow: When user signs up, they still need to log in.
-- When searching for post from sidebar, add search value to search bar
 - When on search page, remove search sider
 - When users delete comment, replace with "deleted" instead of cascading deletes.
-- Comment padding
 - On all handlesubmits, disabled the button at the beginning and reenable at the end

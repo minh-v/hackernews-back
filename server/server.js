@@ -162,7 +162,7 @@ app.post("/signup", async (req, res) => {
       username: username,
     }
 
-    //add user to hasura, add date created?
+    //add user to hasura
     await client.request(ADD_USER, variables, headers(token))
     //set cookie token here
     //setCookie(res, token)

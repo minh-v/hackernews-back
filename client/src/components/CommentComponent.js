@@ -4,6 +4,7 @@ import { DislikeOutlined, LikeOutlined, DislikeFilled, LikeFilled } from "@ant-d
 import { useUser } from "../lib/user"
 import { useHistory } from "react-router"
 import { timeDifferenceForDate } from "../utils/timeDifference"
+import { Link } from "react-router-dom"
 
 const { TextArea } = Input
 
@@ -179,7 +180,7 @@ const CommentComponent = ({ comment, children, comments }) => {
       {children?.length > 0 ? (
         <Comment
           actions={actions}
-          author={comment.user.username}
+          author={<Link to={`/user?id=${comment.user.username}`}>{comment.user.username}</Link>}
           content={comment.comment}
           datetime={timeDifferenceForDate(comment.createdAt)}
         >
@@ -190,7 +191,7 @@ const CommentComponent = ({ comment, children, comments }) => {
       ) : (
         <Comment
           actions={actions}
-          author={comment.user.username}
+          author={<Link to={`/user?id=${comment.user.username}`}>{comment.user.username}</Link>}
           content={comment.comment}
           datetime={timeDifferenceForDate(comment.createdAt)}
         />
