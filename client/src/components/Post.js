@@ -5,7 +5,7 @@ import { UpCircleTwoTone, DownCircleTwoTone, LinkOutlined } from "@ant-design/ic
 import { useUser } from "../lib/user"
 import { useHistory, Link } from "react-router-dom"
 
-const Post = ({ post, selected, setSelected }) => {
+const Post = ({ post, selected, setSelected, index }) => {
   const user = useUser()
   const history = useHistory()
 
@@ -77,6 +77,7 @@ const Post = ({ post, selected, setSelected }) => {
       }}
     >
       <List.Item>
+        <div className="post-index">{index}.</div>
         <div>
           {userVote === 1 ? (
             <div className="vote">

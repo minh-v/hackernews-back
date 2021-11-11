@@ -137,6 +137,10 @@ div[disabled]
   flex-flow: column;
 }
 
+.post-index {
+  margin: 0 .5rem;
+}
+
 .comment-select {
   text-decoration: underline;
 }

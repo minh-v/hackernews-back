@@ -6,10 +6,6 @@ import { useState } from "react"
 const PostList = ({ posts }) => {
   const [selected, setSelected] = useState(null) //current selected post id
 
-  const onSelect = (id) => {
-    setSelected(id)
-  }
-
   return (
     <List
       itemLayout="horizontal"
@@ -18,7 +14,13 @@ const PostList = ({ posts }) => {
         return (
           <div>
             <div className="small-spacer"></div>
-            <Post post={item} key={item.id} selected={selected === item.id} setSelected={setSelected} />
+            <Post
+              post={item}
+              key={item.id}
+              selected={selected === item.id}
+              setSelected={setSelected}
+              index={posts.indexOf(item) + 1}
+            />
           </div>
         )
       }}

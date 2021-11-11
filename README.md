@@ -75,7 +75,7 @@ Environment variables aren't hidden for now (Magic api keys, JWT secret etc.)
 - Users can search for posts (url, title)
 - User profile page
 - Post karma system
-- Back end features: Auto apply migrations and metadata
+- Uses Hasura to auto apply migrations and metadata
 
 #### TODO
 
