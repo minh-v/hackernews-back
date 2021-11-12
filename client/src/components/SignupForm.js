@@ -27,6 +27,7 @@ const SignupForm = ({ handleSignup, disabled }) => {
         <Form.Item
           label="Username"
           name="username"
+          disabled={disabled}
           rules={[
             {
               required: true,

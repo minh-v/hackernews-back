@@ -4,7 +4,7 @@ const Submit = () => {
   const history = useHistory()
 
   const handleSubmit = async (title, url) => {
-    const res = await fetch("http://localhost:3001/post", {
+    await fetch("http://localhost:3001/post", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -12,8 +12,8 @@ const Submit = () => {
       credentials: "include",
       body: JSON.stringify({ title, url }), // Send the title, url
     })
-    console.log("submittd?")
-    history.push("/")
+    console.log("submittd")
+    history.push("/") //send to home screen
     history.go(0)
   }
   return (

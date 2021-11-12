@@ -34,8 +34,8 @@ const CommentComponent = ({ comment, children, comments }) => {
       credentials: "include",
       body: JSON.stringify({ post_id: comment.post_id, comment: reply, parent_id: comment.id }),
     })
-
     setOpen(!open)
+    history.go(0)
   }
 
   const like = async () => {

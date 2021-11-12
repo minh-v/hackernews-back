@@ -1,7 +1,7 @@
 # Hackernews/Reddit clone
 This project is intended to be a "clone" of hackernews/reddit, implementing some of their features.
 
-<img src="https://i.imgur.com/pZbLh4Q.png" width="100%" alt="front page picture" />  
+<img src="https://i.imgur.com/KTnuJWG.png" width="100%" alt="front page picture" />  
 
 ## Built With
 
@@ -60,7 +60,7 @@ To use the hasura console:
 cd server/hackernews-hasura
 npx hasura console
 ```
-Console will be available at localhost:9695
+Console will be available at localhost:9695/
 
 #### Environment variables
 Environment variables aren't hidden for now (Magic api keys, JWT secret etc.)
@@ -75,12 +75,15 @@ Environment variables aren't hidden for now (Magic api keys, JWT secret etc.)
 - Users can search for posts (url, title)
 - User profile page
 - Post karma system
+- Pagination
 - Uses Hasura to auto apply migrations and metadata
 
-#### TODO
+#### TODO / Bugs
 
-- Pagination
 - Fix signup flow: When user signs up, they still need to log in.
+- when users comment, action bars don't get refreshed.
+- Make app responsive for mobile!!!
+- Create initial seed for db
 - When on search page, remove search sider
 - When users delete comment, replace with "deleted" instead of cascading deletes.
 - On all handlesubmits, disabled the button at the beginning and reenable at the end

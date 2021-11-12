@@ -13,9 +13,10 @@ import ProfilePage from "./pages/ProfilePage"
 import Submitted from "./pages/Submitted"
 import Comments from "./pages/Comments"
 import Top from "./pages/Top"
-import { Switch, Route, useLocation } from "react-router-dom"
+import { Switch, Route, useLocation, Redirect } from "react-router-dom"
 import { Layout } from "antd"
 import { useEffect } from "react"
+import New from "./pages/New"
 
 // import { useUser } from "./lib/user"
 const { Header, Content, Sider } = Layout
@@ -38,7 +39,10 @@ const App = () => {
             <div className="content-div">
               <div className="spacer"></div>
               <Switch>
-                <Route exact path="/" forceRefresh={true} component={Home} />
+                {/* <Route exact path="/" forceRefresh={true} component={Home} /> */}
+                <Route exact path="/" forceRefresh={true} render={() => <Redirect to="/new/1" />} />
+                <Route exact path="/new/:page" component={New} />
+                <Route exact path="/top/:page" component={Top} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={SignUp} />
                 <Route exact path="/callback" component={Callback} />
@@ -49,7 +53,6 @@ const App = () => {
                 <Route exact path="/comments" component={Comments} />
                 <Route exact path="/post" component={PostPage} />
                 <Route exact path="/user" component={ProfilePage} />
-                <Route exact path="/top" component={Top} />
               </Switch>
             </div>
           </Content>

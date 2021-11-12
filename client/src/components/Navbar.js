@@ -33,8 +33,11 @@ const Navbar = () => {
             <Link to="/">
               <div className="header-title">Home</div>
             </Link>
-            <Link to="/top">
+            <Link to="/top/1">
               <div className="top-title">Top</div>
+            </Link>
+            <Link to="/new/1">
+              <div className="top-title">New</div>
             </Link>
           </div>
         }

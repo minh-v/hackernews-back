@@ -3,7 +3,7 @@ import CommentComponent from "../components/CommentComponent"
 import { GET_USER_COMMENTS } from "../lib/queries"
 import { useQuery } from "@apollo/client"
 import { useUser } from "../lib/user"
-import { Divider } from "antd"
+import { Divider, Empty } from "antd"
 
 const Comments = (props) => {
   const user = useUser()
@@ -20,15 +20,21 @@ const Comments = (props) => {
   if (loading) return <div>loading..</div>
   return (
     <div>
-      {data.comments.map((comment) => {
-        return (
-          <div>
-            <Post post={comment.post} />
-            <CommentComponent comment={comment} comments={comment} />
-            <Divider />
-          </div>
-        )
-      })}
+      {data.comments.length > 0 ? (
+        data.comments.map((comment) => {
+          return (
+            <div>
+              <Post post={comment.post} />
+              <CommentComponent comment={comment} comments={comment} />
+              <Divider />
+            </div>
+          )
+        })
+      ) : (
+        <div>
+          <Empty />
+        </div>
+      )}
     </div>
   )
 }

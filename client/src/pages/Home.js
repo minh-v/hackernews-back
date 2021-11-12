@@ -8,9 +8,6 @@ const Home = () => {
 
   const { data, loading } = useSubscription(POSTS_SUBSCRIPTION, { variables: { user_issuer: user ? user?.issuer : "" } })
 
-  // console.log("user: ", user)
-  // console.log("home data: ", data)
-
   if (loading || !data) return <div>loading...</div>
   return (
     <div>

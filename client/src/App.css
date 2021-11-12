@@ -173,3 +173,22 @@ div[disabled]
   background: #FFFFFF;
   padding: 0 1rem;
 }
+
+.navigation-button {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.next-button {
+  display: flex;
+  align-self: flex-end;
+  margin-left: auto; 
+  margin-right: 0;  
+  padding: 1rem;
+}
+
+.previous-button {
+  display: flex;
+  align-self: flex-end;
+  padding: 1rem;
+}

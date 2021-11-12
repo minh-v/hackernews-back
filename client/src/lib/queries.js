@@ -105,7 +105,7 @@ export const POSTS_SUBSCRIPTION = gql`
   }
 `
 
-export const GET_POSTS_BY_VOTE = gql`
+export const SUBSCRIBE_POSTS_BY_VOTE = gql`
   subscription getPostsByVote($user_issuer: String) {
     posts(order_by: { votes_aggregate: { sum: { value: desc_nulls_last } } }) {
       id
@@ -324,6 +324,36 @@ export const GET_USER_COMMENTS = gql`
           aggregate {
             count
           }
+        }
+      }
+    }
+  }
+`
+
+export const SUBSCRIBE_POSTS = gql`
+  subscription subscribe_posts($user_issuer: String, $order: posts_order_by!, $limit: Int, $offset: Int) {
+    posts(order_by: [$order], limit: $limit, offset: $offset) {
+      id
+      title
+      url
+      createdAt
+      votes: votes_aggregate {
+        aggregate {
+          sum {
+            value
+          }
+        }
+      }
+      userVotes: votes(where: { user_issuer: { _eq: $user_issuer } }) {
+        value
+      }
+      user {
+        issuer
+        username
+      }
+      comments_aggregate {
+        aggregate {
+          count
         }
       }
     }
