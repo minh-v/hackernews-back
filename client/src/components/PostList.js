@@ -4,14 +4,22 @@ import { useState } from "react"
 import { useHistory } from "react-router"
 import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons"
 import { Button } from "antd"
+import { useMediaQuery } from "react-responsive"
+import Side from "./Side"
 //given posts json, display them all with antd list
 const PostList = ({ posts, page, sort, pageIndex }) => {
   //graphql call here?
   const history = useHistory()
   const [selected, setSelected] = useState(null) //current selected post id
+  const minBreakpoint = useMediaQuery({ query: "(max-width: 768px" })
 
   return (
     <div>
+      {minBreakpoint && (
+        <div clasName="small-side">
+          <Side />
+        </div>
+      )}
       <List
         itemLayout="horizontal"
         dataSource={posts}

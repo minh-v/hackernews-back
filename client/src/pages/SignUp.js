@@ -34,7 +34,7 @@ const SignUp = () => {
     if (data.users.length !== 0) {
       if (email === data.users[0].email) message.error("This email address is already being used") //red text above the top
       if (username === data.users[0].username) message.error("This username is already being used")
-
+      setDisabled(false)
       return
     }
 

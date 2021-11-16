@@ -18,6 +18,7 @@ import { Switch, Route, useLocation, Redirect } from "react-router-dom"
 import { Layout } from "antd"
 import { useEffect } from "react"
 import New from "./pages/New"
+import { useMediaQuery } from "react-responsive"
 
 // import { useUser } from "./lib/user"
 const { Header, Content, Sider } = Layout
@@ -29,9 +30,11 @@ const App = () => {
     console.log("if currentPath = search, remove sidebar eventually")
   }, [location])
 
+  const minBreakpoint = useMediaQuery({ query: "(max-width: 768px" })
+
   return (
     <div className="app">
-      <Layout>
+      <Layout className="app-layout">
         <Row>
           <Col span={24}>
             <Header className="header">
@@ -41,12 +44,11 @@ const App = () => {
         </Row>
         <Row>
           <Layout className="content-layout">
-            <Col xs={24} xl={18}>
+            <Col xs={24} md={18}>
               <Content className="content">
                 <div className="content-div">
-                  <div className="spacer"></div>
+                  {!minBreakpoint && <div className="spacer"></div>}
                   <Switch>
-                    {/* <Route exact path="/" forceRefresh={true} component={Home} /> */}
                     <Route exact path="/" forceRefresh={true} render={() => <Redirect to="/new/1" />} />
                     <Route exact path="/new/:page" component={New} />
                     <Route exact path="/top/:page" component={Top} />
@@ -64,13 +66,13 @@ const App = () => {
                 </div>
               </Content>
             </Col>
-            <Col xs={24} xl={6}>
+            <Col xs={0} md={6}>
               <Sider
                 className="sider"
-                // width="350"
                 onBreakpoint={(broken) => {
-                  console.log(broken)
+                  console.log("broken")
                 }}
+                width="100%"
               >
                 <Side />
               </Sider>

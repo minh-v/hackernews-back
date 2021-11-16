@@ -1,9 +1,15 @@
 @import '~antd/dist/antd.css';
 
 .app {
-  display: flex;
-  flex-flow: row nowrap;
-  height: 100vh;
+  background: #DAE0E6;
+}
+/* 
+body {
+  width: 100%;
+  height: 100%;
+} */
+
+.app-layout {
   background: #DAE0E6;
 }
 
@@ -49,6 +55,7 @@ div[disabled]
 
 .content-layout {
   background: #DAE0E6;
+  height: 100vh;
 }
 
 /* .content {
@@ -57,7 +64,7 @@ div[disabled]
 
 .content-div {
   margin: auto;
-  padding: 0 5rem;
+  padding: 0 4rem;
   background: #DAE0E6;
   width: 100%;
 }
@@ -114,35 +121,44 @@ div[disabled]
 .sider {
   background: #DAE0E6;
   margin-right: 6rem;
+  margin: auto;
 }
 
 .side {
   display: flex;
 }
 
+.side-container {
+  background: #DAE0E6;
+  width: 100%;
+}
+
 .side-search-div {
-  padding: 1rem .5rem;
+  padding: .5rem;
 }
 
 .side-search-bar {
   display: flex;
   flex-flow: row nowrap;
-  padding: 2rem .5rem;
+  padding: 2rem .5rem 0;
   width: 100%;
+  justify-content: space-evenly;
 }
 
 .side-card {
-  margin: 0 1rem;
+  margin: 1rem 1rem;
 }
 
 .side-card-submit {
   width: 100%;
 }
 
-.search {
+.search-form {
   display: flex;
   flex-flow: row wrap;
   padding: 2rem 5rem;
+  width: 100%;
+  justify-content: space-evenly;
 }
 
 .signup-page, .login-page {

@@ -25,7 +25,7 @@ const Search = (props) => {
   if (loading) return <div>loading..</div>
   return (
     <div>
-      <Form onFinish={handleSubmit} className="search">
+      <Form onFinish={handleSubmit} className="search-form">
         <Form.Item
           // label="Search"
           name="search"
