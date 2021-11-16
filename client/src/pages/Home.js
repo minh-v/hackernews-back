@@ -5,7 +5,7 @@
 
 // const Home = () => {
 //   let user = useUser()
-
+////rank posts by vote AND age
 //   const { data, loading } = useSubscription(POSTS_SUBSCRIPTION, { variables: { user_issuer: user ? user?.issuer : "" } })
 
 //   if (loading || !data) return <div>loading...</div>

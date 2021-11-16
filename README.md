@@ -76,7 +76,7 @@ Environment variables aren't hidden for now (Magic api keys, JWT secret etc.)
 - User profile page
 - Post karma system
 - Pagination
-- Responsive design using media queries
+- Responsive design
 - Uses Hasura to auto apply migrations and metadata
 
 #### TODO / Bugs
@@ -86,4 +86,3 @@ Environment variables aren't hidden for now (Magic api keys, JWT secret etc.)
 - Create initial seed for db
 - When users delete comment, replace with "deleted" instead of cascading deletes.
 - On all handlesubmits, disabled the button at the beginning and reenable at the end
-- Fix iphone navbar responsiveness

@@ -36,6 +36,12 @@ div[disabled]
   display: block;
 }
 
+@media (max-width: 380px) {
+  .header {
+    padding: 0 15px;
+  }
+}
+
 .header-nav {
   display: flex;
   flex-flow: row nowrap;
@@ -46,12 +52,6 @@ div[disabled]
 .header-logout {
   color: red;
 }
-
-/* @media (max-width: 610px) {
-  .nav-menu {
-    display: none;
-  }
-} */
 
 .content-layout {
   background: #DAE0E6;
@@ -69,20 +69,6 @@ div[disabled]
   width: 100%;
 }
 
-.navbar {
-  justify-content: flex-end;
-  margin-right: 2em;
-  
-}
-
-.right-nav {
-  flex-flow: row nowrap;
-  color: ghostwhite;
-}
-
-.right-nav-item {
-  margin: 0 10px;
-}
 
 .post {
   background: #FFFFFF;
