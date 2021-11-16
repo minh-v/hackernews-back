@@ -20,7 +20,7 @@ const Top = () => {
   const orderBy = { votes_aggregate: { sum: { value: "desc_nulls_last" } } }
 
   const { data, loading } = useSubscription(SUBSCRIBE_POSTS, {
-    variables: { user_issuer: user ? user?.issuer : "", offset: offset, limit: limit, order: orderBy },
+    variables: { user_issuer: user ? user?.issuer : "", offset: offset, limit: limit, order: orderBy, search: "" },
   })
 
   //fix issue where is post has no votes, aggregate sum of votes is null
@@ -59,12 +59,12 @@ const Top = () => {
         </span>
       </div>
     )
-
-  return (
-    <div>
-      <PostList posts={data.posts} page={page} sort={"top"} pageIndex={offset} />
-    </div>
-  )
+  else
+    return (
+      <div>
+        <PostList posts={data.posts} page={page} sort={"top"} pageIndex={offset} />
+      </div>
+    )
 }
 
 export default Top

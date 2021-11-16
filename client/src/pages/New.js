@@ -19,7 +19,7 @@ const New = () => {
   const orderBy = { createdAt: "desc" }
 
   const { data, loading } = useSubscription(SUBSCRIBE_POSTS, {
-    variables: { user_issuer: user ? user?.issuer : "", offset: offset, limit: limit, order: orderBy },
+    variables: { user_issuer: user ? user?.issuer : "", offset: offset, limit: limit, order: orderBy, search: "" },
   })
 
   if (loading || !data) return <div>loading...</div>
@@ -41,11 +41,12 @@ const New = () => {
         </span>
       </div>
     )
-  return (
-    <div>
-      <PostList posts={data.posts} page={page} sort={"new"} pageIndex={offset} />
-    </div>
-  )
+  else
+    return (
+      <div>
+        <PostList posts={data.posts} page={page} sort={"new"} pageIndex={offset} />
+      </div>
+    )
 }
 
 export default New

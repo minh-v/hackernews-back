@@ -45,65 +45,65 @@ export const GET_ALL_POSTS = gql`
 `
 
 //search posts by title or url
-export const SEARCH_POSTS = gql`
-  subscription searchPosts($search: String!, $user_issuer: String) {
-    posts(where: { _or: [{ title: { _iregex: $search } }, { url: { _iregex: $search } }] }) {
-      id
-      title
-      url
-      createdAt
-      user {
-        issuer
-        username
-      }
-      votes: votes_aggregate {
-        aggregate {
-          sum {
-            value
-          }
-        }
-      }
-      userVotes: votes(where: { user_issuer: { _eq: $user_issuer } }) {
-        value
-      }
-      comments_aggregate {
-        aggregate {
-          count
-        }
-      }
-    }
-  }
-`
+// export const SEARCH_POSTS = gql`
+//   subscription searchPosts($search: String!, $user_issuer: String) {
+//     posts(where: { _or: [{ title: { _iregex: $search } }, { url: { _iregex: $search } }] }) {
+//       id
+//       title
+//       url
+//       createdAt
+//       user {
+//         issuer
+//         username
+//       }
+//       votes: votes_aggregate {
+//         aggregate {
+//           sum {
+//             value
+//           }
+//         }
+//       }
+//       userVotes: votes(where: { user_issuer: { _eq: $user_issuer } }) {
+//         value
+//       }
+//       comments_aggregate {
+//         aggregate {
+//           count
+//         }
+//       }
+//     }
+//   }
+// `
 
-export const POSTS_SUBSCRIPTION = gql`
-  subscription refreshPosts($user_issuer: String) {
-    posts(order_by: { createdAt: desc }) {
-      id
-      title
-      url
-      createdAt
-      votes: votes_aggregate {
-        aggregate {
-          sum {
-            value
-          }
-        }
-      }
-      userVotes: votes(where: { user_issuer: { _eq: $user_issuer } }) {
-        value
-      }
-      user {
-        issuer
-        username
-      }
-      comments_aggregate {
-        aggregate {
-          count
-        }
-      }
-    }
-  }
-`
+// export const POSTS_SUBSCRIPTION = gql`
+//   subscription refreshPosts($user_issuer: String) {
+//     posts(order_by: { createdAt: desc }) {
+//       id
+//       title
+//       url
+//       createdAt
+//       votes: votes_aggregate {
+//         aggregate {
+//           sum {
+//             value
+//           }
+//         }
+//       }
+//       userVotes: votes(where: { user_issuer: { _eq: $user_issuer } }) {
+//         value
+//       }
+//       user {
+//         issuer
+//         username
+//       }
+//       comments_aggregate {
+//         aggregate {
+//           count
+//         }
+//       }
+//     }
+//   }
+// `
 
 export const SUBSCRIBE_POSTS_BY_VOTE = gql`
   subscription getPostsByVote($user_issuer: String) {
@@ -331,8 +331,82 @@ export const GET_USER_COMMENTS = gql`
 `
 
 export const SUBSCRIBE_POSTS = gql`
-  subscription subscribe_posts($user_issuer: String, $order: posts_order_by!, $limit: Int, $offset: Int) {
-    posts(order_by: [$order], limit: $limit, offset: $offset) {
+  subscription subscribe_posts($user_issuer: String, $order: posts_order_by!, $limit: Int, $offset: Int, $search: String!) {
+    posts(
+      order_by: [$order]
+      limit: $limit
+      offset: $offset
+      where: { _or: [{ title: { _iregex: $search } }, { url: { _iregex: $search } }] }
+    ) {
+      id
+      title
+      url
+      createdAt
+      votes: votes_aggregate {
+        aggregate {
+          sum {
+            value
+          }
+        }
+      }
+      userVotes: votes(where: { user_issuer: { _eq: $user_issuer } }) {
+        value
+      }
+      user {
+        issuer
+        username
+      }
+      comments_aggregate {
+        aggregate {
+          count
+        }
+      }
+    }
+  }
+`
+export const SEARCH_POSTS_SORTED_NEW = gql`
+  query search_posts_sorted_new($user_issuer: String, $limit: Int, $offset: Int, $search: String!) {
+    posts(
+      order_by: { createdAt: desc }
+      limit: $limit
+      offset: $offset
+      where: { _or: [{ title: { _iregex: $search } }, { url: { _iregex: $search } }] }
+    ) {
+      id
+      title
+      url
+      createdAt
+      votes: votes_aggregate {
+        aggregate {
+          sum {
+            value
+          }
+        }
+      }
+      userVotes: votes(where: { user_issuer: { _eq: $user_issuer } }) {
+        value
+      }
+      user {
+        issuer
+        username
+      }
+      comments_aggregate {
+        aggregate {
+          count
+        }
+      }
+    }
+  }
+`
+
+export const SEARCH_POSTS_SORTED_TOP = gql`
+  query search_posts_sorted_top($user_issuer: String, $limit: Int, $offset: Int, $search: String!) {
+    posts(
+      order_by: { votes_aggregate: { sum: { value: asc } } }
+      limit: $limit
+      offset: $offset
+      where: { _or: [{ title: { _iregex: $search } }, { url: { _iregex: $search } }] }
+    ) {
       id
       title
       url

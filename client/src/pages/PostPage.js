@@ -81,7 +81,6 @@ const PostPage = (props) => {
             {commentDisplay} <DownOutlined />
           </span>
         </Dropdown>
-        ,
       </span>
       <Form onFinish={handleSubmit} form={form}>
         <Form.Item

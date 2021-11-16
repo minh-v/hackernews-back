@@ -10,7 +10,7 @@ const Side = ({ handleSearch }) => {
 
   const handleSubmit = (values) => {
     const { search } = values
-    history.push(`/search?q=${search}`)
+    history.push(`/search?q=${search}/1`)
   }
 
   return (

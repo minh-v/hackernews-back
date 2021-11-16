@@ -16,7 +16,7 @@ import Comments from "./pages/Comments"
 import Top from "./pages/Top"
 import { Switch, Route, useLocation, Redirect } from "react-router-dom"
 import { Layout } from "antd"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import New from "./pages/New"
 import { useMediaQuery } from "react-responsive"
 
@@ -24,10 +24,18 @@ import { useMediaQuery } from "react-responsive"
 const { Header, Content, Sider } = Layout
 
 const App = () => {
+  const [showSider, setShowSider] = useState(true)
   const location = useLocation()
+  let currentPath = ""
   useEffect(() => {
-    const currentPath = location.pathname
-    console.log("if currentPath = search, remove sidebar eventually")
+    const { pathname } = location
+    currentPath = pathname.split("/")[1]
+    if (currentPath === "signup" || currentPath === "login" || currentPath === "search") {
+      setShowSider(false)
+    } else {
+      setShowSider(true)
+    }
+    console.log(showSider)
   }, [location])
 
   const minBreakpoint = useMediaQuery({ query: "(max-width: 768px" })
@@ -66,17 +74,19 @@ const App = () => {
                 </div>
               </Content>
             </Col>
-            <Col xs={0} md={6}>
-              <Sider
-                className="sider"
-                onBreakpoint={(broken) => {
-                  console.log("broken")
-                }}
-                width="100%"
-              >
-                <Side />
-              </Sider>
-            </Col>
+            {showSider && (
+              <Col xs={0} md={6}>
+                <Sider
+                  className="sider"
+                  onBreakpoint={(broken) => {
+                    console.log("broken")
+                  }}
+                  width="100%"
+                >
+                  <Side />
+                </Sider>
+              </Col>
+            )}
           </Layout>
         </Row>
       </Layout>

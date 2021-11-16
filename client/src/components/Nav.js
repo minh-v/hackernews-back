@@ -98,18 +98,36 @@ const Nav = () => {
         </div>
       ) : (
         <div className="nav-menu">
-          <Menu theme="dark" mode="horizontal" disabledOverflow={true} selectedKeys={[pathname.split("/")[1]]}>
-            <Menu.Item key="login">
-              <Link to="/login" key="login">
-                Login
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="signup">
-              <Link to="/signup" key="signup">
-                Signup
-              </Link>
-            </Menu.Item>
-          </Menu>
+          {!minBreakpoint && (
+            <Menu theme="dark" mode="horizontal" disabledOverflow={true} selectedKeys={[pathname.split("/")[1]]}>
+              <Menu.Item key="login">
+                <Link to="/login" key="login">
+                  Login
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="signup">
+                <Link to="/signup" key="signup">
+                  Signup
+                </Link>
+              </Menu.Item>
+            </Menu>
+          )}
+          {minBreakpoint && (
+            <Menu theme="dark" mode="horizontal" disabledOverflow={true} selectedKeys={[pathname.split("/")[1]]}>
+              <SubMenu key="SubMenu" icon={<MenuOutlined style={{ fontSize: "20px" }} />}>
+                <Menu.Item key="login">
+                  <Link to="/login" key="login">
+                    Login
+                  </Link>
+                </Menu.Item>
+                <Menu.Item key="signup">
+                  <Link to="/signup" key="signup">
+                    Signup
+                  </Link>
+                </Menu.Item>
+              </SubMenu>
+            </Menu>
+          )}
         </div>
       )}
     </div>

@@ -10,6 +10,29 @@ import Side from "./Side"
 const PostList = ({ posts, page, sort, pageIndex }) => {
   //graphql call here?
   const history = useHistory()
+  console.log(history.location)
+
+  let prevLink, nextLink
+
+  if (history.location.pathname.includes("search")) {
+    const newSearch = history.location.search.split("/")[0] //base pathname url before first /
+    const npage = parseInt(history.location.search.split("/")[1]) //current page number
+    const prevPage = npage - 1
+    const nextPage = npage + 1
+    prevLink = history.location.pathname + newSearch + "/" + prevPage
+    nextLink = history.location.pathname + newSearch + "/" + nextPage
+    console.log(prevLink)
+  } else {
+    const pageIndexParams = history.location.pathname.split("/") //splitting up url params
+    console.log(pageIndexParams)
+    const npage = parseInt(pageIndexParams[pageIndexParams.length - 1]) //page number
+    const prevPage = npage - 1
+    const nextPage = npage + 1
+    const order = pageIndexParams[pageIndexParams.length - 2] //page sort
+    prevLink = "/" + order + "/" + (npage - 1)
+    nextLink = "/" + order + "/" + (npage + 1)
+  }
+
   const [selected, setSelected] = useState(null) //current selected post id
   const minBreakpoint = useMediaQuery({ query: "(max-width: 768px" })
 
@@ -44,7 +67,7 @@ const PostList = ({ posts, page, sort, pageIndex }) => {
             className="previous-button"
             onClick={() => {
               if (page > 1) {
-                history.push(`/${sort}/${page - 1}`)
+                history.push(prevLink)
               }
             }}
           >
@@ -56,7 +79,7 @@ const PostList = ({ posts, page, sort, pageIndex }) => {
         <div
           className="next-button"
           onClick={() => {
-            history.push(`/${sort}/${page + 1}`)
+            history.push(nextLink)
           }}
         >
           <Button>
