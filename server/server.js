@@ -173,7 +173,7 @@ app.post("/signup", async (req, res) => {
       sameSite: "lax",
       path: "/",
     })
-    res.status(200).send({ done: true })
+    res.status(200).send("OK")
   } catch (error) {
     console.log("error: ", error)
     res.status(500).end()

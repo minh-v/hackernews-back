@@ -1,5 +1,6 @@
 import "./App.css"
-import Navbar from "./components/Navbar"
+import Nav from "./components/Nav"
+import { Row, Col } from "antd"
 import Side from "./components/Side"
 import Callback from "./pages/Callback"
 import Home from "./pages/Home"
@@ -32,7 +33,7 @@ const App = () => {
     <div className="app">
       <Layout>
         <Header className="header">
-          <Navbar />
+          <Nav />
         </Header>
         <Layout className="content-layout">
           <Content className="content">
@@ -56,7 +57,13 @@ const App = () => {
               </Switch>
             </div>
           </Content>
-          <Sider className="sider" width="350">
+          <Sider
+            className="sider"
+            width="350"
+            onBreakpoint={(broken) => {
+              console.log(broken)
+            }}
+          >
             <Side />
           </Sider>
         </Layout>

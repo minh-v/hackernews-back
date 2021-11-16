@@ -10,10 +10,8 @@ const Navbar = () => {
   let user = useUser()
   const history = useHistory()
 
-  console.log(user)
-
   const logout = async () => {
-    const res = await fetch("http://localhost:3001/logout", {
+    await fetch("http://localhost:3001/logout", {
       credentials: "include",
     })
 

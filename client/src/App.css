@@ -21,15 +21,26 @@ div[disabled]
   pointer-events: none;
 }
 
-.title {
-  display: flex;
-  flex-flow: row nowrap;
-}
-
-.header-title, .top-title {
+.header-title, .top-title, .new-title {
   color: ghostwhite;
   margin: 0 1rem;
 }
+
+.header-start {
+  display: block;
+}
+
+.header-nav {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-logout {
+  color: red;
+}
+
 
 .content-layout {
   background: #DAE0E6;
@@ -41,8 +52,9 @@ div[disabled]
 
 .content-div {
   margin: auto;
-  padding: 0 10rem;
+  padding: 0 5rem;
   background: #DAE0E6;
+  width: 100%;
 }
 
 .navbar {
@@ -62,7 +74,7 @@ div[disabled]
 
 .post {
   background: #FFFFFF;
-  width: 60 rem;
+  width: 100%;
   outline-style: solid;
   outline-width: 1px;
   outline-color: grey;
@@ -70,7 +82,7 @@ div[disabled]
 
 .post-selected {
   background: #f0f3fc;
-  width: 60 rem;
+  width: 100%;
   outline-style: solid;
   outline-width: 1px;
   outline-color: grey;

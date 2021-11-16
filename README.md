@@ -82,8 +82,9 @@ Environment variables aren't hidden for now (Magic api keys, JWT secret etc.)
 
 - Fix signup flow: When user signs up, they still need to log in.
 - when users comment, action bars don't get refreshed.
-- Make app responsive for mobile!!!
 - Create initial seed for db
 - When on search page, remove search sider
 - When users delete comment, replace with "deleted" instead of cascading deletes.
 - On all handlesubmits, disabled the button at the beginning and reenable at the end
+- Make app responsive for mobile!!!
+- can convert login/signup to hamburger menu

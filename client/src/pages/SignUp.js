@@ -55,6 +55,7 @@ const SignUp = () => {
       },
       body: JSON.stringify({ username }), // Send the username
     })
+    console.log("sign up res: ", res)
     if (res.status === 200) {
       console.log("sign up successful")
     }
