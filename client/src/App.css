@@ -41,14 +41,19 @@ div[disabled]
   color: red;
 }
 
+/* @media (max-width: 610px) {
+  .nav-menu {
+    display: none;
+  }
+} */
 
 .content-layout {
   background: #DAE0E6;
 }
 
-.content {
+/* .content {
   width: 70%;
-}
+} */
 
 .content-div {
   margin: auto;

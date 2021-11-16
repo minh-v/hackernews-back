@@ -4,8 +4,10 @@ import { useHistory } from "react-router-dom"
 import { useLocation } from "react-router"
 import magic from "../magic"
 import { Menu } from "antd"
-import { PlusOutlined } from "@ant-design/icons"
+import { PlusOutlined, MenuOutlined } from "@ant-design/icons"
 import { Tooltip } from "antd"
+import { useMediaQuery } from "react-responsive"
+const { SubMenu } = Menu
 
 const Nav = () => {
   let user = useUser()
@@ -13,8 +15,10 @@ const Nav = () => {
   const location = useLocation()
   const { pathname } = location
 
+  const minBreakpoint = useMediaQuery({ query: "(max-width: 650px" }) //breakpoint where left and right menus touch
+
   const logout = async () => {
-    const res = await fetch("http://localhost:3001/logout", {
+    await fetch("http://localhost:3001/logout", {
       credentials: "include",
     })
 
@@ -51,23 +55,46 @@ const Nav = () => {
         <div></div>
       ) : user?.issuer ? (
         <div className="nav-menu">
-          <Menu theme="dark" mode="horizontal" disabledOverflow={true} selectedKeys={[pathname.split("/")[1]]}>
-            <Tooltip title="Create Post">
-              <Menu.Item key="submit">
-                <Link to="/submit">
-                  <PlusOutlined style={{ fontSize: "24px" }} />
+          {!minBreakpoint && (
+            <Menu theme="dark" mode="horizontal" disableOverflow={true} selectedKeys={[pathname.split("/")[1]]}>
+              <Tooltip title="Create Post">
+                <Menu.Item key="submit">
+                  <Link to="/submit">
+                    <PlusOutlined style={{ fontSize: "24px" }} />
+                  </Link>
+                </Menu.Item>
+              </Tooltip>
+              <Menu.Item key="user">
+                <Link to={`/user?id=${user.username}`} key="profile">
+                  {user.username} ({user.karma})
                 </Link>
               </Menu.Item>
-            </Tooltip>
-            <Menu.Item key="user">
-              <Link to={`/user?id=${user.username}`} key="profile">
-                Profile
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="logout" onClick={logout}>
-              <div>Log out</div>
-            </Menu.Item>
-          </Menu>
+              <Menu.Item key="logout" onClick={logout}>
+                <div>Log out</div>
+              </Menu.Item>
+            </Menu>
+          )}
+          {minBreakpoint && (
+            <Menu theme="dark" mode="horizontal" selectedKeys={[pathname.split("/")[1]]} triggerSubMenuAction="click">
+              <SubMenu key="SubMenu" icon={<MenuOutlined style={{ fontSize: "20px" }} />}>
+                <Tooltip title="Create Post">
+                  <Menu.Item key="submit">
+                    <Link to="/submit">
+                      <PlusOutlined style={{ fontSize: "24px" }} />
+                    </Link>
+                  </Menu.Item>
+                </Tooltip>
+                <Menu.Item key="user">
+                  <Link to={`/user?id=${user.username}`} key="profile">
+                    {user.username} ({user.karma})
+                  </Link>
+                </Menu.Item>
+                <Menu.Item key="logout" onClick={logout}>
+                  <div>Log out</div>
+                </Menu.Item>
+              </SubMenu>
+            </Menu>
+          )}
         </div>
       ) : (
         <div className="nav-menu">

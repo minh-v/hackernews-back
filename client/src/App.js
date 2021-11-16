@@ -32,41 +32,51 @@ const App = () => {
   return (
     <div className="app">
       <Layout>
-        <Header className="header">
-          <Nav />
-        </Header>
-        <Layout className="content-layout">
-          <Content className="content">
-            <div className="content-div">
-              <div className="spacer"></div>
-              <Switch>
-                {/* <Route exact path="/" forceRefresh={true} component={Home} /> */}
-                <Route exact path="/" forceRefresh={true} render={() => <Redirect to="/new/1" />} />
-                <Route exact path="/new/:page" component={New} />
-                <Route exact path="/top/:page" component={Top} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/signup" component={SignUp} />
-                <Route exact path="/callback" component={Callback} />
-                <Route exact path="/profile" component={Profile} />
-                <Route exact path="/submit" component={Submit} />
-                <Route exact path="/search" component={Search} />
-                <Route exact path="/submitted" component={Submitted} />
-                <Route exact path="/comments" component={Comments} />
-                <Route exact path="/post" component={PostPage} />
-                <Route exact path="/user" component={ProfilePage} />
-              </Switch>
-            </div>
-          </Content>
-          <Sider
-            className="sider"
-            width="350"
-            onBreakpoint={(broken) => {
-              console.log(broken)
-            }}
-          >
-            <Side />
-          </Sider>
-        </Layout>
+        <Row>
+          <Col span={24}>
+            <Header className="header">
+              <Nav />
+            </Header>
+          </Col>
+        </Row>
+        <Row>
+          <Layout className="content-layout">
+            <Col xs={24} xl={18}>
+              <Content className="content">
+                <div className="content-div">
+                  <div className="spacer"></div>
+                  <Switch>
+                    {/* <Route exact path="/" forceRefresh={true} component={Home} /> */}
+                    <Route exact path="/" forceRefresh={true} render={() => <Redirect to="/new/1" />} />
+                    <Route exact path="/new/:page" component={New} />
+                    <Route exact path="/top/:page" component={Top} />
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/signup" component={SignUp} />
+                    <Route exact path="/callback" component={Callback} />
+                    <Route exact path="/profile" component={Profile} />
+                    <Route exact path="/submit" component={Submit} />
+                    <Route exact path="/search" component={Search} />
+                    <Route exact path="/submitted" component={Submitted} />
+                    <Route exact path="/comments" component={Comments} />
+                    <Route exact path="/post" component={PostPage} />
+                    <Route exact path="/user" component={ProfilePage} />
+                  </Switch>
+                </div>
+              </Content>
+            </Col>
+            <Col xs={24} xl={6}>
+              <Sider
+                className="sider"
+                // width="350"
+                onBreakpoint={(broken) => {
+                  console.log(broken)
+                }}
+              >
+                <Side />
+              </Sider>
+            </Col>
+          </Layout>
+        </Row>
       </Layout>
     </div>
   )
