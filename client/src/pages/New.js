@@ -4,7 +4,7 @@ import PostList from "../components/PostList"
 import { SUBSCRIBE_POSTS } from "../lib/queries"
 import { useSubscription } from "@apollo/client"
 import { LINKS_PER_PAGE } from "../lib/constants"
-import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons"
+import { ArrowLeftOutlined } from "@ant-design/icons"
 import { Empty, Button } from "antd"
 
 const New = () => {
@@ -44,7 +44,7 @@ const New = () => {
   else
     return (
       <div>
-        <PostList posts={data.posts} page={page} sort={"new"} pageIndex={offset} />
+        <PostList posts={data.posts} pageIndex={offset} />
       </div>
     )
 }

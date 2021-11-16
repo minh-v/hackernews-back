@@ -11,8 +11,8 @@ const CommentList = ({ comments, baseComments }) => {
         renderItem={(comment) => {
           return (
             <CommentComponent
-              comment={comment}
-              comments={comments}
+              comment={comment} //the commnet itself
+              comments={comments} //array of all comments
               children={comments.filter((c) => c.parent_id === comment.id)}
             />
           )

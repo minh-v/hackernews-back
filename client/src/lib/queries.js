@@ -311,7 +311,7 @@ export const SEARCH_POSTS_SORTED_NEW = gql`
 export const SEARCH_POSTS_SORTED_TOP = gql`
   query search_posts_sorted_top($user_issuer: String, $limit: Int, $offset: Int, $search: String!) {
     posts(
-      order_by: { votes_aggregate: { sum: { value: asc } } }
+      order_by: { votes_aggregate: { sum: { value: desc } } }
       limit: $limit
       offset: $offset
       where: { _or: [{ title: { _iregex: $search } }, { url: { _iregex: $search } }] }

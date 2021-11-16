@@ -5,7 +5,7 @@ import PostList from "../components/PostList"
 import { SUBSCRIBE_POSTS } from "../lib/queries"
 import { useSubscription } from "@apollo/client"
 import { LINKS_PER_PAGE } from "../lib/constants"
-import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons"
+import { ArrowLeftOutlined } from "@ant-design/icons"
 import { Empty, Button } from "antd"
 
 const Top = () => {
@@ -23,8 +23,8 @@ const Top = () => {
     variables: { user_issuer: user ? user?.issuer : "", offset: offset, limit: limit, order: orderBy, search: "" },
   })
 
-  //fix issue where is post has no votes, aggregate sum of votes is null
-
+  //TODO: REFACTOR THIS
+  //set posts that have no votes sum to 0
   useEffect(() => {
     if (data) {
       data.posts.forEach((post) => {
@@ -37,7 +37,6 @@ const Top = () => {
       })
     }
   }, [data])
-  // console.log(data.posts)
 
   if (loading || !data) return <div>loading...</div>
 

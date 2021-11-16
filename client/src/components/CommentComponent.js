@@ -130,9 +130,10 @@ const CommentComponent = ({ comment, children, comments }) => {
     setDisabled(false)
   }
 
+  //delete comment
   const handleDelete = async (comment) => {
     if (user) {
-      const res = await fetch("http://localhost:3001/comment", {
+      await fetch("http://localhost:3001/comment", {
         method: "DELETE",
         credentials: "include",
         headers: {

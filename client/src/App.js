@@ -6,7 +6,6 @@ import Callback from "./pages/Callback"
 import Home from "./pages/Home"
 import SignUp from "./pages/SignUp"
 import Login from "./pages/Login"
-import Profile from "./pages/Profile"
 import Search from "./pages/Search"
 import Submit from "./pages/Submit"
 import PostPage from "./pages/PostPage"
@@ -30,12 +29,11 @@ const App = () => {
   useEffect(() => {
     const { pathname } = location
     currentPath = pathname.split("/")[1]
-    if (currentPath === "signup" || currentPath === "login" || currentPath === "search") {
+    if (currentPath === "signup" || currentPath === "login" || currentPath === "search" || currentPath === "submit") {
       setShowSider(false)
     } else {
       setShowSider(true)
     }
-    console.log(showSider)
   }, [location])
 
   const minBreakpoint = useMediaQuery({ query: "(max-width: 768px" })
@@ -63,7 +61,6 @@ const App = () => {
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/signup" component={SignUp} />
                     <Route exact path="/callback" component={Callback} />
-                    <Route exact path="/profile" component={Profile} />
                     <Route exact path="/submit" component={Submit} />
                     <Route exact path="/search" component={Search} />
                     <Route exact path="/submitted/:username/:page" component={Submitted} />

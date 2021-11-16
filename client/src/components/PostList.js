@@ -7,36 +7,42 @@ import { Button } from "antd"
 import { useMediaQuery } from "react-responsive"
 import Side from "./Side"
 import { LINKS_PER_PAGE } from "../lib/constants"
+import { urlContains } from "../utils/utils"
 //given posts json, display them all with antd list
+
 const PostList = ({ posts, pageIndex }) => {
+  const SEARCH = "search"
+  const SUBMITTED = "submitted"
+  const COMMENTS = "comments"
   //graphql call here?
   const history = useHistory()
-  console.log(history.location)
 
-  let prevLink, nextLink, npage
+  const url = history.location.pathname
 
-  if (history.location.pathname.includes("search")) {
+  let prevLink, nextLink, pageNumber
+
+  //calc prev and next links for navigation buttons
+  //move to different function?
+  if (urlContains(url, SEARCH)) {
     const newSearch = history.location.search.split("/")[0] //base pathname url before first /
-    npage = parseInt(history.location.search.split("/")[1]) //current page number
-    const prevPage = npage - 1
-    const nextPage = npage + 1
-    prevLink = history.location.pathname + newSearch + "/" + prevPage
-    nextLink = history.location.pathname + newSearch + "/" + nextPage
-    console.log(prevLink)
-  } else if (history.location.pathname.includes("submitted")) {
-    const pageIndexParams = history.location.pathname.split("/") //splitting up url params
-    console.log(pageIndexParams)
-    npage = parseInt(pageIndexParams[pageIndexParams.length - 1]) //page number
+    pageNumber = parseInt(history.location.search.split("/")[1]) //current page number
+    const prevPage = pageNumber - 1
+    const nextPage = pageNumber + 1
+    prevLink = url + newSearch + "/" + prevPage
+    nextLink = url + newSearch + "/" + nextPage
+  } else if (urlContains(url, SUBMITTED) || urlContains(url, COMMENTS)) {
+    const pageIndexParams = url.split("/") //splitting up url params
+    pageNumber = parseInt(pageIndexParams[pageIndexParams.length - 1]) //page number
     const username = pageIndexParams[pageIndexParams.length - 2] //username
-    prevLink = "/submitted/" + username + "/" + (npage - 1)
-    nextLink = "/submitted/" + username + "/" + (npage + 1)
+    prevLink = "/submitted/" + username + "/" + (pageNumber - 1)
+    nextLink = "/submitted/" + username + "/" + (pageNumber + 1)
   } else {
-    const pageIndexParams = history.location.pathname.split("/") //splitting up url params
+    const pageIndexParams = url.split("/") //splitting up url params
     console.log("pageIndexParams: ", pageIndexParams)
-    npage = parseInt(pageIndexParams[pageIndexParams.length - 1]) //page number
+    pageNumber = parseInt(pageIndexParams[pageIndexParams.length - 1]) //page number
     const order = pageIndexParams[pageIndexParams.length - 2] //page sort
-    prevLink = "/" + order + "/" + (npage - 1)
-    nextLink = "/" + order + "/" + (npage + 1)
+    prevLink = "/" + order + "/" + (pageNumber - 1)
+    nextLink = "/" + order + "/" + (pageNumber + 1)
   }
 
   const [selected, setSelected] = useState(null) //current selected post id
@@ -44,7 +50,7 @@ const PostList = ({ posts, pageIndex }) => {
 
   return (
     <div>
-      {minBreakpoint && (
+      {minBreakpoint && !urlContains(url, SEARCH) && (
         <div clasName="small-side">
           <Side />
         </div>
@@ -68,11 +74,11 @@ const PostList = ({ posts, pageIndex }) => {
         }}
       />
       <div className="navigation-button">
-        {npage > 1 ? (
+        {pageNumber > 1 ? (
           <div
             className="previous-button"
             onClick={() => {
-              if (npage > 1) {
+              if (pageNumber > 1) {
                 history.push(prevLink)
               }
             }}

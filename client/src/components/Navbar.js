@@ -54,7 +54,7 @@ const Navbar = () => {
                     </Button>
                   </Tooltip>
                 </Link>
-                <Link to={`/user?id=${user.username}`} key="profile">
+                <Link to={`/user?id=${user.username}`} key={`${user.username}`}>
                   <Button key="2" className="right-nav-item">
                     {user.username} ({user.karma})
                   </Button>

@@ -39,14 +39,10 @@ const Nav = () => {
               </Link>
             </Menu.Item>
             <Menu.Item key="top">
-              <Link to="/top/1" key="top">
-                Top
-              </Link>
+              <Link to="/top/1">Top</Link>
             </Menu.Item>
             <Menu.Item key="new">
-              <Link to="/new/1" key="new">
-                New
-              </Link>
+              <Link to="/new/1">New</Link>
             </Menu.Item>
           </Menu>
         </div>
@@ -59,12 +55,12 @@ const Nav = () => {
             <Menu theme="dark" mode="horizontal" selectedKeys={[pathname.split("/")[1]]}>
               <Tooltip title="Create Post">
                 <Menu.Item key="submit">
-                  <Link to="/submit">
+                  <Link to="/submit" key="submit">
                     <PlusOutlined style={{ fontSize: "24px" }} />
                   </Link>
                 </Menu.Item>
               </Tooltip>
-              <Menu.Item key={`${user?.username}`}>
+              <Menu.Item key={user?.username}>
                 <Link to={`/user?id=${user.username}`} key="profile">
                   {user.username} ({user.karma})
                 </Link>
@@ -79,12 +75,12 @@ const Nav = () => {
               <SubMenu key="SubMenu" icon={<MenuOutlined style={{ fontSize: "20px" }} />}>
                 <Tooltip title="Create Post">
                   <Menu.Item key="submit">
-                    <Link to="/submit">
+                    <Link to="/submit" key="submit">
                       <PlusOutlined style={{ fontSize: "24px" }} />
                     </Link>
                   </Menu.Item>
                 </Tooltip>
-                <Menu.Item key="user">
+                <Menu.Item key="profile">
                   <Link to={`/user?id=${user.username}`} key="profile">
                     {user.username} ({user.karma})
                   </Link>
