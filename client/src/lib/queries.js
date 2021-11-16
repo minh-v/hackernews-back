@@ -44,97 +44,6 @@ export const GET_ALL_POSTS = gql`
   }
 `
 
-//search posts by title or url
-// export const SEARCH_POSTS = gql`
-//   subscription searchPosts($search: String!, $user_issuer: String) {
-//     posts(where: { _or: [{ title: { _iregex: $search } }, { url: { _iregex: $search } }] }) {
-//       id
-//       title
-//       url
-//       createdAt
-//       user {
-//         issuer
-//         username
-//       }
-//       votes: votes_aggregate {
-//         aggregate {
-//           sum {
-//             value
-//           }
-//         }
-//       }
-//       userVotes: votes(where: { user_issuer: { _eq: $user_issuer } }) {
-//         value
-//       }
-//       comments_aggregate {
-//         aggregate {
-//           count
-//         }
-//       }
-//     }
-//   }
-// `
-
-// export const POSTS_SUBSCRIPTION = gql`
-//   subscription refreshPosts($user_issuer: String) {
-//     posts(order_by: { createdAt: desc }) {
-//       id
-//       title
-//       url
-//       createdAt
-//       votes: votes_aggregate {
-//         aggregate {
-//           sum {
-//             value
-//           }
-//         }
-//       }
-//       userVotes: votes(where: { user_issuer: { _eq: $user_issuer } }) {
-//         value
-//       }
-//       user {
-//         issuer
-//         username
-//       }
-//       comments_aggregate {
-//         aggregate {
-//           count
-//         }
-//       }
-//     }
-//   }
-// `
-
-export const SUBSCRIBE_POSTS_BY_VOTE = gql`
-  subscription getPostsByVote($user_issuer: String) {
-    posts(order_by: { votes_aggregate: { sum: { value: desc_nulls_last } } }) {
-      id
-      title
-      url
-      createdAt
-      votes: votes_aggregate {
-        aggregate {
-          sum {
-            value
-          }
-        }
-      }
-      userVotes: votes(where: { user_issuer: { _eq: $user_issuer } }) {
-        value
-      }
-      user {
-        issuer
-        username
-      }
-      comments_aggregate {
-        aggregate {
-          count
-        }
-      }
-    }
-  }
-`
-
 export const GET_POST = gql`
   subscription getPost($id: Int!, $user_issuer: String) {
     posts_by_pk(id: $id) {
@@ -241,9 +150,9 @@ export const GET_POST_COMMENTS_SORTED_TOP = gql`
     }
   }
 `
-export const GET_POSTS_FROM_USER = gql`
-  query getPostsFromUsername($user_issuer: String, $username: String!) {
-    posts(order_by: { createdAt: desc }, where: { user: { username: { _eq: $username } } }) {
+export const GET_POSTS_FROM_USERNAME = gql`
+  query get_posts_from_username($user_issuer: String, $username: String!, $limit: Int, $offset: Int) {
+    posts(order_by: { createdAt: desc }, limit: $limit, offset: $offset, where: { user: { username: { _eq: $username } } }) {
       id
       title
       url
@@ -270,9 +179,9 @@ export const GET_POSTS_FROM_USER = gql`
     }
   }
 `
-export const GET_USER_COMMENTS = gql`
-  query getUserComments($username: String!, $user_issuer: String!) {
-    comments(where: { user: { username: { _eq: $username } } }, order_by: { createdAt: desc }) {
+export const GET_COMMENTS_FROM_USERNAME = gql`
+  query get_comments_from_username($username: String!, $user_issuer: String!, $limit: Int, $offset: Int) {
+    comments(where: { user: { username: { _eq: $username } } }, order_by: { createdAt: desc }, limit: $limit, offset: $offset) {
       comment
       createdAt
       id

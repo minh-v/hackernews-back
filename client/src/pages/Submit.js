@@ -14,7 +14,7 @@ const Submit = () => {
     })
     console.log("submittd")
     history.push("/") //send to home screen
-    history.go(0)
+    // history.go(0)
   }
   return (
     <div>

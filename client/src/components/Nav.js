@@ -56,7 +56,7 @@ const Nav = () => {
       ) : user?.issuer ? (
         <div className="nav-menu">
           {!minBreakpoint && (
-            <Menu theme="dark" mode="horizontal" disableOverflow={true} selectedKeys={[pathname.split("/")[1]]}>
+            <Menu theme="dark" mode="horizontal" selectedKeys={[pathname.split("/")[1]]}>
               <Tooltip title="Create Post">
                 <Menu.Item key="submit">
                   <Link to="/submit">
@@ -64,7 +64,7 @@ const Nav = () => {
                   </Link>
                 </Menu.Item>
               </Tooltip>
-              <Menu.Item key="user">
+              <Menu.Item key={`${user?.username}`}>
                 <Link to={`/user?id=${user.username}`} key="profile">
                   {user.username} ({user.karma})
                 </Link>

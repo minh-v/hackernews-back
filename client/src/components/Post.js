@@ -20,7 +20,7 @@ const Post = ({ post, selected, setSelected, index }) => {
       history.push("/signup")
       return
     }
-    const res = await fetch("http://localhost:3001/vote", {
+    await fetch("http://localhost:3001/vote", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -39,7 +39,7 @@ const Post = ({ post, selected, setSelected, index }) => {
       history.push("/signup")
       return
     }
-    const res = await fetch("http://localhost:3001/vote", {
+    await fetch("http://localhost:3001/vote", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -51,7 +51,7 @@ const Post = ({ post, selected, setSelected, index }) => {
 
   const handleDelete = async (item) => {
     if (user) {
-      const res = await fetch("http://localhost:3001/post", {
+      await fetch("http://localhost:3001/post", {
         method: "DELETE",
         credentials: "include",
         headers: {

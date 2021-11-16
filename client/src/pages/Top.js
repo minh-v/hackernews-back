@@ -62,7 +62,7 @@ const Top = () => {
   else
     return (
       <div>
-        <PostList posts={data.posts} page={page} sort={"top"} pageIndex={offset} />
+        <PostList posts={data.posts} pageIndex={offset} />
       </div>
     )
 }

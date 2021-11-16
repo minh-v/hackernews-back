@@ -1,7 +1,7 @@
 # Hackernews/Reddit clone
 This project is intended to be a "clone" of hackernews/reddit, implementing some of their features.
 
-<img src="https://i.imgur.com/KTnuJWG.png" width="100%" alt="front page picture" />  
+<img src="https://i.imgur.com/OoOvqDW.png" width="100%" alt="front page picture" />  
 
 ## Built With
 
@@ -72,10 +72,11 @@ Environment variables aren't hidden for now (Magic api keys, JWT secret etc.)
 - Authenticated users can upvote and downvote posts
 - Authenticated users can comment, and upvote and downvote comments
 - Sort posts and comments by new/top
-- Users can search for posts (url, title)
+- Users can search for posts (url, title) and sort
 - User profile page
 - Post karma system
 - Pagination
+- Responsive design using media queries
 - Uses Hasura to auto apply migrations and metadata
 
 #### TODO / Bugs
@@ -83,8 +84,6 @@ Environment variables aren't hidden for now (Magic api keys, JWT secret etc.)
 - Fix signup flow: When user signs up, they still need to log in.
 - when users comment, action bars don't get refreshed.
 - Create initial seed for db
-- When on search page, remove search sider
 - When users delete comment, replace with "deleted" instead of cascading deletes.
 - On all handlesubmits, disabled the button at the beginning and reenable at the end
-- Make app responsive for mobile!!!
-- can convert login/signup to hamburger menu
+- Fix iphone navbar responsiveness

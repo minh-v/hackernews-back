@@ -23,7 +23,7 @@ const ProfilePage = (props) => {
       karma: {data.users[0].karma}
       <span>
         <br></br>
-        about: <Link to={`/submitted?id=${username}`}>submissions</Link>, <Link to={`/comments?id=${username}`}>comments</Link>
+        about: <Link to={`/submitted/${username}/1`}>submissions</Link>, <Link to={`/comments/${username}/1`}>comments</Link>
       </span>
     </div>
   )

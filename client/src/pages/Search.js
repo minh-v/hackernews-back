@@ -13,7 +13,6 @@ const Search = (props) => {
   const user = useUser()
   let history = useHistory()
 
-  console.log("search prev button fixL: ", history.location)
   const urlPieces = props.location.search.split("&") //split the url up according to &
 
   let page = 1 //page number
@@ -54,7 +53,7 @@ const Search = (props) => {
 
     history.push(`/search?q=${search}/1`)
   }
-  if (loading) return <div>loading..</div>
+  if (loading || !data) return <div>loading..</div>
   if (data.posts.length === 0)
     return (
       <div>
@@ -102,7 +101,7 @@ const Search = (props) => {
         </Dropdown>
       </span>
       <div>
-        <PostList posts={data?.posts} page={page} sort={order} pageIndex={offset} />
+        <PostList posts={data?.posts} pageIndex={offset} />
       </div>
     </div>
   )

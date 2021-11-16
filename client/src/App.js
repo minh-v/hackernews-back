@@ -66,8 +66,8 @@ const App = () => {
                     <Route exact path="/profile" component={Profile} />
                     <Route exact path="/submit" component={Submit} />
                     <Route exact path="/search" component={Search} />
-                    <Route exact path="/submitted" component={Submitted} />
-                    <Route exact path="/comments" component={Comments} />
+                    <Route exact path="/submitted/:username/:page" component={Submitted} />
+                    <Route exact path="/comments/:username/:page" component={Comments} />
                     <Route exact path="/post" component={PostPage} />
                     <Route exact path="/user" component={ProfilePage} />
                   </Switch>

@@ -6,28 +6,34 @@ import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons"
 import { Button } from "antd"
 import { useMediaQuery } from "react-responsive"
 import Side from "./Side"
+import { LINKS_PER_PAGE } from "../lib/constants"
 //given posts json, display them all with antd list
-const PostList = ({ posts, page, sort, pageIndex }) => {
+const PostList = ({ posts, pageIndex }) => {
   //graphql call here?
   const history = useHistory()
   console.log(history.location)
 
-  let prevLink, nextLink
+  let prevLink, nextLink, npage
 
   if (history.location.pathname.includes("search")) {
     const newSearch = history.location.search.split("/")[0] //base pathname url before first /
-    const npage = parseInt(history.location.search.split("/")[1]) //current page number
+    npage = parseInt(history.location.search.split("/")[1]) //current page number
     const prevPage = npage - 1
     const nextPage = npage + 1
     prevLink = history.location.pathname + newSearch + "/" + prevPage
     nextLink = history.location.pathname + newSearch + "/" + nextPage
     console.log(prevLink)
-  } else {
+  } else if (history.location.pathname.includes("submitted")) {
     const pageIndexParams = history.location.pathname.split("/") //splitting up url params
     console.log(pageIndexParams)
-    const npage = parseInt(pageIndexParams[pageIndexParams.length - 1]) //page number
-    const prevPage = npage - 1
-    const nextPage = npage + 1
+    npage = parseInt(pageIndexParams[pageIndexParams.length - 1]) //page number
+    const username = pageIndexParams[pageIndexParams.length - 2] //username
+    prevLink = "/submitted/" + username + "/" + (npage - 1)
+    nextLink = "/submitted/" + username + "/" + (npage + 1)
+  } else {
+    const pageIndexParams = history.location.pathname.split("/") //splitting up url params
+    console.log("pageIndexParams: ", pageIndexParams)
+    npage = parseInt(pageIndexParams[pageIndexParams.length - 1]) //page number
     const order = pageIndexParams[pageIndexParams.length - 2] //page sort
     prevLink = "/" + order + "/" + (npage - 1)
     nextLink = "/" + order + "/" + (npage + 1)
@@ -62,11 +68,11 @@ const PostList = ({ posts, page, sort, pageIndex }) => {
         }}
       />
       <div className="navigation-button">
-        {page > 1 ? (
+        {npage > 1 ? (
           <div
             className="previous-button"
             onClick={() => {
-              if (page > 1) {
+              if (npage > 1) {
                 history.push(prevLink)
               }
             }}
@@ -76,16 +82,18 @@ const PostList = ({ posts, page, sort, pageIndex }) => {
             </Button>
           </div>
         ) : null}
-        <div
-          className="next-button"
-          onClick={() => {
-            history.push(nextLink)
-          }}
-        >
-          <Button>
-            <ArrowRightOutlined style={{ fontSize: "20px" }} />
-          </Button>
-        </div>
+        {posts.length === LINKS_PER_PAGE ? (
+          <div
+            className="next-button"
+            onClick={() => {
+              history.push(nextLink)
+            }}
+          >
+            <Button>
+              <ArrowRightOutlined style={{ fontSize: "20px" }} />
+            </Button>
+          </div>
+        ) : null}
       </div>
     </div>
   )
