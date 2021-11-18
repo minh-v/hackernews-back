@@ -131,6 +131,10 @@ div[disabled]
   justify-content: space-evenly;
 }
 
+.side-search-input {
+  width: 100%;
+}
+
 .side-card {
   margin: 1rem 1rem;
 }

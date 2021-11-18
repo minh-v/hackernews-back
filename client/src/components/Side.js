@@ -25,8 +25,9 @@ const Side = ({ handleSearch }) => {
                 message: "Please no empty",
               },
             ]}
+            style={{ width: "80%", marginRight: "1rem" }}
           >
-            <Input placeholder="search" />
+            <Input placeholder="search" className="side-search-input" />
           </Form.Item>
           <Form.Item>
             <Button htmlType="submit" shape="circle" icon={<SearchOutlined />} />
