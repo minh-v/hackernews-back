@@ -81,8 +81,7 @@ Environment variables aren't hidden for now (Magic api keys, JWT secret etc.)
 
 #### TODO / Bugs
 
-- Fix signup flow: When user signs up, they still need to log in.
 - when users comment, action bars don't get refreshed.
 - Create initial seed for db
 - When users delete comment, replace with "deleted" instead of cascading deletes.
-- On all handlesubmits, disabled the button at the beginning and reenable at the end
+- On all handlesubmits, disable the button at the beginning and reenable at the end

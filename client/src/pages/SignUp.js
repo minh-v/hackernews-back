@@ -27,10 +27,11 @@ const SignUp = () => {
 
   const handleSignup = async (email, username) => {
     //check email
-    setDisabled(true)
+    setDisabled(true) //disable email button so user can't press multiple times
     const { data } = await checkDuplicate({ email: email, username: username })
 
     //validate email and username
+
     if (data.users.length !== 0) {
       if (email === data.users[0].email) message.error("This email address is already being used") //red text above the top
       if (username === data.users[0].username) message.error("This username is already being used")
@@ -43,12 +44,12 @@ const SignUp = () => {
     //handles email validation
     const didToken = await magic.auth.loginWithMagicLink({
       email,
-      redirectURI: new URL("/", window.location.origin).href, //redirect back to home page LOG THEM IN
     })
 
     // Validate didToken with server
     const res = await fetch("http://localhost:3001/signup", {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + didToken,
@@ -61,7 +62,6 @@ const SignUp = () => {
     }
     setDisabled(false)
     history.push("/")
-    history.go(0)
   }
 
   return (
