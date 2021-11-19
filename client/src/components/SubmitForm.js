@@ -10,7 +10,7 @@ const SubmitForm = ({ handleSubmit }) => {
 
   return (
     <div>
-      <PageHeader title="Submit link" />
+      <PageHeader title="Submit link" className="form-header" />
       <Form onFinish={handleFormSubmit}>
         <Form.Item
           label="Title"
@@ -38,7 +38,7 @@ const SubmitForm = ({ handleSubmit }) => {
         >
           <Input />
         </Form.Item>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" className="site-form-submit-button">
           Submit
         </Button>
       </Form>

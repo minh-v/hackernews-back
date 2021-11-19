@@ -77,7 +77,7 @@ const updateKarma = async (user_issuer, token) => {
 }
 
 app.get("/", (req, res) => {
-  res.send("<h1>hasdssdasdas</h1>")
+  res.send("<h1>homee/h1>")
 })
 
 //returns user given jwt from cookie, refreshes the jwt.
@@ -165,7 +165,7 @@ app.post("/signup", async (req, res) => {
     //add user to hasura
     await client.request(ADD_USER, variables, headers(token))
     //set cookie token here
-    //setCookie(res, token)
+
     res.cookie("token", token, {
       maxAge: AGE, //1 week
       expires: new Date(Date.now() + AGE * 1000),
@@ -173,7 +173,7 @@ app.post("/signup", async (req, res) => {
       sameSite: "lax",
       path: "/",
     })
-    res.status(200).send("OK")
+    res.status(200).send({ done: true })
   } catch (error) {
     console.log("error: ", error)
     res.status(500).end()
@@ -199,7 +199,7 @@ app.post("/login", async (req, res) => {
       },
       process.env.JWT_SECRET
     )
-    //setCookie(res, token)
+    //set cookie here
     res.cookie("token", token, {
       maxAge: AGE, //1 week
       expires: new Date(Date.now() + AGE * 1000),

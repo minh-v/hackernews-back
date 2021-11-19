@@ -32,9 +32,14 @@ Express is served on port 3001 (localhost:3001/)
 Clone the project
 ```
 git clone https://github.com/minh-v/hackernews-back.git
-cd hackernews-back
 ```
-Using npm with two terminals:
+
+Start docker-compose
+```
+cd hackernews-back
+docker-compose up
+```
+<!-- Using npm with two terminals:
 
 In the client folder:
 Install the dependencies and start the application.
@@ -46,15 +51,14 @@ npm start
 ```
 
 In the server folder:
-Install the dependencies and start docker-compose, which contains Express, Hasura and PostgreSQL.  
+Install the dependencies and start docker-compose  
 Database migrations and metadata should automatically be applied.  
 ```
 # server
 cd server
 npm install
 docker-compose up
-```
-
+``` -->
 To use the hasura console:
 ```
 cd server/hackernews-hasura

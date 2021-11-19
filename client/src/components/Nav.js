@@ -103,7 +103,7 @@ const Nav = () => {
               </Menu.Item>
               <Menu.Item key="signup">
                 <Link to="/signup" key="signup">
-                  Signup
+                  Sign up
                 </Link>
               </Menu.Item>
             </Menu>

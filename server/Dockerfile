@@ -1,7 +1,7 @@
 FROM node:latest
 ENV NODE_ENV=development
 
-WORKDIR /app
+WORKDIR /app/server
 
 COPY ["package.json", "package-lock.json", "./"]
 

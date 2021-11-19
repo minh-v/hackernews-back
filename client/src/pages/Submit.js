@@ -17,7 +17,7 @@ const Submit = () => {
     // history.go(0)
   }
   return (
-    <div>
+    <div className="submit-page">
       <SubmitForm handleSubmit={handleSubmit} />
     </div>
   )

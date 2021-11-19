@@ -27,7 +27,7 @@ const SignUp = () => {
 
   const handleSignup = async (email, username) => {
     //check email
-    setDisabled(true) //disable email button so user can't press multiple times
+    setDisabled(true) //disable email button so user can't submit multiple times
     const { data } = await checkDuplicate({ email: email, username: username })
 
     //validate email and username
