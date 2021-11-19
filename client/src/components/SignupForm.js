@@ -1,6 +1,6 @@
 import React from "react"
-import { Button, Form, Input } from "antd"
-import { PageHeader } from "antd"
+import { Button, Form, Input, PageHeader } from "antd"
+import { MailOutlined, UserOutlined, SendOutlined } from "@ant-design/icons"
 
 const SignupForm = ({ handleSignup, disabled }) => {
   const handleSubmit = (values) => {
@@ -10,10 +10,9 @@ const SignupForm = ({ handleSignup, disabled }) => {
 
   return (
     <div>
-      <PageHeader title="Sign Up" />
+      <PageHeader title="Sign Up" className="form-header" />
       <Form onFinish={handleSubmit}>
         <Form.Item
-          label="Email"
           name="email"
           rules={[
             {
@@ -22,10 +21,9 @@ const SignupForm = ({ handleSignup, disabled }) => {
             },
           ]}
         >
-          <Input />
+          <Input prefix={<MailOutlined className="site-form-email-icon" />} placeholder="Email" />
         </Form.Item>
         <Form.Item
-          label="Username"
           name="username"
           disabled={disabled}
           rules={[
@@ -35,10 +33,10 @@ const SignupForm = ({ handleSignup, disabled }) => {
             },
           ]}
         >
-          <Input />
+          <Input prefix={<UserOutlined className="site-form-user-icon" />} placeholder="Username" />
         </Form.Item>
-        <Button type="primary" disabled={disabled} htmlType="submit">
-          sign up
+        <Button type="primary" disabled={disabled} htmlType="submit" icon={<SendOutlined />} className="site-form-submit-button">
+          Sign up
         </Button>
       </Form>
     </div>

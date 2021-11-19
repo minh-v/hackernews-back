@@ -152,7 +152,24 @@ div[disabled]
 }
 
 .signup-page, .login-page {
-  margin: 2rem 2rem;
+  margin: 30px auto 0;
+  padding: 1rem;
+  width: 100%;
+  max-width: 30rem;
+}
+
+.site-form-user-icon, .site-form-email-icon {
+  margin-right: 1rem;
+}
+
+.form-header {
+  display: flex;
+  justify-content: center;
+}
+
+.site-form-submit-button {
+  display: flex;
+  justify-content: center;
 }
 
 .vote {

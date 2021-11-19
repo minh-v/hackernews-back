@@ -3,7 +3,7 @@ import Nav from "./components/Nav"
 import { Row, Col } from "antd"
 import Side from "./components/Side"
 import Callback from "./pages/Callback"
-import Home from "./pages/Home"
+// import Home from "./pages/Home"
 import SignUp from "./pages/SignUp"
 import Login from "./pages/Login"
 import Search from "./pages/Search"
@@ -19,7 +19,6 @@ import { useEffect, useState } from "react"
 import New from "./pages/New"
 import { useMediaQuery } from "react-responsive"
 
-// import { useUser } from "./lib/user"
 const { Header, Content, Sider } = Layout
 
 const App = () => {
@@ -50,7 +49,7 @@ const App = () => {
         </Row>
         <Row>
           <Layout className="content-layout">
-            <Col xs={24} md={18}>
+            <Col xs={24} md={showSider ? 18 : 24}>
               <Content className="content">
                 <div className="content-div">
                   {!minBreakpoint && <div className="spacer"></div>}

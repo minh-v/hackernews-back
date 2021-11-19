@@ -44,7 +44,7 @@ const PostPage = (props) => {
       history.push("/login")
     }
     const { comment } = values
-    const res = await fetch("http://localhost:3001/comment", {
+    await fetch("http://localhost:3001/comment", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
