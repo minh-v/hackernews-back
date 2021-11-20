@@ -7,8 +7,8 @@ services:
       - "3000:3000"
     environment:
       - CHOKIDAR_USEPOLLING=true
-      - API_URL="http://147.182.199.161:3001"
-      - HASURA_ENDPOINT="147.182.199.161:8080/v1/graphql"
+      - REACT_APP_API_URL=http://147.182.199.161:3001
+      - REACT_APP_HASURA_ENDPOINT=147.182.199.161:8080/v1/graphql
     volumes:
       - ./client:/app/client
     command: npm start

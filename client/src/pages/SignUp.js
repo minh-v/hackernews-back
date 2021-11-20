@@ -5,7 +5,7 @@ import { useQuery } from "@apollo/client"
 import { message } from "antd"
 import { CHECK_DUPLICATE } from "../lib/queries"
 import { useHistory } from "react-router"
-import { API_URL } from "../lib/constants"
+import { REACT_APP_API_URL } from "../lib/constants"
 
 //send query here?
 
@@ -48,7 +48,7 @@ const SignUp = () => {
     })
 
     // Validate didToken with server
-    const res = await fetch(`${API_URL}/signup`, {
+    const res = await fetch(`${REACT_APP_API_URL}/signup`, {
       method: "POST",
       credentials: "include",
       headers: {

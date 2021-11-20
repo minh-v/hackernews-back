@@ -5,7 +5,7 @@ import { useUser } from "../lib/user"
 import { useHistory } from "react-router"
 import { timeDifferenceForDate } from "../utils/timeDifference"
 import { Link } from "react-router-dom"
-import { API_URL } from "../lib/constants"
+import { REACT_APP_API_URL } from "../lib/constants"
 
 const { TextArea } = Input
 
@@ -27,7 +27,7 @@ const CommentComponent = ({ comment, children, comments }) => {
       history.push("/login")
     }
     const { reply } = values
-    await fetch(`${API_URL}/comment`, {
+    await fetch(`${REACT_APP_API_URL}/comment`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -49,7 +49,7 @@ const CommentComponent = ({ comment, children, comments }) => {
     if (action === 1) {
       setLikes(likes - 1)
       setAction(null)
-      await fetch(`${API_URL}/comment-vote`, {
+      await fetch(`${REACT_APP_API_URL}/comment-vote`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -62,7 +62,7 @@ const CommentComponent = ({ comment, children, comments }) => {
       setDislikes(dislikes - 1)
       setAction(1)
       //send request to add vote to db
-      await fetch(`${API_URL}/comment-vote`, {
+      await fetch(`${REACT_APP_API_URL}/comment-vote`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -73,7 +73,7 @@ const CommentComponent = ({ comment, children, comments }) => {
     } else {
       setLikes(likes + 1)
       setAction(1)
-      await fetch(`${API_URL}/comment-vote`, {
+      await fetch(`${REACT_APP_API_URL}/comment-vote`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -95,7 +95,7 @@ const CommentComponent = ({ comment, children, comments }) => {
     if (action === -1) {
       setDislikes(dislikes - 1)
       setAction(null)
-      await fetch(`${API_URL}/comment-vote`, {
+      await fetch(`${REACT_APP_API_URL}/comment-vote`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -108,7 +108,7 @@ const CommentComponent = ({ comment, children, comments }) => {
       setDislikes(dislikes + 1)
       setAction(-1)
       //send request to add vote to db
-      await fetch(`${API_URL}/comment-vote`, {
+      await fetch(`${REACT_APP_API_URL}/comment-vote`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -119,7 +119,7 @@ const CommentComponent = ({ comment, children, comments }) => {
     } else {
       setDislikes(dislikes + 1)
       setAction(-1)
-      await fetch(`${API_URL}/comment-vote`, {
+      await fetch(`${REACT_APP_API_URL}/comment-vote`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -134,7 +134,7 @@ const CommentComponent = ({ comment, children, comments }) => {
   //delete comment
   const handleDelete = async (comment) => {
     if (user) {
-      await fetch(`${API_URL}/comment`, {
+      await fetch(`${REACT_APP_API_URL}/comment`, {
         method: "DELETE",
         credentials: "include",
         headers: {

@@ -7,7 +7,7 @@ import { Menu } from "antd"
 import { PlusOutlined, MenuOutlined } from "@ant-design/icons"
 import { Tooltip } from "antd"
 import { useMediaQuery } from "react-responsive"
-import { API_URL } from "../lib/constants"
+import { REACT_APP_API_URL } from "../lib/constants"
 const { SubMenu } = Menu
 
 const Nav = () => {
@@ -19,7 +19,7 @@ const Nav = () => {
   const minBreakpoint = useMediaQuery({ query: "(max-width: 650px" }) //breakpoint where left and right menus touch
 
   const logout = async () => {
-    await fetch(`${API_URL}/logout`, {
+    await fetch(`${REACT_APP_API_URL}/logout`, {
       credentials: "include",
     })
 
