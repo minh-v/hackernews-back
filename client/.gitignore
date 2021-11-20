@@ -12,5 +12,5 @@
 /build
 
 # misc
-.env
+# .env
 # config.js
