@@ -38,7 +38,6 @@ const PostList = ({ posts, pageIndex }) => {
     nextLink = "/submitted/" + username + "/" + (pageNumber + 1)
   } else {
     const pageIndexParams = url.split("/") //splitting up url params
-    console.log("pageIndexParams: ", pageIndexParams)
     pageNumber = parseInt(pageIndexParams[pageIndexParams.length - 1]) //page number
     const order = pageIndexParams[pageIndexParams.length - 2] //page sort
     prevLink = "/" + order + "/" + (pageNumber - 1)
