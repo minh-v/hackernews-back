@@ -2,25 +2,23 @@ import React from "react"
 import ReactDOM from "react-dom"
 import "./index.css"
 import App from "./App"
-import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from "@apollo/client"
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client"
 import { BrowserRouter } from "react-router-dom"
 import { WebSocketLink } from "@apollo/client/link/ws"
+import { HASURA_ENDPOINT } from "./lib/constants"
 
+//"ws://localhost:8080/v1/graphql"
 const wsLink = new WebSocketLink({
-  uri: "ws://localhost:8080/v1/graphql",
+  uri: `ws://${HASURA_ENDPOINT}`,
   credentials: "include",
   options: {
     reconnect: true,
   },
 })
 
-// const link = createHttpLink({
-//   uri: "http://localhost:8080/v1/graphql",
-//   credentials: "include",
-// })
-
+//"http://localhost:8080/v1/graphql"
 const client = new ApolloClient({
-  uri: "http://localhost:8080/v1/graphql",
+  uri: `http://${HASURA_ENDPOINT}`,
   cache: new InMemoryCache(),
   link: wsLink,
   // wsLink,
