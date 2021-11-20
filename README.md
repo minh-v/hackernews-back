@@ -32,33 +32,31 @@ Express is served on port 3001 (localhost:3001/)
 Clone the project
 ```
 git clone https://github.com/minh-v/hackernews-back.git
+cd hackernews-back/
 ```
-
-Start docker-compose
-```
-cd hackernews-back
-docker-compose up
-```
-<!-- Using npm with two terminals:
+Using npm with two terminals:
 
 In the client folder:
-Install the dependencies and start the application.
+Install the dependencies
 ```
 # client
 cd client
 npm install
-npm start
 ```
 
 In the server folder:
-Install the dependencies and start docker-compose  
+Install the dependencies
 Database migrations and metadata should automatically be applied.  
 ```
 # server
 cd server
 npm install
+```
+Start docker-compose
+```
+cd hackernews-back
 docker-compose up
-``` -->
+```
 To use the hasura console:
 ```
 cd server/hackernews-hasura
@@ -81,7 +79,6 @@ Environment variables aren't hidden for now (Magic api keys, JWT secret etc.)
 - Post karma system
 - Pagination
 - Responsive design
-- Uses Hasura to auto apply migrations and metadata
 
 #### TODO / Bugs
 
