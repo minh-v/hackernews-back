@@ -31,7 +31,7 @@ const Nav = () => {
   }
   return (
     <div className="header-nav">
-      <div clasName="header-start">
+      <div className="header-start">
         <div className="title">
           <Menu theme="dark" mode="horizontal" disabledOverflow={true} selectedKeys={[pathname.split("/")[1]]}>
             <Menu.Item key="home">
