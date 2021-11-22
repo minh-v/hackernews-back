@@ -4,7 +4,7 @@ import LoginForm from "../components/LoginForm"
 import { CHECK_EMAIL } from "../lib/queries"
 import magic from "../magic"
 import { message } from "antd"
-import { REACT_APP_API_URL } from "../lib/constants"
+import { config } from "../config"
 
 //if user presses login and already logged in, send them to profile page
 
@@ -38,7 +38,7 @@ const Login = () => {
       email,
     })
     // Validate didToken with server
-    const res = await fetch(`${REACT_APP_API_URL}/login`, {
+    const res = await fetch(`${config.api}/login`, {
       method: "POST",
       credentials: "include",
       headers: {
