@@ -8,7 +8,7 @@ import { WebSocketLink } from "@apollo/client/link/ws"
 import config from "./config"
 
 console.log("NODE_ENV: ", process.env.NODE_ENV)
-
+console.log("API_URL: ", process.env.REACT_APP_API_URL)
 //"ws://localhost:8080/v1/graphql"
 const wsLink = new WebSocketLink({
   uri: `ws://${config.hasura_endpoint}`,

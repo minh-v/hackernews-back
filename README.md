@@ -54,7 +54,7 @@ npm install
 ```
 Start docker-compose
 ```
-cd hackernews-back
+# in root folder
 docker-compose up
 ```
 To use the hasura console:

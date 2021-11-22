@@ -34,6 +34,7 @@ const corsOptions = {
 app.use(cookieParser())
 app.use(cors(corsOptions)) // Use this after the variable declaration
 app.use(express.json())
+app.use(express.static("build"))
 
 const client = new GraphQLClient("http://graphql-engine:8080/v1/graphql", {
   headers: {
