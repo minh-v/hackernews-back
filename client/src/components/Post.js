@@ -4,7 +4,7 @@ import { List, Button } from "antd"
 import { UpCircleTwoTone, DownCircleTwoTone, LinkOutlined } from "@ant-design/icons"
 import { useUser } from "../lib/user"
 import { useHistory, Link } from "react-router-dom"
-import { REACT_APP_API_URL } from "../lib/constants"
+import { config } from "../config"
 
 const Post = ({ post, selected, setSelected, index }) => {
   const user = useUser()
@@ -21,7 +21,7 @@ const Post = ({ post, selected, setSelected, index }) => {
       history.push("/signup")
       return
     }
-    await fetch(`${REACT_APP_API_URL}/vote`, {
+    await fetch(`${config.api}/vote`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -40,7 +40,7 @@ const Post = ({ post, selected, setSelected, index }) => {
       history.push("/signup")
       return
     }
-    await fetch(`${REACT_APP_API_URL}/vote`, {
+    await fetch(`${config.api}/vote`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -52,7 +52,7 @@ const Post = ({ post, selected, setSelected, index }) => {
 
   const handleDelete = async (item) => {
     if (user) {
-      await fetch(`${REACT_APP_API_URL}/post`, {
+      await fetch(`${config.api}/post`, {
         method: "DELETE",
         credentials: "include",
         headers: {

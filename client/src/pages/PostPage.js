@@ -8,7 +8,7 @@ import CommentList from "../components/CommentList"
 import { useState } from "react"
 import { DownOutlined } from "@ant-design/icons"
 import { Link } from "react-router-dom"
-import { REACT_APP_API_URL } from "../lib/constants"
+import { config } from "../config"
 
 const { TextArea } = Input
 //get post given post id
@@ -45,7 +45,7 @@ const PostPage = (props) => {
       history.push("/login")
     }
     const { comment } = values
-    await fetch(`${REACT_APP_API_URL}/comment`, {
+    await fetch(`${config.api}/comment`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

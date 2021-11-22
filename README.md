@@ -37,7 +37,7 @@ cd hackernews-back/
 Using npm with two terminals:
 
 In the client folder:
-Install the dependencies
+Install the dependencies.
 ```
 # client
 cd client
@@ -45,7 +45,7 @@ npm install
 ```
 
 In the server folder:
-Install the dependencies
+Install the dependencies.  
 Database migrations and metadata should automatically be applied.  
 ```
 # server

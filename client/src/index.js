@@ -5,11 +5,11 @@ import App from "./App"
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client"
 import { BrowserRouter } from "react-router-dom"
 import { WebSocketLink } from "@apollo/client/link/ws"
-import { REACT_APP_HASURA_ENDPOINT } from "./lib/constants"
+import { config } from "./config"
 
 //"ws://localhost:8080/v1/graphql"
 const wsLink = new WebSocketLink({
-  uri: `ws://${REACT_APP_HASURA_ENDPOINT}`,
+  uri: `ws://${config.hasura_endpoint}`,
   credentials: "include",
   options: {
     reconnect: true,
@@ -18,7 +18,7 @@ const wsLink = new WebSocketLink({
 
 //"http://localhost:8080/v1/graphql"
 const client = new ApolloClient({
-  uri: `http://${REACT_APP_HASURA_ENDPOINT}`,
+  uri: `http://${config.hasura_endpoint}`,
   cache: new InMemoryCache(),
   link: wsLink,
   // wsLink,

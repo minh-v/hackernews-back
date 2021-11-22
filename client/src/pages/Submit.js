@@ -1,11 +1,11 @@
 import SubmitForm from "../components/SubmitForm"
 import { useHistory } from "react-router-dom"
-import { REACT_APP_API_URL } from "../lib/constants"
+import { config } from "../config"
 const Submit = () => {
   const history = useHistory()
 
   const handleSubmit = async (title, url) => {
-    await fetch(`${REACT_APP_API_URL}/post`, {
+    await fetch(`${config.api}/post`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
