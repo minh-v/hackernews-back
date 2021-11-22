@@ -8,6 +8,7 @@ import { WebSocketLink } from "@apollo/client/link/ws"
 import config from "./config"
 
 console.log("REACT_APP_DEBUG: ", process.env.REACT_APP_DEBUG)
+console.log("REACT_APP_API: ", process.env.REACT_APP_API_URL)
 console.log("HASURA_ENDPOINT", process.env.REACT_APP_HASURA_ENDPOINT)
 
 //"ws://localhost:8080/v1/graphql"
