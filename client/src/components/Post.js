@@ -117,7 +117,11 @@ const Post = ({ post, selected, setSelected, index }) => {
           </List.Item>
         </div>
         <List.Item.Meta
-          title={<a href={`//${post.url}`}>{post.title} (getHostName(post.url))</a>}
+          title={
+            <a href={`//${post.url}`}>
+              {post.title} ({getHostName(post.url)})
+            </a>
+          }
           description={
             <p>
               by <Link to={`/user?id=${post.user.username}`}>{post.user.username}</Link> {timeDifferenceForDate(post.createdAt)} |{" "}
