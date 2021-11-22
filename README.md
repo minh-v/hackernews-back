@@ -38,6 +38,7 @@ Using npm with two terminals:
 
 In the client folder:
 Install the dependencies.
+Make sure REACT_APP_DEBUG in .env file in client folder is set to "DEV"
 ```
 # client
 cd client
