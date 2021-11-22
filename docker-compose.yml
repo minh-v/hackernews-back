@@ -16,7 +16,7 @@ services:
     ports:
       - "3001:3001"
     environment:
-      - SERVER_PORT=80
+      - SERVER_PORT=3001
       - MAGIC_SECRET_KEY=sk_live_EDFA362D79DEB75D
       - JWT_SECRET=byK6btNTxGZoQw4Y2EIrlzg5o2Ze6wfa6sk4gATcXEZiR1KqlpjhSrr7bu85aeT
       - HASURA_GRAPHQL_ADMIN_SECRET=secret
