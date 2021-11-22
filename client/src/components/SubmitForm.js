@@ -31,9 +31,12 @@ const SubmitForm = ({ handleSubmit }) => {
           rules={[
             {
               required: true,
-              message: "Url field must not be empty",
+              message: "URL field must not be empty",
             },
-            // { type: "url", warningOnly: true },
+            {
+              type: "url",
+              message: "This field must be a valid url.",
+            },
           ]}
         >
           <Input />

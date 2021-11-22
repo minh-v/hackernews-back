@@ -28,7 +28,7 @@ const AGE = 60 * 60 * 24 * 7 * 10
 const corsOptions = {
   origin: ["http://hackernews-back.site", "http://localhost:3001"],
   credentials: true, //access-control-allow-credentials:true
-  optionSuccessStatus: 200,
+  optionSuccessStatus: 200, //legacy browser support
 }
 
 app.use(cookieParser())
