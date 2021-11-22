@@ -4,7 +4,7 @@ import LoginForm from "../components/LoginForm"
 import { CHECK_EMAIL } from "../lib/queries"
 import magic from "../magic"
 import { message } from "antd"
-import { config } from "../config"
+import config from "../config"
 
 //if user presses login and already logged in, send them to profile page
 

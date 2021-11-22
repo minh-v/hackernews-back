@@ -5,7 +5,7 @@ import { useQuery } from "@apollo/client"
 import { message } from "antd"
 import { CHECK_DUPLICATE } from "../lib/queries"
 import { useHistory } from "react-router"
-import { config } from "../config"
+import config from "../config"
 
 //send query here?
 

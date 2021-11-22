@@ -5,7 +5,7 @@ import App from "./App"
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client"
 import { BrowserRouter } from "react-router-dom"
 import { WebSocketLink } from "@apollo/client/link/ws"
-import { config } from "./config"
+import config from "./config"
 
 //"ws://localhost:8080/v1/graphql"
 const wsLink = new WebSocketLink({

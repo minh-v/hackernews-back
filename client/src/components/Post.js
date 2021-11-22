@@ -4,7 +4,7 @@ import { List, Button } from "antd"
 import { UpCircleTwoTone, DownCircleTwoTone, LinkOutlined } from "@ant-design/icons"
 import { useUser } from "../lib/user"
 import { useHistory, Link } from "react-router-dom"
-import { config } from "../config"
+import config from "../config"
 
 const Post = ({ post, selected, setSelected, index }) => {
   const user = useUser()

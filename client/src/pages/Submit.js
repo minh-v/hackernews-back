@@ -1,6 +1,6 @@
 import SubmitForm from "../components/SubmitForm"
 import { useHistory } from "react-router-dom"
-import { config } from "../config"
+import config from "../config"
 const Submit = () => {
   const history = useHistory()
 

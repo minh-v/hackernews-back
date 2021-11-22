@@ -5,7 +5,7 @@ import { useUser } from "../lib/user"
 import { useHistory } from "react-router"
 import { timeDifferenceForDate } from "../utils/timeDifference"
 import { Link } from "react-router-dom"
-import { config } from "../config"
+import config from "../config"
 
 const { TextArea } = Input
 

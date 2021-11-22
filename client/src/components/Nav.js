@@ -7,7 +7,7 @@ import { Menu } from "antd"
 import { PlusOutlined, MenuOutlined } from "@ant-design/icons"
 import { Tooltip } from "antd"
 import { useMediaQuery } from "react-responsive"
-import { config } from "../config"
+import config from "../config"
 const { SubMenu } = Menu
 
 const Nav = () => {

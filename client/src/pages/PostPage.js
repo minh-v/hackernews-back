@@ -8,7 +8,7 @@ import CommentList from "../components/CommentList"
 import { useState } from "react"
 import { DownOutlined } from "@ant-design/icons"
 import { Link } from "react-router-dom"
-import { config } from "../config"
+import config from "../config"
 
 const { TextArea } = Input
 //get post given post id

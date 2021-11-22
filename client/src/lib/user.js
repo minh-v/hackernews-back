@@ -1,5 +1,5 @@
 import useSWR from "swr"
-import { config } from "../config"
+import config from "../config"
 
 const fetchUser = (url) => fetch(url, { credentials: "include" }).then((res) => res.json())
 
