@@ -5,6 +5,7 @@ import { UpCircleTwoTone, DownCircleTwoTone, LinkOutlined } from "@ant-design/ic
 import { useUser } from "../lib/user"
 import { useHistory, Link } from "react-router-dom"
 import config from "../config"
+import { getHostName } from "../utils/utils"
 
 const Post = ({ post, selected, setSelected, index }) => {
   const user = useUser()
@@ -116,11 +117,7 @@ const Post = ({ post, selected, setSelected, index }) => {
           </List.Item>
         </div>
         <List.Item.Meta
-          title={
-            <a href={`//${post.url}`}>
-              {post.title} ({post.url})
-            </a>
-          }
+          title={<a href={`//${post.url}`}>{post.title} (getHostName(post.url))</a>}
           description={
             <p>
               by <Link to={`/user?id=${post.user.username}`}>{post.user.username}</Link> {timeDifferenceForDate(post.createdAt)} |{" "}
