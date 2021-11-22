@@ -26,7 +26,7 @@ const { gql } = require("graphql-request")
 const app = express()
 const AGE = 60 * 60 * 24 * 7 * 10
 const corsOptions = {
-  origin: "*",
+  origin: "http://hackernews-back.site",
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 }
